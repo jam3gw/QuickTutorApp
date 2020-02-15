@@ -84,10 +84,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'quicktutordb',
-        'USER': 'temps',
-        'PASSWORD': 'testpass',
+        'USER': 'qtie5',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '',
+        'PORT': '8000',
     }
 }
 

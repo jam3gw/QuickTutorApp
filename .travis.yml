@@ -1,1 +1,13 @@
 language: python
+
+python: "3.6"
+services:
+  - postgresql
+addons:
+  postgresql: "9.4"
+before_script:
+  - psql postgres -c "CREATE USER qtie5 WITH PASSWORD 'password';"
+  - psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
+  - psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
+  - python manage.py migrate --noinput
+script: python manage.py test
