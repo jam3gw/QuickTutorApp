@@ -30,20 +30,20 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-AUTHENTICATION_BACKENDS = (
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-)
-
 INSTALLED_APPS = [
     'QuickTutor.apps.QuicktutorConfig',
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -127,3 +127,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+
+AUTHENTICATION_BACKENDS = (
+    #'allauth' specific authentication methods
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+    #Need to login by username in Django admin, regardless of "allauth"
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SITE_ID = 1
