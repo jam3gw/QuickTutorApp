@@ -2,5 +2,5 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the QuickTutor index.")
+    return render(request, 'QuickTutor/homepage.html', {})
 # Create your views here.
