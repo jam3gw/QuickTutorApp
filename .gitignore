@@ -128,3 +128,4 @@ __pycache__
 
 db.sqlite3
 >>>>>>> 27e8d8cbb752fe2c18953e7fb01db2a4de2ec1f9
+*.sqlite3
