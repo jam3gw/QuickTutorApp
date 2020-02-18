@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
+
+
 ]
 
 MIDDLEWARE = [
@@ -87,7 +89,7 @@ DATABASES = {
         'USER': 'qtie5',
         'PASSWORD': 'password',
         'HOST': 'localhost',
-        'PORT': '8000',
+        'PORT': '5432',
     }
 }
 
