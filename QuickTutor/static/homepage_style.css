@@ -12,7 +12,7 @@ body {
    */
   
   .site-header {
-    background-color: rgba(0, 0, 0, .85);
+    background-color: black;
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
   }
@@ -77,4 +77,3 @@ body {
   }
   
   .overflow-hidden { overflow: hidden; }
-  
