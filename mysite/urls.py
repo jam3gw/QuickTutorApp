@@ -21,6 +21,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('',TemplateView.as_view(template_name="QuickTutor/homepage.html")),
     path('login/',TemplateView.as_view(template_name="login/loginPage.html")),
+    path('aboutus/',TemplateView.as_view(template_name="QuickTutor/aboutus.html")),
     path('admin/', admin.site.urls),
     path('QuickTutor/', include('QuickTutor.urls')),
     path('accounts/', include('allauth.urls')),
