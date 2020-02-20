@@ -1,6 +1,11 @@
 # project-103-qtie5
 
 ## Installation notes for setting up Postgres
+### Start postgres
+If you haven't already, run 
+````
+brew services start postgres
+````
 ### Create the database 
 To create the Postgres databse, run the following commands in your terminal:
 ````
