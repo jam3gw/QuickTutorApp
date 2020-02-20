@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #required apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    #includes google provider as a login
     'allauth.socialaccount.providers.google',
 
 
@@ -141,6 +144,17 @@ AUTHENTICATION_BACKENDS = (
     #Need to login by username in Django admin, regardless of "allauth"
     'django.contrib.auth.backends.ModelBackend',
 )
+
+#added in so we don't need to update the admin all the time
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '209060647268-2gma3tapsd6qkqcdodv9p0jv26ig9raq.apps.googleusercontent.com',
+            'secret': '81v1fNlmR_qlsEqrOxUrK0kh',
+            'key': ''
+        }
+    }
+}
 
 SITE_ID = 1
 
