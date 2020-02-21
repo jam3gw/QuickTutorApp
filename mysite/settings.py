@@ -66,7 +66,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"QuickTutor/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -161,4 +161,7 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True #requires email to be turned over by Google Authentication
 ACCOUNT_UNIQUE_EMAIL = True
 
-ACCOUNT_FORMS ={} #forms we need to login, reset_password, signup, change_password
+#custom forms for login, reset_password, signup, change_password
+ACCOUNT_FORMS ={}
+# AUTH_USER_MODEL = "QuickTutor.QTUser"
+
