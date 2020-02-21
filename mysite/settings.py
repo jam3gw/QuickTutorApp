@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #required apps
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    #includes google provider as a login
     'allauth.socialaccount.providers.google',
 
 
@@ -63,7 +66,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"QuickTutor/templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,9 +145,23 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+#added in so we don't need to update the admin all the time
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '209060647268-2gma3tapsd6qkqcdodv9p0jv26ig9raq.apps.googleusercontent.com',
+            'secret': '81v1fNlmR_qlsEqrOxUrK0kh',
+            'key': ''
+        }
+    }
+}
+
 SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True #requires email to be turned over by Google Authentication
 ACCOUNT_UNIQUE_EMAIL = True
 
-ACCOUNT_FORMS ={} #forms we need to login, reset_password, signup, change_password
+#custom forms for login, reset_password, signup, change_password
+ACCOUNT_FORMS ={}
+# AUTH_USER_MODEL = "QuickTutor.QTUser"
+
