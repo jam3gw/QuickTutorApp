@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -46,8 +47,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     #includes google provider as a login
     'allauth.socialaccount.providers.google',
-
-
 
 ]
 
@@ -161,7 +160,5 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True #requires email to be turned over by Google Authentication
 ACCOUNT_UNIQUE_EMAIL = True
 
-#custom forms for login, reset_password, signup, change_password
-ACCOUNT_FORMS ={}
-# AUTH_USER_MODEL = "QuickTutor.QTUser"
+AUTH_USER_MODEL = "QuickTutor.QTUser"
 
