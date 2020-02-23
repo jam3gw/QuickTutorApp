@@ -9,6 +9,9 @@ To create the Postgres databse, run the following commands in your terminal:
 psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
 ````
 
+## Installation notes for deploying on Heroku:
+deletion of postgres database if needed: psql postgres -c "drop database quicktutordb;"  
+
 ### Create the database superuser
 
 To access the database through the django admin portal, run the following command in your terminal 
