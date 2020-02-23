@@ -24,7 +24,7 @@
   </nav>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'static/loginPage.css' %}">
+  <link rel="stylesheet" href="{% static 'styling/loginPage.css' %}">
 
   <html>
     <head>
@@ -32,7 +32,7 @@
     </head>
     <body>
       <div class="center">
-        <img src="../../static/images/QTmodel.jpg" class="qt-logo" alt="team img">
+        <img src="../../static/styling/images/QTmodel.jpg" class="qt-logo" alt="team img">
           <h3>Click to Login through Google Account</h3>
         </div>
           <a href="{% provider_login_url "google" %}">Google Connect</a>
