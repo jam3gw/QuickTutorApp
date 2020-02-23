@@ -1,0 +1,57 @@
+img.qt-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    opacity: 10;
+    transition: .5s ease;
+    backface-visibility: hidden;
+}
+
+.qt-logo {
+    display: block;
+}
+
+.center .img{
+    position: relative;
+  }
+  
+.center:hover .g-login {
+    opacity: 1;
+  }
+  
+.g-login {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%)
+  }
+  
+.text {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+  }
+
+body {
+    background-color: pink;
+  }
+
+.site-header {
+    background-color: black;
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+  }
+
+.site-header a {
+    color: #999;
+    transition: eases-in-out color .15s;
+  }
+.site-header a:hover {
+    color: #fff;
+    text-decoration: none;
+  }
