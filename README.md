@@ -2,10 +2,13 @@
 
 ## Installation notes for setting up Postgres
 ### Start postgres
+#### For Mac Users:
 If you haven't already, run 
 ````
 brew services start postgres
 ````
+#### For windows users: 
+Idk how to start postgres on windows. Google it, I guess. 
 ### Create the database 
 To create the Postgres databse, run the following commands in your terminal:
 ````
