@@ -8,7 +8,7 @@ If you haven't already, run
 brew services start postgres
 ````
 #### For windows users: 
-Idk how to start postgres on windows. Google it, I guess. 
+Idk how to start postgres on windows. Google it, I guess. w
 ### Create the database 
 To create the Postgres databse, run the following commands in your terminal:
 ````
