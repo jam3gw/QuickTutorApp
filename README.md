@@ -1,11 +1,19 @@
 # project-103-qtie5
 
 ## Installation notes for setting up Postgres
+### Start postgres
+#### For Mac Users:
+If you haven't already, run 
+````
+brew services start postgres
+````
+#### For windows users: 
+Idk how to start postgres on windows. Google it, I guess. w
 ### Create the database 
 To create the Postgres databse, run the following commands in your terminal:
 ````
- psql postgres -c "CREATE USER qtie5 WITH PASSWORD 'password';"
- psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
+psql postgres -c "CREATE USER qtie5 WITH PASSWORD 'password';"
+psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
 psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
 ````
 
