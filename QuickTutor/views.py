@@ -9,7 +9,8 @@ def index(request):
 # Create your views here.
 
 class temporaryRedirectView(generic.TemplateView):
+    model = QTUser
     template_name = 'QuickTutor/tempredirect.html'
-    context_object_name = 'user'
-    
+    context_object_name = 'user' #This is the object that is referenced in the HTML script
+
     
