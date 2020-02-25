@@ -7,7 +7,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
+import os, django_heroku
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -159,4 +159,7 @@ ACCOUNT_EMAIL_REQUIRED = True #requires email to be turned over by Google Authen
 ACCOUNT_UNIQUE_EMAIL = True
 
 AUTH_USER_MODEL = "QuickTutor.QTUser"
+LOGIN_REDIRECT_URL = "/profile"
 
+#heroku settings
+django_heroku.settings(locals())

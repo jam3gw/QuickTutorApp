@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 
 urlpatterns = [
     path('',TemplateView.as_view(template_name="QuickTutor/homepage.html")),
     path('login/',TemplateView.as_view(template_name="login/loginPage.html")),
     path('aboutus/',TemplateView.as_view(template_name="QuickTutor/aboutus.html")),
+    path('profile/',TemplateView.as_view(template_name="QuickTutor/profile.html")),
     path('admin/', admin.site.urls),
     path('QuickTutor/', include('QuickTutor.urls')),
     path('accounts/', include('allauth.urls')),
