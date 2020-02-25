@@ -78,4 +78,7 @@ body {
     }
   }
   
-  .overflow-hidden { overflow: hidden; }
+  .overflow-hidden { 
+    overflow: hidden; 
+    opacity: 0.9;
+  }

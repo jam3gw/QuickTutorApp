@@ -123,6 +123,9 @@ img {
 #team .team-wrapper {
   border: 2px solid #303030;
   padding: 20px;
+  width: 300px;
+  height: 400px;
+  position: relative;
 }
 #team h4 {
   color: pink;
