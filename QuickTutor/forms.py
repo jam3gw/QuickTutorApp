@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import QTUser
+from .models import QTUser, Student, Review, Tutor, Class
 
+#USER creation/change forms
 class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
