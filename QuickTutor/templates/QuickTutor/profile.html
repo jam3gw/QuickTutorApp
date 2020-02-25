@@ -1,0 +1,19 @@
+{% load account socialaccount %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Welcome to the Login Redirect Page</title>
+    </head>
+    <body>
+        <label>Hello {{user.email}}</label>
+        <label>Here is some other information:</label>
+        <ul>
+            <li>name: {{user.first_name}} {{user.last_name}}</li>
+            <li>password: {{user.password}} ahahha you can't see it :)</li>
+            
+        </ul>
+    </body>
+    
+</html>
