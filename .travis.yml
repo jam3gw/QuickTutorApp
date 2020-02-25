@@ -1,22 +1,7 @@
-services:
-  - postgresql
-language: python
-python:
-- '3.8'
-install:
-- pip install -r requirements-travis.txt
-before_script:
-- psql postgres -c "CREATE USER qtie5 WITH PASSWORD 'password';"
-- psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
-- psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
-- python manage.py makemigrations
-- python manage.py migrate
-script:
-- python manage.py test
 deploy:
   provider: heroku
   api_key:
-    secure: iBkzIkX4nIsZyeuN/uiwpi6uctdTjRYQuk/tOuIq9jMAtSWLSZwjx8hGl2fbjIEpQCuPKfzBPe+Krv4WlwnNB+tufCflP1Dvlpl0QFgl9JwBG0OuBFZkUkvpHZyvlNE9+IIF+CJtNeA/jFTMQyXRNPN3fGFpQOOm5m3BStWKT1/MRJiGg1mx0uPqlkgsfob8BR4932SfMC9QloKqMdkBDp+B6ywahAODfAkpxAPJbrZ8qCppwTZe6vQzdnGdJODFuJkGQXPC9OM/3S7Pi9u1R+5YV5jWS9jSnjUPQI9pEgiM4viBg5+mxTCgWoQzPrT+axtYUhmSccprxEnskHdjPKq6wXe7fW9Zaiq0vlCl68VKnKgrWHRmjwGvYHKRXMAKV1SJgCkrkm0vZ2swNJx1rC/RhCIhmC0OadY2z1OipC7Hv7X18sSD9yuZNIHDo/rpvapjK5JTJ6ix6B92HkABcYRY6MhMiVqxsMQj0UdLPOXWSXBPrcdwBNQcnh/+cNs8UC33aV5yv4RWXnBZTjRRAPsnBbQsxiFHSLk/yMdlHenxjXplYe3y4n+9rp8evydEWspHtrxOEFuZXoZL+843yfHpAkuFv0ElITYTxsSekO91evpIXkvJySG5D4y58gDDd/V5qvvLqfwuNDNrOb8GFFCxAGVAK4asRYsD1Jdx9Dk=
-  app: project-103-qtie5
+    secure: gzZlpRdOfkwzskvE5FnPhntWyKsOQvlCDXnLRMrtNcZBJsz54r9yhwAyrczQppKiqXQS6/9PxPtsPc3JP4p4HbR5mEMV7WrxHvDkJMwjXrgdymvec+DV/xtyZXL19/36Ad0FK46MlF0Av6/IHmCYj5FVh9ZpszZwwURq7dDKC179DXn1GByFtkj0tlx942rcLAjzqsQRrgTgNh0+tTvga6YKOz0R9nNvEf0Fv81AVHOWNo//qvj1ywfuQQl0jDhXeaFm2Pc72yEmhFUuGeZAlzyyZh9RgCNy1L+j3X8rg7J3CvLtM3vE5Nl0WhQxidfQKpsERfnnfymN4oNd9NPdnGgnsKel0ncQ4FJFgGGowndrU9wCsKOfBNICCZyUo80PK1m2ELoNs//5U+frOD4osLcJHSHpOb1X2EliZxPQzo36G9QjoBMlm2Eb2aGFjwDWTwAiTx524fRx0RovxAr466zwD3B5YO688Isfl4lATQ/ZouW4y92uIYBZq0BeB7LnvAlKXWMhd6DuyKjnCjzYbgafea6O080RpsfLjmi2u1zAC+hFFhm6XE5iojlXIZDEi2YBjMSUaworVwnV3efN27uf6RO9AcLRHL/8+zwzEN19UQ0N43OHF/YXo0wuG06OaZymKWeLiu10a4mOOzLg2W487oAuAntcMlORrig57iw=
+  app: 'quick-tutor-qtie5'
   on:
     repo: uva-cs3240-s20/project-103-qtie5
