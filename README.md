@@ -9,6 +9,7 @@ brew services start postgres
 ````
 #### For windows users: 
 Idk how to start postgres on windows. Google it, I guess. w
+
 ### Create the database 
 To create the Postgres databse, run the following commands in your terminal:
 ````
@@ -17,18 +18,32 @@ psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
 psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
 ````
 
-## Installation notes for deploying on Heroku:
-deletion of postgres database if needed: psql postgres -c "drop database quicktutordb;"  
+## IF RECEIVING A PROGRAMMING ERROR:
+deletion of postgres database if needed:
+````psql postgres -c "drop database quicktutordb;"````
+You then will need to re-run: 
+````
+psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
+psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
+````
 
 ### Create the database superuser
 
 To access the database through the django admin portal, run the following command in your terminal 
-
 ````
 python3 manage.py createsuperuser
 ```` 
 It will then prompt you to enter user credentials. You can then use these credentials to log into the admin portal.
 
+## Using Proper Migrations
+If you are running "makemigrations" make sure that the QTUser table is being created FIRST (or else migrations will not work because all other relations are dependent on QTUSER) Order of migrations should be the following:
+- AllAuth (does this by default)
+- QTUser
+- Student/Tutor
+- Class
+- Review
+
+If these get out of order just let Jake know and he will fix it. The correct order of these migrations currently exists in Master.
 
 ## Installation notes for deploying on Heroku:
 - In order to run Google OAuth on your local server you need to run the following commands in your terminal:
