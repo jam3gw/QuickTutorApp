@@ -24,11 +24,12 @@ body {
     color: #fff;
     text-decoration: none;
   }
-  
-  /*
-   * Dummy devices (replace them with your own or something else entirely!)
-   */
-  
+
+  .position-relative {
+    width: 100%;
+    position: relative;
+  }
+
   .product-device {
     position: absolute;
     right: 10%;
@@ -38,7 +39,7 @@ body {
     background-color: rgb(27, 27, 250);
     border-radius: 21px;
     -webkit-transform: rotate(30deg);
-    transform: rotate(30deg);
+    transform: rotate(30deg); 
   }
   
   .product-device::before {
@@ -58,8 +59,9 @@ body {
     bottom: 0;
     left: 5%;
     background-color: #6f9dff;
+    size: relative;
   }
-  
+
   
   /*
    * Extra utilities
