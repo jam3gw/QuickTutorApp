@@ -1,3 +1,18 @@
+services:
+  - postgresql
+language: python
+python:
+- '3.8'
+install:
+- pip install -r requirements-travis.txt
+before_script:
+- psql postgres -c "CREATE USER qtie5 WITH PASSWORD 'password';"
+- psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
+- psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
+- python manage.py makemigrations
+- python manage.py migrate
+script:
+- python manage.py test
 deploy:
   provider: heroku
   api_key:
