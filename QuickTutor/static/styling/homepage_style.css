@@ -34,20 +34,20 @@ body {
     position: absolute;
     right: 10%;
     bottom: -30%;
-    width: 300px;
-    height: 540px;
+    width: 25%;
+    height: 70%;
     background-color: rgb(27, 27, 250);
     border-radius: 21px;
     -webkit-transform: rotate(30deg);
-    transform: rotate(30deg); 
+    transform: rotate(120deg); 
   }
   
   .product-device::before {
     position: absolute;
-    top: 10%;
-    right: 10px;
-    bottom: 10%;
-    left: 10px;
+    top: 5%;
+    bottom: 5%;
+    right: 8%;
+    left: 8%;
     content: "";
     background-color: rgb(255, 186, 59);
     border-radius: 5px;
