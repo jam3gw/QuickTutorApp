@@ -8,7 +8,7 @@ def index(request):
     return render(request, 'QuickTutor/homepage.html', {})
 # Create your views here.
 
-class temporaryRedirectView(generic.TemplateView):
+class ProfileView(generic.TemplateView):
     model = QTUser
     template_name = 'QuickTutor/profile.html'
     context_object_name = 'user' #This is the object that is referenced in the HTML script
