@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os, django_heroku
+#import os
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -146,8 +147,8 @@ AUTHENTICATION_BACKENDS = (
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '209060647268-2gma3tapsd6qkqcdodv9p0jv26ig9raq.apps.googleusercontent.com',
-            'secret': '81v1fNlmR_qlsEqrOxUrK0kh',
+            'client_id': '411759356558-cnc4hoo41ki6f2mcipfh5mpqtn4vogki.apps.googleusercontent.com',
+            'secret': '6rnME2c9sAzRcHhN7qzKGL3V',
             'key': ''
         }
     }
