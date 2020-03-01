@@ -37,7 +37,7 @@ It will then prompt you to enter user credentials. You can then use these creden
 
 ## Restarting Postgres
 ````
-brew services start postgresql  
+brew services restart postgresql  
 ````
 
 ## Using Proper Migrations

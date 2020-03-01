@@ -5,8 +5,10 @@ from enum import Enum
 class QTUser(AbstractUser):
     first_name = models.TextField(max_length=20)
     last_name = models.TextField(max_length=30)
-
-    #year = models.IntegerField(max_length=1)
+    year = models.IntegerField(null=True)
+    
+    def __str__(self):
+        return self.email
 
 class Student(models.Model):
     student_user = models.OneToOneField(QTUser, on_delete= models.CASCADE, parent_link=True)
