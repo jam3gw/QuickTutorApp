@@ -24,6 +24,5 @@ urlpatterns = [
     path('aboutus/',TemplateView.as_view(template_name="QuickTutor/aboutus.html")),
     path('profile/',TemplateView.as_view(template_name="QuickTutor/profile.html")),
     path('admin/', admin.site.urls),
-    path('QuickTutor/', include('QuickTutor.urls')),
     path('accounts/', include('allauth.urls')),
 ]
