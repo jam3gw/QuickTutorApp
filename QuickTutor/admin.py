@@ -14,3 +14,5 @@ class QTUserAdmin(UserAdmin):
 admin.site.register(QTUser, QTUserAdmin)
 admin.site.register(Class)
 admin.site.register(Review)
+admin.site.register(Student)
+admin.site.register(Tutor)
