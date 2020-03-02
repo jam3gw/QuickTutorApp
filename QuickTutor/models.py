@@ -30,7 +30,7 @@ class Review(models.Model):
 
     
 class ClassNeedsHelp(models.Model):
-    student = models.ManyToManyField(Student)
+    user = models.ManyToManyField(QTUser)
     class_id = models.ManyToManyField(Class)
     elaboration = models.TextField(max_length = None, primary_key= False)
 
@@ -42,7 +42,7 @@ class ClassNeedsHelp(models.Model):
         
 
 class TutorableClass(models.Model):
-    tutor = models.ManyToManyField(Tutor)
+    user = models.ManyToManyField(QTUser)
     class_id = models.ManyToManyField(Class)
     TA_example = models.BooleanField(name="TA", default=False)
     experience_detail = models.TextField(name="experience", max_length=None)

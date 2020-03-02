@@ -1,6 +1,6 @@
 from django.test import TestCase
 from QuickTutor.models import QTUser
-from QuickTutor.models import Student, Tutor, Class, Review
+from QuickTutor.models import Class, Review
 # Create your tests here.
 
 #class StudentTestCase(TestCase):
