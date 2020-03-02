@@ -11,8 +11,12 @@ class QTUserAdmin(UserAdmin):
     model = QTUser
     list_display = ['email', 'username']
 
+class StudentAdmin(UserAdmin):
+    model = Student
+    list_display = ['email','username','i_am_student']
+
+
 admin.site.register(QTUser, QTUserAdmin)
 admin.site.register(Class)
 admin.site.register(Review)
-admin.site.register(Student)
-admin.site.register(Tutor)
+

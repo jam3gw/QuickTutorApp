@@ -5,7 +5,7 @@ from django.views import generic
 from .models import QTUser
 
 def index(request):
-    return render(request, 'QuickTutor/homepage.html', {})
+    return render(request, 'QuickTutor/index.html', {})
 # Create your views here.
 
 class ProfileView(generic.TemplateView):

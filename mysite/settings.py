@@ -141,6 +141,7 @@ AUTHENTICATION_BACKENDS = (
 
     #Need to login by username in Django admin, regardless of "allauth"
     'django.contrib.auth.backends.ModelBackend',
+
 )
 
 #added in so we don't need to update the admin all the time
