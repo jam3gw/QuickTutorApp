@@ -15,8 +15,9 @@ class QTUser(AbstractUser):
 
 
 class Class(models.Model):
-    class_name = models.CharField(max_length=30, null=False)
-    classID = models.CharField(max_length = 6, default="XX0000", primary_key=True, null=False)
+    class_name = models.CharField(max_length=50, null=False)
+    dept = models.CharField(max_length = 6, default="XXXX", null=False)
+    course_num = models.IntegerField(default="0000", null=False)
 
     def __str__(self):
         return self.class_name
