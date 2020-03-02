@@ -35,6 +35,11 @@ python3 manage.py createsuperuser
 ```` 
 It will then prompt you to enter user credentials. You can then use these credentials to log into the admin portal.
 
+## Restarting Postgres
+````
+brew services restart postgresql  
+````
+
 ## Using Proper Migrations
 If you are running "makemigrations" make sure that the QTUser table is being created FIRST (or else migrations will not work because all other relations are dependent on QTUSER) Order of migrations should be the following:
 - AllAuth (does this by default)
