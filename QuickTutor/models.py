@@ -40,10 +40,6 @@ class Class(models.Model):
     class_name = models.CharField(max_length=30, null=False)
     classID = models.CharField(max_length = 6, default="XX0000", primary_key=True, null=False)
 
-    def __init__(self, class_name, classID):
-        self.class_name = class_name
-        self.class_id = class_id 
-
     def __str__(self):
         return self.class_name
 
