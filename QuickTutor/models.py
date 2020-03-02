@@ -1,6 +1,9 @@
 from django.db import models, migrations
 from django.contrib.auth.models import AbstractUser
 from enum import Enum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class QTUser(AbstractUser):
     first_name = models.TextField(max_length=20)
@@ -10,31 +13,6 @@ class QTUser(AbstractUser):
     def __str__(self):
         return self.email
 
-class Student(models.Model):
-    student_user = models.OneToOneField(QTUser, on_delete= models.CASCADE, parent_link=True)
-
-    # def addClass(self, class_name, classID):
-    #     newClass = Class(QTUser = super.self, name= class_name, classID = classID, tutorable = False, TA_experience = False)
-    #     self.classes_need_help.append(newClass)
-        
-    # def removeClass(self, classID):
-    #     for c in self.classes_need_help:
-    #         if c.classID == classID:
-    #             self.classes_need_help.remove(c)
-    #             break
-
-class Tutor(models.Model):
-    tutor_user = models.OneToOneField(QTUser, on_delete= models.CASCADE, parent_link=True)
-
-    # def addClass(self, class_name, classID, TA_experience):
-    #     newClass = Class(QTUser = super.self, name= class_name, classID = classID, tutorable = True, TA_experience = TA_experience)
-    #     self.classes_need_help.append(newClass)
-        
-    # def removeClass(self, classID):
-    #     for c in self.classes_need_help:
-    #         if c.classID == classID:
-    #             self.classes_need_help.remove(c)
-    #             break
 
 class Class(models.Model):
     class_name = models.CharField(max_length=30, null=False)
