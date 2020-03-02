@@ -27,6 +27,15 @@ psql postgres -c "CREATE DATABASE quicktutordb WITH OWNER qtie5;"
 psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
 ````
 
+if you delete and re-make the database, remake the migrations BEFORE creation of the superuser 
+
+### Migrate
+
+````
+python3 manage.py makemigrations
+python3 manage.py migrate
+````
+
 ### Create the database superuser
 
 To access the database through the django admin portal, run the following command in your terminal 
