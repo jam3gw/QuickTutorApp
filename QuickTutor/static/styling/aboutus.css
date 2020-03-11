@@ -5,6 +5,7 @@ OneTel Template
 http://www.templatemo.com/tm-468-onetel
 
 */
+
 .site-header {
   background-color: rgba(0, 0, 0, .85);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -24,7 +25,9 @@ http://www.templatemo.com/tm-468-onetel
 body
 	{
 		background: #101010;
-    color: #808080;
+    color: white;
+    background: url('images/tundy.jpg') no-repeat center center fixed;
+    background-size: cover;
 	}
 
 @media (min-width: 768px) {
@@ -124,14 +127,13 @@ img {
   border: 2px solid #303030;
   padding: 20px;
   width: 300px;
-  height: 400px;
+  height: 450px;
   position: relative;
+  margin: 10px;
+  background-color: #3773f5;
 }
 #team h4 {
-  color: pink;
-}
-#team img {
-  opacity: 0.8;
+  color: orange;
 }
 #team hr {
   border-color: #303030;
