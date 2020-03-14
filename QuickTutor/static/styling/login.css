@@ -1,0 +1,28 @@
+body {
+    background: url('images/mcgregor.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.fa {
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+h6 {
+    color: white;
+}
+
+p {
+    color: white;
+}
+
+.socialaccount_ballot {
+    color: white;
+}
