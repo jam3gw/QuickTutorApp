@@ -9,17 +9,21 @@ class classNeedsHelpInLine(admin.TabularInline):
     model = ClassNeedsHelp
     extra = 1
 
+class TutorableClassInLine(admin.TabularInline):
+    model = TutorableClass
+    extra = 1
+
 class QTUserAdmin(admin.ModelAdmin):
     model = QTUser
     list_display = ['username', 'first_name','last_name']
     fields = ['email', 'username', 'first_name', 'last_name', 'year']
-    inlines = (classNeedsHelpInLine,)
+    inlines = (classNeedsHelpInLine, TutorableClassInLine)
 
 class ClassAdmin(admin.ModelAdmin):
     model = Class
     list_display = ['class_name', 'dept', 'course_num']
     fields = ['class_name', 'dept', 'course_num']
-    inlines = (classNeedsHelpInLine,)
+    inlines = (classNeedsHelpInLine,TutorableClassInLine)
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
@@ -38,6 +42,7 @@ class ClassNeedsHelpAdmin(admin.ModelAdmin):
 class TutorableClassAdmin(admin.ModelAdmin):
     model = TutorableClass
     list_diplay = ['user', 'class_id']
+    fields = ['user', 'class_id', 'TA','experience']
 
 admin.site.register(QTUser, QTUserAdmin)
 admin.site.register(Class, ClassAdmin)

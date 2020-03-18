@@ -39,6 +39,6 @@ class ClassNeedsHelp(models.Model):
 class TutorableClass(models.Model):
     user = models.ForeignKey(QTUser, on_delete=models.CASCADE, default = 1)
     class_id = models.ForeignKey(Class, on_delete= models.CASCADE, default = 1)
-    TA_example = models.BooleanField(name="TA", default=False)
+    TA = models.BooleanField(name="TA", default=False)
     experience_detail = models.TextField(name="experience", max_length=None)
 
