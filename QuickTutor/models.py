@@ -11,7 +11,7 @@ class QTUser(AbstractUser):
     year = models.IntegerField(null=True)
     
     def __str__(self):
-        return self.email
+        return self.username
 
 
 class Class(models.Model):
@@ -20,7 +20,7 @@ class Class(models.Model):
     course_num = models.IntegerField(default="0000", null=False)
 
     def __str__(self):
-        return self.class_name
+        return str(self.dept) + str(self.course_num) + " (" + str(self.class_name) + ")"
 
 class Review(models.Model):
     Author = models.ManyToManyField(QTUser, related_name="Author")
@@ -34,12 +34,6 @@ class ClassNeedsHelp(models.Model):
     user = models.ForeignKey(QTUser, on_delete=models.CASCADE, default = 1)
     class_id = models.ForeignKey(Class, on_delete= models.CASCADE, default = 1)
     elaboration = models.TextField(max_length = None, primary_key= False)
-
-    # def __init__(self, Student, Class, elaboration):
-    #     self.student = Student
-    #     self.class_id = Class
-    #     self.elaboration = elaboration
-    #     self.save()
         
 
 class TutorableClass(models.Model):
