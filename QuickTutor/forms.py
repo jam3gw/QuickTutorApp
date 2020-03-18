@@ -14,3 +14,5 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = QTUser
         fields = ('username', 'email')
+
+    

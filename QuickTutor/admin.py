@@ -11,8 +11,12 @@ class QTUserAdmin(UserAdmin):
     model = QTUser
     list_display = ['email', 'username']
 
+class ClassAdmin(admin.ModelAdmin):
+    model = Class
+    fields = ['class_name', 'dept', 'course_num']
+
 
 admin.site.register(QTUser, QTUserAdmin)
-admin.site.register(Class)
+admin.site.register(Class, ClassAdmin)
 admin.site.register(Review)
 
