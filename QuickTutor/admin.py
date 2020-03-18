@@ -5,14 +5,14 @@ from django.contrib.auth.admin import UserAdmin
 from .forms import *
 from .models import QTUser, Review, Class
 
-class QTUserAdmin(UserAdmin):
-    add_form = CustomUserCreationForm
-    form = CustomUserChangeForm
+class QTUserAdmin(admin.ModelAdmin):
     model = QTUser
-    list_display = ['email', 'username']
+    list_display = ['username', 'first_name','last_name']
+    fields = ['email', 'username', 'first_name', 'last_name', 'year']
 
 class ClassAdmin(admin.ModelAdmin):
     model = Class
+    list_display = ['class_name', 'dept', 'course_num']
     fields = ['class_name', 'dept', 'course_num']
 
 
