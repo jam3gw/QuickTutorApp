@@ -31,20 +31,20 @@ class Review(models.Model):
 
     
 class ClassNeedsHelp(models.Model):
-    user = models.ManyToManyField(QTUser)
-    class_id = models.ManyToManyField(Class)
+    user = models.ForeignKey(QTUser, on_delete=models.CASCADE, default = 1)
+    class_id = models.ForeignKey(Class, on_delete= models.CASCADE, default = 1)
     elaboration = models.TextField(max_length = None, primary_key= False)
 
-    def __init__(self, Student, Class, elaboration):
-        self.student = Student
-        self.class_id = Class
-        self.elaboration = elaboration
-        self.save()
+    # def __init__(self, Student, Class, elaboration):
+    #     self.student = Student
+    #     self.class_id = Class
+    #     self.elaboration = elaboration
+    #     self.save()
         
 
 class TutorableClass(models.Model):
-    user = models.ManyToManyField(QTUser)
-    class_id = models.ManyToManyField(Class)
+    user = models.ForeignKey(QTUser, on_delete=models.CASCADE, default = 1)
+    class_id = models.ForeignKey(Class, on_delete= models.CASCADE, default = 1)
     TA_example = models.BooleanField(name="TA", default=False)
     experience_detail = models.TextField(name="experience", max_length=None)
 
