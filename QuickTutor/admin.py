@@ -18,14 +18,14 @@ class ClassAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     model = Session
     # list_display = ['Student', 'Tutor']
-    fields = ['Student', 'Tutor', 'subject_in_regards_to','date_and_time', 'duration_of_session']
+    fields = ['Student', 'Tutor', 'subject_in_regards_to','start_date_and_time', 'end_date_and_time']
     filter_horizontal = ('Student', 'Tutor', 'subject_in_regards_to',)
 
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
     # list_display = ['Author', 'Recipient']
-    fields = ['Author','Recipient', 'subject_in_regards_to','rating', 'description', 'isTutor']
+    fields = ['Author','Recipient', 'subject_in_regards_to','rating', 'description', 'type_of_review']
     filter_horizontal = ('Author', 'Recipient', 'subject_in_regards_to',)
 
     # def getAuthor(self, obj):

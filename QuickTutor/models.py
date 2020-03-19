@@ -4,6 +4,7 @@ from enum import Enum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
+from datetime import timedelta
 
 
 class QTUser(AbstractUser):
@@ -27,8 +28,8 @@ class Session(models.Model):
     Student = models.ManyToManyField(QTUser, related_name="Student", default = 1)
     Tutor = models.ManyToManyField(QTUser, related_name="Tutor", default = 1) 
     subject_in_regards_to = models.ManyToManyField(Class, default = 1)
-    date_and_time = models.DateTimeField(null = False)
-    duration_of_session = models.DurationField(null = False)
+    start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
+    end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1))) 
 
     def __str__(self):
         return str(Student) + " is having a session with " + str(Tutor) + " in " + str(subject_in_regards_to) + " " + str(date_and_time) + " for " + str(length)
