@@ -28,7 +28,7 @@ class Session(models.Model):
     Tutor = models.ManyToManyField(QTUser, related_name="Tutor", default = 1) 
     subject_in_regards_to = models.ManyToManyField(Class, default = 1)
     date_and_time = models.DateTimeField(null = False)
-    length = models.DurationField(null = False, default = 1)
+    duration_of_session = models.DurationField(null = False)
 
     def __str__(self):
         return str(Student) + " is having a session with " + str(Tutor) + " in " + str(subject_in_regards_to) + " " + str(date_and_time) + " for " + str(length)

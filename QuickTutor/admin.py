@@ -18,7 +18,7 @@ class ClassAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     model = Session
     # list_display = ['Student', 'Tutor']
-    fields = ['Student', 'Tutor', 'subject_in_regards_to','date_and_time', 'length']
+    fields = ['Student', 'Tutor', 'subject_in_regards_to','date_and_time', 'duration_of_session']
     filter_horizontal = ('Student', 'Tutor', 'subject_in_regards_to',)
 
 
