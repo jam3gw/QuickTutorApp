@@ -37,12 +37,17 @@ class Session(models.Model):
 TUTOR_OR_STUDENT=[('S','Student'),('T','Tutor')]
 
 class Review(models.Model):
+    # For who is being reviewed
+    STUDENT = 'S'
+    TUTOR = 'T'
+    STUDENT_OR_TUTOR_CHOICES = [(STUDENT, 'student'),(TUTOR,'tutor')]
+
     Author = models.ManyToManyField(QTUser, related_name = "Author", default = 1)
     Recipient = models.ManyToManyField(QTUser,related_name="Recipient", default = 1)
     subject_in_regards_to = models.ManyToManyField(Class, default = 1)
     rating = models.IntegerField(null=False,choices=[(1,'1'),(2,'2'),(3,'3'),(4,'4'),(5,'5')],help_text="Please rate your experience.")
     description = models.TextField(help_text="Please enter some additional information regarding your experience")
-    isTutor = models.BooleanField()
+    type_of_review = models.CharField(max_length = 1, choices = STUDENT_OR_TUTOR_CHOICES, default = TUTOR)
     time_of_review = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
