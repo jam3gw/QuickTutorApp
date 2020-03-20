@@ -18,8 +18,8 @@ class ClassAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     model = Session
     # list_display = ['Student', 'Tutor']
-    fields = ['Student', 'Tutor', 'subject_in_regards_to','start_date_and_time', 'end_date_and_time']
-    filter_horizontal = ('Student', 'Tutor', 'subject_in_regards_to',)
+    fields = ['student', 'tutor', 'subject_in_regards_to','start_date_and_time', 'end_date_and_time']
+    filter_horizontal = ('student', 'tutor', 'subject_in_regards_to',)
 
 
 class ReviewAdmin(admin.ModelAdmin):
@@ -41,7 +41,7 @@ class ClassNeedsHelpAdmin(admin.ModelAdmin):
 class TutorableClassAdmin(admin.ModelAdmin):
     model = TutorableClass
     # list_diplay = ['user', 'class_id']
-    fields = ['user', 'class_id','TA','experience_detail']
+    fields = ['user', 'class_id','TA','experience']
     filter_horizontal = ('user', 'class_id',)
 
 
