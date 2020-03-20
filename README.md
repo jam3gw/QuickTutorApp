@@ -30,7 +30,7 @@ psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
 if you delete and re-make the database, remake the migrations BEFORE creation of the superuser 
 
 ### Migrate
-
+Run these commands after deleting postgres and remaking the database.
 ````
 python3 manage.py makemigrations
 python3 manage.py migrate
