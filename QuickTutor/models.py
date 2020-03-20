@@ -11,6 +11,8 @@ class QTUser(AbstractUser):
     first_name = models.TextField(max_length=20)
     last_name = models.TextField(max_length=30)
     year = models.IntegerField(null=True)
+    rough_payment_per_hour =
+    rough_willing_to_pay_per_hour = 
     
     def __str__(self):
         return self.username
@@ -32,8 +34,8 @@ class Session(models.Model):
     end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1))) 
 
     def __str__(self):
-        return str(self.student) + " is having a session with " + str(self.tutor) + " in " + str(self.subject_in_regards_to) + " " + str(self.start_date_and_time) + " until " + str(self.end_date_and_time)
-
+        # return str(self.student) + " is having a session with " + str(self.tutor) + " in " + str(self.subject_in_regards_to) + " " + str(self.start_date_and_time) + " until " + str(self.end_date_and_time)
+        return "Session #:" + str(id)
 
 class Review(models.Model):
     # For who is being reviewed
@@ -57,8 +59,8 @@ class Review(models.Model):
     time_of_review = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
-        return str(self.Author) + "'s review of " + str(self.Recipient)
-
+        # return str(self.Author) + "'s review of " + str(self.Recipient)
+        return "Review #:" + str(id)
     
 class ClassNeedsHelp(models.Model):
     user = models.ManyToManyField(QTUser, default = '1')
