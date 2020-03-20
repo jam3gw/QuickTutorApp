@@ -30,7 +30,7 @@ psql postgres -c "ALTER USER qtie5 SUPERUSER CREATEROLE CREATEDB REPLICATION;"
 if you delete and re-make the database, remake the migrations BEFORE creation of the superuser 
 
 ### Migrate
-
+Run these commands after deleting postgres and remaking the database.
 ````
 python3 manage.py makemigrations
 python3 manage.py migrate
@@ -48,16 +48,6 @@ It will then prompt you to enter user credentials. You can then use these creden
 ````
 brew services restart postgresql  
 ````
-
-## Using Proper Migrations
-If you are running "makemigrations" make sure that the QTUser table is being created FIRST (or else migrations will not work because all other relations are dependent on QTUSER) Order of migrations should be the following:
-- AllAuth (does this by default)
-- QTUser
-- Student/Tutor
-- Class
-- Review
-
-If these get out of order just let Jake know and he will fix it. The correct order of these migrations currently exists in Master.
 
 ## Installation notes for deploying on Heroku:
 - In order to run Google OAuth on your local server you need to run the following commands in your terminal:
