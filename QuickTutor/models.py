@@ -11,8 +11,8 @@ class QTUser(AbstractUser):
     first_name = models.TextField(max_length=20)
     last_name = models.TextField(max_length=30)
     year = models.IntegerField(null=True)
-    rough_payment_per_hour = models.IntegerField(blank=True)
-    rough_willing_to_pay_per_hour = models.IntegerField(blank=True)
+    rough_payment_per_hour = models.IntegerField(blank=True, null=True)
+    rough_willing_to_pay_per_hour = models.IntegerField(blank=True, null= True)
     
     def __str__(self):
         return self.username
