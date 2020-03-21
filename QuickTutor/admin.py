@@ -8,7 +8,7 @@ from .models import QTUser, Review, Class, ClassNeedsHelp, TutorableClass, Sessi
 class QTUserAdmin(admin.ModelAdmin):
     model = QTUser
     list_display = ['username', 'first_name','last_name']
-    fields = ['email', 'username', 'first_name', 'last_name', 'year']
+    fields = ['email', 'username', 'first_name', 'last_name', 'year', 'rough_payment_per_hour', 'rough_willing_to_pay_per_hour']
 
 class ClassAdmin(admin.ModelAdmin):
     model = Class
