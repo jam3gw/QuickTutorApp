@@ -163,5 +163,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = "QuickTutor.QTUser"
 LOGIN_REDIRECT_URL = "/profile"
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #heroku settings
 django_heroku.settings(locals())
