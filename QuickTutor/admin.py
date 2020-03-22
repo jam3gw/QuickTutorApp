@@ -17,32 +17,25 @@ class ClassAdmin(admin.ModelAdmin):
 
 class SessionAdmin(admin.ModelAdmin):
     model = Session
-    # list_display = ['Student', 'Tutor']
+    list_display = ['student', 'tutor', 'subject_in_regards_to']
     fields = ['student', 'tutor', 'subject_in_regards_to','start_date_and_time', 'end_date_and_time']
-    filter_horizontal = ('student', 'tutor', 'subject_in_regards_to',)
 
 
 class ReviewAdmin(admin.ModelAdmin):
     model = Review
-    # list_display = ['Author', 'Recipient']
+    list_display = ['Author', 'Recipient', 'rating']
     fields = ['Author','Recipient', 'subject_in_regards_to','rating', 'description', 'type_of_review']
-    filter_horizontal = ('Author', 'Recipient', 'subject_in_regards_to',)
-
-    # def getAuthor(self, obj):
-    #     return "\n".join([p.products for p in obj.product.all()])
 
 
 class ClassNeedsHelpAdmin(admin.ModelAdmin):
     model = ClassNeedsHelp
     # list_diplay = ['user', 'class_id']
     fields = ['user', 'class_id','elaboration']
-    filter_horizontal = ('user', 'class_id',)
 
 class TutorableClassAdmin(admin.ModelAdmin):
     model = TutorableClass
     # list_diplay = ['user', 'class_id']
     fields = ['user', 'class_id','TA','experience']
-    filter_horizontal = ('user', 'class_id',)
 
 
 admin.site.register(QTUser, QTUserAdmin)
