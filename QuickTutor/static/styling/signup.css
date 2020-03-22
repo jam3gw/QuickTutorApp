@@ -3,3 +3,12 @@ body {
     background-size: cover;
 }
 
+.input-group-prepend2 {
+    text-align: center;
+    padding-left: 95px;
+}
+
+.input-group-prepend1 {
+    text-align: center;
+    padding-left: 27px;
+}

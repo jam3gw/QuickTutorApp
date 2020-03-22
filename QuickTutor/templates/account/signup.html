@@ -22,20 +22,11 @@
     <div class="container" style="text-align: center">
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
       {% csrf_token %}
-      <p>
-        <div class="input-group form-group">
-          <div class="input-group-prepend" style="color: #FFFFFF">
-            {% blocktrans %}
-            Already have an account? Then please  <a href="{{ login_url }}"> sign in</a>.
-            {% endblocktrans %}
-          </div>
-      </div>
-      </p>
       <!--{{ form.as_p }}-->
       <div class="container" style="text-align: center">
       <p class="text-center">
         <div class="input-group form-group">
-          <div class="input-group-prepend">
+          <div class="input-group-prepend2">
             <span class="input-group-text" style="background-color: lightskyblue"><i class="far fa-envelope"></i></span>
         </div>
         <input type="email" name="email" placeholder="E-mail address" required="" id="id_email">
@@ -43,7 +34,7 @@
       </p>
       <p>
         <div class="input-group form-group">
-          <div class="input-group-prepend">
+          <div class="input-group-prepend2">
             <span class="input-group-text" style="background-color: lightskyblue"><i class="far fa-user"></i></span>
         </div>
         <input type="text" name="username" placeholder="Username" autofocus="autofocus" minlength="1" maxlength="150" required="" id="id_username">
@@ -51,7 +42,7 @@
       </p>
       <p>
         <div class="input-group form-group">
-          <div class="input-group-prepend">
+          <div class="input-group-prepend2">
             <span class="input-group-text" style="background-color: lightskyblue"><i class="fas fa-lock"></i></span>
           </div>
         <input type="password" name="password1" placeholder="Password" required="" id="id_password1">
@@ -59,11 +50,20 @@
       </p>
       <p>
         <div class="input-group form-group">
-          <div class="input-group-prepend">
+          <div class="input-group-prepend2">
             <span class="input-group-text" style="background-color: lightskyblue"><i class="fas fa-lock"></i></span>
           </div>
         <input type="password" name="password2" placeholder="Password (again)" required="" id="id_password2">
         </div>
+      </p>
+      <p>
+        <div class="input-group form-group">
+          <div class="input-group-prepend1" style="color: #FFFFFF">
+            {% blocktrans %}
+            Already have an account? Then please  <a href="{{ login_url }}"> sign in</a>.
+            {% endblocktrans %}
+          </div>
+      </div>
       </p>
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
