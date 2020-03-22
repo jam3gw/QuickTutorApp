@@ -35,7 +35,7 @@ class ClassNeedsHelpAdmin(admin.ModelAdmin):
 class TutorableClassAdmin(admin.ModelAdmin):
     model = TutorableClass
     # list_diplay = ['user', 'class_id']
-    fields = ['user', 'class_id','TA','experience']
+    fields = ['user', 'class_id','Former TA','experience']
 
 
 admin.site.register(QTUser, QTUserAdmin)

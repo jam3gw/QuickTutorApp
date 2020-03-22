@@ -72,7 +72,7 @@ class ClassNeedsHelp(models.Model):
 class TutorableClass(models.Model):
     user = models.ForeignKey(QTUser, on_delete=models.CASCADE)
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
-    TA = models.BooleanField(name="TA", default=False)
+    TA = models.BooleanField(name="Former TA", default=False)
     experience_detail = models.TextField(name="experience", max_length=None)
 
     def __str__(self):
