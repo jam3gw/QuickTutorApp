@@ -27,15 +27,14 @@ class Class(models.Model):
         return str(self.dept) + str(self.course_num) + " (" + str(self.class_name) + ")"
 
 class Session(models.Model):
-    student = models.ManyToManyField(QTUser, related_name="Student", default = '1')
-    tutor = models.ManyToManyField(QTUser, related_name="Tutor", default = '1') 
-    subject_in_regards_to = models.ManyToManyField(Class, default = '1')
+    student = models.ForeignKey(QTUser, related_name="Student", on_delete=models.CASCADE)
+    tutor = models.ForeignKey(QTUser, related_name="Tutor", on_delete=models.CASCADE) 
+    subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
     start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
     end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1))) 
 
     def __str__(self):
-        # return str(self.student) + " is having a session with " + str(self.tutor) + " in " + str(self.subject_in_regards_to) + " " + str(self.start_date_and_time) + " until " + str(self.end_date_and_time)
-        return "Session #:" + str(id)
+        return str(self.student) + " is having a session with " + str(self.tutor) + " in " + str(self.subject_in_regards_to) + " " + str(self.start_date_and_time) + " until " + str(self.end_date_and_time)
 
 class Review(models.Model):
     # For who is being reviewed
@@ -50,21 +49,20 @@ class Review(models.Model):
     FIVE = 5
     RATING_CHOICES = [(ONE, '1'), (TWO, '2'), (THREE,'3'),(FOUR,'4'), (FIVE,'5')]
 
-    Author = models.ManyToManyField(QTUser, related_name = "Author", default = '1')
-    Recipient = models.ManyToManyField(QTUser,related_name="Recipient", default = '1')
-    subject_in_regards_to = models.ManyToManyField(Class, default = '1')
+    Author = models.ForeignKey(QTUser, related_name = "Author", on_delete=models.CASCADE)
+    Recipient = models.ForeignKey(QTUser,related_name="Recipient", on_delete=models.CASCADE)
+    subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
     rating = models.PositiveSmallIntegerField(null=False,choices= RATING_CHOICES, default = THREE ,help_text="Please rate your experience.")
     description = models.TextField(help_text="Please enter some additional information regarding your experience")
     type_of_review = models.CharField(max_length = 1, choices = STUDENT_OR_TUTOR_CHOICES, default = TUTOR)
     time_of_review = models.DateTimeField(default = timezone.now)
 
     def __str__(self):
-        # return str(self.Author) + "'s review of " + str(self.Recipient)
-        return "Review #:" + str(id)
+        return str(self.Author) + "'s review of " + str(self.Recipient)
     
 class ClassNeedsHelp(models.Model):
-    user = models.ManyToManyField(QTUser, default = '1')
-    class_id = models.ManyToManyField(Class,  default = '1')
+    user = models.ForeignKey(QTUser, on_delete=models.CASCADE)
+    class_id = models.ForeignKey(Class,  on_delete=models.CASCADE)
     elaboration = models.TextField(max_length = None, primary_key= False)
 
     def __str__(self):
@@ -72,9 +70,9 @@ class ClassNeedsHelp(models.Model):
         
 
 class TutorableClass(models.Model):
-    user = models.ManyToManyField(QTUser, default = '1')
-    class_id = models.ManyToManyField(Class, default = '1')
-    TA = models.BooleanField(name="TA", default=False)
+    user = models.ForeignKey(QTUser, on_delete=models.CASCADE)
+    class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
+    TA = models.BooleanField(name="Former TA", default=False)
     experience_detail = models.TextField(name="experience", max_length=None)
 
     def __str__(self):
