@@ -5,10 +5,12 @@ body {
 
 .fa {
     color: white;
+    
 }
 
 h1 {
     color: white;
+    display: center;
 }
 
 h4 {
@@ -25,4 +27,9 @@ p {
 
 .socialaccount_ballot {
     color: white;
+}
+
+.input-group {
+    text-align: center;
+    padding-left: 105px;
 }
