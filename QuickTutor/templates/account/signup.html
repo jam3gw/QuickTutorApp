@@ -22,13 +22,15 @@
     <div class="container" style="text-align: center">
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
       {% csrf_token %}
-      <!--{{ form.as_p }}-->
+      {{ form.as_p }}
+      <!--
       <div class="container" style="text-align: center">
       <p class="text-center">
         <div class="input-group form-group">
           <div class="input-group-prepend2">
             <span class="input-group-text" style="background-color: lightskyblue"><i class="far fa-envelope"></i></span>
           </div>
+          <label for="id_email">E-Mail:</label>
           <input type="email" name="email" placeholder="E-mail address" required="" id="id_email">
         </div>
       </p>
@@ -57,6 +59,7 @@
         </div>
       </p>
       <p>
+      -->
         <div class="input-group form-group">
           <div class="input-group-prepend1" style="color: #FFFFFF">
             {% blocktrans %}
@@ -65,6 +68,7 @@
           </div>
       </div>
       </p>
+      
       {% if redirect_field_value %}
       <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
       {% endif %}

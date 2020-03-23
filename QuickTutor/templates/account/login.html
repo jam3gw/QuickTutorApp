@@ -25,6 +25,7 @@
           {% if socialaccount_providers %}
           <form class="login" method="POST" action="{% url 'account_login' %}" >
               {% csrf_token %}
+
               <p>
                 <div class="input-group form-group">
                   <div class="input-group-prepend" >
@@ -52,28 +53,35 @@
               {% endif %}
               <button type="submit" class="btn btn-info btn-lg">{% trans "Sign In" %}</button>
               <br>
-              <br>
               <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
             </form>
           <h6 >
-            Don't have an account with us? <br> Click here to <a href="{{ signup_url }}">Sign in with Google</a> <br>
+            <br>
+            Sign In with <a title="Google" class="socialaccount_provider google" href="/accounts/google/login/?process=login">Google</a> 
+            <br>
+            <br>
+            <!--Sign In with: {% include "socialaccount/snippets/provider_list.html" with process="login" %}</a> <br>-->
+            Don't have an account with us? <a href="{{ signup_url }}">Sign Up</a> <br>
             {% blocktrans with site.name as site_name %}
             <!--{{ site_name }} account:{% endblocktrans %}-->
           </p>
           </h6>
-  <!--<div class="socialaccount_ballot" >
+  
+  <!--
+  <div class="socialaccount_ballot" >
     Click here to sign up with: {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  <div class="login-or" >{% trans 'or' %}</div>
-</div>
-
-{% else %}
-<p>{% blocktrans %}If you have not created an account yet, then please
-  <a href="{{ signup_url }}">Sign up</a> 
-  first.{% endblocktrans %}
-</p>
-
-{% endif %}-->
+    <div class="login-or" >{% trans 'or' %}</div>
   </div>
+
+  {% else %}
+    <p>{% blocktrans %}If you have not created an account yet, then please
+      <a href="{{ signup_url }}">Sign up</a> 
+      first.{% endblocktrans %}
+    </p>
+
+  {% endif %}
+  -->
+</div>
 </div>
 </div>
 {% endblock %}
