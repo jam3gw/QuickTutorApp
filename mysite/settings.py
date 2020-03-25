@@ -133,7 +133,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
+STATICFILES_DIRS = (os.path.join(os.path.dirname(__file__),'static'),)
 
 AUTHENTICATION_BACKENDS = (
     #'allauth' specific authentication methods
@@ -164,5 +164,11 @@ AUTH_USER_MODEL = "QuickTutor.QTUser"
 LOGIN_REDIRECT_URL = "/profile"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+TWILIO_ACCT_SID = 'AC751c817bb4d2ee75281aaefeb8020c8e'
+TWILIO_CHAT_SID = 'IS8724fa3abd594fcbb9359045de2984d4'
+TWILIO_SYNC_SID = 'ISa8ddec424dc603f97d481e1cee0f29ac'
+TWILIO_API_SID = 'SKaedc808a7170d0063f7cfecfc3e61c8c'
+TWILIO_API_SECRET = 'v7LPQ5XKPwONiF84u0dOShuj6Q8bN7z3'
 #heroku settings
 django_heroku.settings(locals())

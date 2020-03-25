@@ -25,4 +25,5 @@ urlpatterns = [
     path('profile/',TemplateView.as_view(template_name="QuickTutor/profile.html")),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('chat/', include('QuickTutor.urls')),
 ]
