@@ -21,16 +21,17 @@ from QuickTutor.models import Class, Review
 #        self.assertTrue(len(carl.classes_need_help) == 1)
 class ClassTestCase(TestCase):
     def setUp(self):
-        Class.objects.create(class_name="ryan", dept="RYAN", course_num="0001")
+        Class.objects.create(class_name="ryan", dept="RYAN", course_num="1001")
     def test_Class_str1(self):
         testclass = Class.objects.get(class_name="ryan")
-        self.assertTrue(testclass.__str__() == "ryan")
+        print(testclass.__str__())
+        self.assertTrue(testclass.__str__() == "RYAN1001 (ryan)")
     def test_Class_str2(self):
-        testclass = Class.objects.create(class_name="carl", dept="CARL", course_num="0002")
-        self.assertTrue(testclass.__str__() == "carl")
+        testclass = Class.objects.create(class_name="carl", dept="CARL", course_num="1002")
+        self.assertTrue(testclass.__str__() == "CARL1002 (carl)")
     def test_Class_str3(self):
         testclass = Class.objects.get(class_name="ryan")
-        self.assertFalse(testclass.__str__() == "ryan2")
+        self.assertFalse(testclass.__str__() == "RYAN1000 (ryan)")
     def test_Class_str4(self):
-        testclass = Class.objects.create(class_name="carl", course_num="0002")
-        self.assertFalse(testclass.__str__() == "0002")
+        testclass = Class.objects.create(class_name="carl", dept="CARL", course_num="1002")
+        self.assertFalse(testclass.__str__() == "CARL1003 (carl)")
