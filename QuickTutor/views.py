@@ -23,7 +23,8 @@ def app(request):
 
 def token(request):
     fake = Factory.create()
-    return generateToken(fake.user_name())
+    current_user = request.user
+    return generateToken(current_user.first_name + " " + current_user.last_name)
 
 def generateToken(identity):
     # Get credentials from environment variables
