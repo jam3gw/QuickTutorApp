@@ -37,14 +37,19 @@
 
       <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
-          <h1 class="display-4 font-weight-normal"> Welcome to the Login Redirect Page</h1>
-          <p class="btn btn-outline-secondary">Hello {{user.email}}</p> <br>
+          <h1 class="display-4 font-weight-normal"> Welcome to the Login Redirect Page</h1> <br>
+          <p class="display-3">Hello {{user.email}}</p>
+          <a href= "/accounts/social/connections/">Click here to add Google as a way to login</a> <br><br>
+          <p class="btn btn-outline-secondary">Edit Profile</p> <br>
+          <!--<p class="btn btn-outline-secondary">Some button</p> <br>-->
         </div>
-        <div class="information">
-          <h5 class="lead font-weight-normal">Here is some other information:</h5> <br>
-            Name: {{user.first_name}} {{user.last_name}} <br>
+        <div class="information grid-container">
+          <h4 class="item1 ">Your Profile:</h4> <br>
+          <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
+            Year: <br>
+            Hourly Rate: <br>
             Password: {{user.password}} ahahha you can't see it :) <br>
-          <a href= "/accounts/social/connections/">Click here to add Google as a way to login</a>
+          </h5>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block" ></div>
