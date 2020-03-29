@@ -16,6 +16,12 @@ body {
   font-size: 2.25rem;
 }
 
+.display-3 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  color: white;
+}
+
 .blog-header-logo:hover {
   text-decoration: none;
 }
@@ -44,4 +50,19 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
     display: inline-block;
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    display: grid;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main right right'
+    'menu footer footer footer footer footer';
+  grid-gap: 10px;
+  background-color: rgb(107, 106, 106);
+  padding: 10px;
+}
+.item1 {
+  grid-area: header;
 }
