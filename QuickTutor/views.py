@@ -15,37 +15,20 @@ class ProfileView(generic.TemplateView):
         user = request.user
 
         #sessions participated in 
-        if (len(Session.objects.filter(student = user)) != 0):
-            student_sessions = Session.objects.filter(student = user).get()
-        else : 
-            student_sessions = 'None'
+        student_sessions = Session.objects.filter(student = user)
 
-        if (len(Session.objects.filter(tutor = user)) != 0):
-            tutor_sessions = Session.objects.filter(tutor = user).get()
-        else : 
-            tutor_sessions = 'None'
+        tutor_sessions = list(Session.objects.filter(tutor = user))
 
         #classes need help in/can tutor in 
-        if (len(ClassNeedsHelp.objects.filter(user = user)) != 0 ):
-            classes_need_help_in = ClassNeedsHelp.objects.filter(user = user).get()
-        else: 
-            classes_need_help_in = 'None'
+        classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
 
-        if (len(TutorableClass.objects.filter(user = user)) != 0):
-            classes_can_tutor_in = TutorableClass.objects.filter(user = user).get()
-        else:
-            classes_can_tutor_in = 'None'
+        classes_can_tutor_in = list(TutorableClass.objects.filter(user = user))
 
         #reviews
-        if (len(Review.objects.filter(Recipient = user)) != 0):
-            reviews_received = Review.objects.filter(Recipient = user).get()
-        else:
-            reviews_received = 'None'
+        reviews_received = list(Review.objects.filter(Recipient = user))
 
-        if (len(Review.objects.filter(Author = user)) != 0):
-            reviews_written = Review.objects.filter(Author = user).get()
-        else:
-            reviews_written = 'None'
+        reviews_written = list(Review.objects.filter(Author = user))
+
 
         context_objects = {
             'user' : user,

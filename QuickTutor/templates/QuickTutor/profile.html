@@ -47,14 +47,80 @@
           <h4 class="item1 ">Your Profile:</h4> <br>
           <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
             Year: {{user.year}}<br>
-            {%if user.rough_payment_per_hour %}
+            {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
               Hourly Rate: {{user.rough_payment_per_hour}} <br>
               {% else %}
               No Hourly Rate Specified <br>
               {%endif%}
-            Classes Needed Help In: {{classes_need_help_in}} <br>
-            Classes Can Tutor In: {{classes_can_tutor_in}} <br>
+
+              <!-- Classes need help in display -->
+              
+              Classes Needed Help In: <br>
+              {%if classes_need_help_in %}
+              <table>
+                <thead>
+                <tr>
+                  <th>Class Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for class in classes_need_help_in%}
+                  <tr>
+                    <td>  {{class.class_id}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+              </table>
+               
+              {% else %}
+                None <br>
+              {%endif%}
+
+              <!-- Classes can tutor in display -->
+            Classes Can Tutor In:  <br>
+            {%if classes_can_tutor_in %}
+            <table>
+              <thead>
+              <tr>
+                <th>Class Name</th>
+              </tr>
+              </thead>
+              <tbody>
+              {%for class in classes_can_tutor_in%}
+                <tr>
+                  <td>  {{class.class_id}}</td>
+                </tr>
+              {%endfor%}
+            </tbody>
+            </table>
+             
+            {% else %}
+              None <br>
+            {%endif%}
+
+            <!-- Tutor Sessions Disply -->
             Tutor Sessions: {{tutor_sessions}} <br>
+            Classes Can Tutor In:  <br>
+            {%if tutor_sessions %}
+            <table>
+              <thead>
+              <tr>
+                <th>Class Name</th>
+              </tr>
+              </thead>
+              <tbody>
+              {%for class in classes_can_tutor_in%}
+                <tr>
+                  <td>  {{class.class_id}}</td>
+                </tr>
+              {%endfor%}
+            </tbody>
+            </table>
+             
+            {% else %}
+              No sessions as a tutor <br>
+            {%endif%}
+
             Student Sessions: {{student_sessions}} <br>
             Reviews Received: {{reviews_received}} <br>
             Reviews Written: {{reviews_written}} <br>
