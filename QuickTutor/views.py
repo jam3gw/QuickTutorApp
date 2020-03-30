@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from allauth.account.views import LoginView, SignupView, LogoutView, PasswordResetView
 from django.views import generic
 from .models import QTUser
-from faker import Factory
 from django.http import JsonResponse
 from django.conf import settings
 
@@ -22,7 +21,6 @@ def app(request):
     return render(request, 'twilio/index.html')
 
 def token(request):
-    fake = Factory.create()
     current_user = request.user
     return generateToken(current_user.first_name + " " + current_user.last_name)
 

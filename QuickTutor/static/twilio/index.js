@@ -13,6 +13,9 @@ $(function() {
   // here
   var username;
 
+  // This will be used to create a room if there is a tutor
+  var chatNumber;
+
   // Helper function to print info messages to the chat window
   function print(infoMessage, asHtml) {
     var $msg = $('<div class="info">');
@@ -56,7 +59,7 @@ $(function() {
 
     // Alert the user they have been assigned a random username
     username = data.identity;
-    print('You have been assigned a random username of: '
+    print('Logging in as: '
     + '<span class="me">' + username + '</span>', true);
 
     }).catch(error => {
@@ -81,7 +84,8 @@ $(function() {
       console.log('Creating general channel');
       chatClient.createChannel({
         uniqueName: 'general',
-        friendlyName: 'General Chat Channel'
+        friendlyName: 'General Chat Channel',
+        isPrivate: true
       }).then(function(channel) {
         console.log('Created general channel:');
         console.log(channel);
