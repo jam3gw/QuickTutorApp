@@ -48,7 +48,7 @@
           <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
             Year: {{user.year}}<br>
             {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
-              Hourly Rate: {{user.rough_payment_per_hour}} <br>
+              Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
               {% else %}
               No Hourly Rate Specified <br>
               {%endif%}
@@ -91,7 +91,7 @@
               <tbody>
               {%for class in classes_can_tutor_in%}
                 <tr>
-                  <td>  {{class.class_id.course_name}}</td>
+                  <td>  {{class.class_id.class_name}}</td>
                   <td>  {{class.class_id.dept}}{{class.class_id.course_num}}</td>
                 </tr>
               {%endfor%}
