@@ -36,25 +36,162 @@
       </nav>
 
       <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark">
+        <p class="display-5">Hello, {{user.first_name}}. Welcome to Your Profile</p>
+        <!--
         <div class="col-md-5 p-lg-5 mx-auto my-5">
           <h1 class="display-4 font-weight-normal"> Welcome to the Login Redirect Page</h1> <br>
           <p class="display-3">Hello {{user.email}}</p>
           <a href= "/accounts/social/connections/">Click here to add Google as a way to login</a> <br><br>
           <p class="btn btn-outline-secondary">Edit Profile</p> <br>
-          <!--<p class="btn btn-outline-secondary">Some button</p> <br>-->
         </div>
+        -->
         <div class="information grid-container">
-          <h4 class="item1 ">Your Profile:</h4> <br>
+          <!--<h4 class="item1 ">Your Profile:</h4> <br>-->
+      
+        <div class="container">
+          <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">wait what</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your Info</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Name: {{user.first_name}} {{user.last_name}}</li>
+                  <li>Year: {{user.year}}</li>
+                  <li>
+                    {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                    Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
+                    {% else %}
+                    No Hourly Rate Specified <br>
+                    {%endif%}
+                  </li>
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Info</button>
+              </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">Pro</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your Rates</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  <li>Classes Needed Help In:</li>
+                  {% if classes_need_help_in %}
+                    {%for class in classes_need_help_in%}
+                    <li>Class Name: {{class.class_id.class_name}}</li>
+                    <li>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</li>
+                    {%endfor%}
+                  {% else %}
+                    None
+                  {% endif %}
+                <br>
+                <li>Classes Can Tutor In: </li> 
+                {%if classes_can_tutor_in %}
+                  <li>Class Name: {{class.class_id.class_name}}</li>
+                  <li>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</li>
+                  {%for class in classes_can_tutor_in%}
+                  {%endfor%}
+                  {% else %}
+                    None <br>
+                  {%endif%}
+                  <br>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Rate</button>
+              </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your History</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  Tutor Sessions:  <br> {%if tutor_sessions %}
+                  {%for session in tutor_sessions%}
+                  <li>Student: {{session.student.first_name}} {{session.student.last_name}}</li> 
+                  <li>Subject: {{session.subject_in_regards_to.course_name}}</li>
+                  <li>Start Date/Time: {{session.start_date_and_time}}</li>
+                  {%endfor%}
+                  {% else %}
+                    No sessions as a tutor <br>
+                  {%endif%}
+                  <br> 
+                  Student Sessions:  <br>
+                  {%if student_sessions %}
+                    {%for session in student_sessions%}
+                      <li>Tutor: {{session.tutor.first_name}} {{session.tutor.last_name}}</li>
+                      <li>Subject: {{session.subject_in_regards_to.class_name}}</li>
+                      <li>Start Date/Time: {{session.start_date_and_time}}</li>
+                    {%endfor%}
+                  {% else %}
+                    No sessions as a student <br>
+                  {%endif%}
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">View Your History</button>
+              </div>
+            </div>
+            
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your Reviews</h1>
+                <ul class="list-unstyled mt-3 mb-4">
+                  Reviews Received:  <br> {%if reviews_received %}
+                  {%for review in reviews_received%}
+                  <li>Author: {{review.Author.first_name}} {{review.Author.last_name}}</li> 
+                  <li>Subject: {{review.subject_in_regards_to.class_name}}</li>
+                  <li>Rating: {{review.rating}}</li>
+                  <li>Type of Review: </li>
+                  <li>Time of Review: {{review.time_of_review}}</li>
+                  {% if review.type_of_review == 'T' %}
+                  <li>Tutor</li>
+                  {% else %}
+                  <li>Student</li>
+                  {%endif%}
+                  {%endfor%}
+                  {% else %}
+                    No reviews received <br>
+                  {%endif%}
+                  <br>
+                  Reviews Written: <br> {%if reviews_written %}
+                  {%for review in reviews_written%}
+                  <li>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</li>
+                  <li>Subject: {{review.subject_in_regards_to.class_name}}</li>
+                  <li>Rating: {{review.rating}}</li>
+                  <li>Type of Review: </li>
+                  <li>Time of Review: {{review.time_of_review}</li>
+                  {% if review.type_of_review == 'T' %}
+                  <li>Tutor</li>
+                  {% else %}
+                  <li>Student</li>
+                  {%endif%}
+                  {%endfor%}
+                  {% else %}
+                    No reviews Written <br>
+                  {%endif%}
+                </ul>
+                <button type="button" class="btn btn-lg btn-block btn-primary">View Your History</button>
+              </div>
+            </div>
+
+          </div>
+          <!--
           <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
             Year: {{user.year}}<br>
-            {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+            {%if user.rough_payment_per_hour > 0 %} 
+          -->
+            <!--Evaluates to true if there are any items in the array-->
+          <!--
               Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
               {% else %}
               No Hourly Rate Specified <br>
               {%endif%}
-
+          -->
               <!-- Classes need help in display -->
-              
+          <!--
               Classes Needed Help In: <br>
               {%if classes_need_help_in %}
               <table>
@@ -77,8 +214,9 @@
               {% else %}
                 None <br>
               {%endif%}
-
+          -->
               <!-- Classes can tutor in display -->
+          <!--
             Classes Can Tutor In:  <br>
             {%if classes_can_tutor_in %}
             <table>
@@ -101,8 +239,10 @@
             {% else %}
               None <br>
             {%endif%}
+          -->
 
             <!-- Tutor Sessions Disply -->
+          <!--
             Tutor Sessions:  <br>
             {%if tutor_sessions %}
             <table>
@@ -127,8 +267,9 @@
             {% else %}
               No sessions as a tutor <br>
             {%endif%}
-
+          -->
             <!-- Student Sessions Disply -->
+          <!--
             Student Sessions:  <br>
             {%if student_sessions %}
             <table>
@@ -153,9 +294,10 @@
             {% else %}
               No sessions as a student <br>
             {%endif%}
-
+          -->
 
              <!-- Reviews Received Disply -->
+          <!--
              Reviews Received:  <br>
              {%if reviews_received %}
              <table>
@@ -188,8 +330,9 @@
              {% else %}
                No reviews received <br>
              {%endif%}
-
+            -->
             <!-- Reviews Written Disply -->
+            <!--
              Reviews Written:  <br>
              {%if reviews_written %}
              <table>
@@ -222,10 +365,12 @@
              {% else %}
                No reviews Written <br>
              {%endif%}
-          </h5>
-        </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
+             </h5>
+            -->
+          </div>
+        <!--<div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block" ></div>
+        -->
       </div>
 </div> 
 
@@ -239,9 +384,8 @@
   <div class="row">
     <div class="col-12 col-md">
       <small class="d-block mb-3 text-muted">&copy; 2020 - QTie5</small>
-      <ul class="list-unstyled text-small">
-        <li><a class="text-muted" href="#">Contact Us</a></li>
-      </ul>
+        <a class="text-muted" href="#">Contact Us</a>
     </div>
+  </div>
 </footer>
 
