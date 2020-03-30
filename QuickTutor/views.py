@@ -9,10 +9,7 @@ def index(request):
 # Create your views here.
 
 class ProfileView(generic.TemplateView):
-    model = QTUser
     template_name = 'QuickTutor/profile.html'
-    context_object_name = 'user' #This is the object that is referenced in the HTML script
-    template_name="QuickTutor/profile.html"
 
     def get(self,request):
         user = request.user
