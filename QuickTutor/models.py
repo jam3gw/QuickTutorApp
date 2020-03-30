@@ -22,6 +22,7 @@ class Class(models.Model):
     class_name = models.CharField(max_length=50)
     dept = models.CharField(max_length = 6, default="XXXX")
     course_num = models.IntegerField(default="0000")
+    course_topic = models.CharField(max_length=100, default="")
 
     def __str__(self):
         return str(self.dept) + str(self.course_num) + " (" + str(self.class_name) + ")"
