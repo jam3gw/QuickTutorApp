@@ -61,12 +61,14 @@
                 <thead>
                 <tr>
                   <th>Class Name</th>
+                  <th>Class Code</th>
                 </tr>
                 </thead>
                 <tbody>
                 {%for class in classes_need_help_in%}
                   <tr>
-                    <td>  {{class.class_id}}</td>
+                    <td>  {{class.class_id.class_name}}</td>
+                    <td>  {{class.class_id.dept}}{{class.class_id.course_num}}</td>
                   </tr>
                 {%endfor%}
               </tbody>
@@ -83,12 +85,14 @@
               <thead>
               <tr>
                 <th>Class Name</th>
+                <th>Class Code</th>
               </tr>
               </thead>
               <tbody>
               {%for class in classes_can_tutor_in%}
                 <tr>
-                  <td>  {{class.class_id}}</td>
+                  <td>  {{class.class_id.course_name}}</td>
+                  <td>  {{class.class_id.dept}}{{class.class_id.course_num}}</td>
                 </tr>
               {%endfor%}
             </tbody>
@@ -112,8 +116,8 @@
               <tbody>
               {%for session in tutor_sessions%}
                 <tr>
-                  <td>  {{session.student}}</td>
-                  <td>  {{session.subject_in_regards_to}}</td>
+                  <td>  {{session.student.first_name}} {{session.student.last_name}}</td>
+                  <td>  {{session.subject_in_regards_to.course_name}}</td>
                   <td>  {{session.start_date_and_time}}</td>
                 </tr>
               {%endfor%}
@@ -138,8 +142,8 @@
               <tbody>
               {%for session in student_sessions%}
                 <tr>
-                  <td>  {{session.tutor}}</td>
-                  <td>  {{session.subject_in_regards_to}}</td>
+                  <td>  {{session.tutor.first_name}} {{session.tutor.last_name}}</td>
+                  <td>  {{session.subject_in_regards_to.class_name}}</td>
                   <td>  {{session.start_date_and_time}}</td>
                 </tr>
               {%endfor%}
@@ -167,8 +171,8 @@
                <tbody>
                {%for review in reviews_received%}
                  <tr>
-                   <td>  {{review.Author}}</td>
-                   <td>  {{review.subject_in_regards_to}}</td>
+                   <td>  {{review.Author.first_name}} {{review.Author.last_name}}</td>
+                   <td>  {{review.subject_in_regards_to.class_name}}</td>
                    <td>  {{review.rating}}</td>
                     {% if review.type_of_review == 'T' %}
                     <td> Tutor</td>
@@ -201,8 +205,8 @@
                <tbody>
                {%for review in reviews_written%}
                  <tr>
-                   <td>  {{review.Recipient}}</td>
-                   <td>  {{review.subject_in_regards_to}}</td>
+                   <td>  {{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
+                   <td>  {{review.subject_in_regards_to.class_name}}</td>
                    <td>  {{review.rating}}</td>
                    {% if review.type_of_review == 'T' %}
                     <td> Tutor</td>
