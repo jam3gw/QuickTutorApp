@@ -46,9 +46,178 @@
         <div class="information grid-container">
           <h4 class="item1 ">Your Profile:</h4> <br>
           <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
-            Year: <br>
-            Hourly Rate: <br>
-            Password: {{user.password}} ahahha you can't see it :) <br>
+            Year: {{user.year}}<br>
+            {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+              Hourly Rate: {{user.rough_payment_per_hour}} <br>
+              {% else %}
+              No Hourly Rate Specified <br>
+              {%endif%}
+
+              <!-- Classes need help in display -->
+              
+              Classes Needed Help In: <br>
+              {%if classes_need_help_in %}
+              <table>
+                <thead>
+                <tr>
+                  <th>Class Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%for class in classes_need_help_in%}
+                  <tr>
+                    <td>  {{class.class_id}}</td>
+                  </tr>
+                {%endfor%}
+              </tbody>
+              </table>
+               
+              {% else %}
+                None <br>
+              {%endif%}
+
+              <!-- Classes can tutor in display -->
+            Classes Can Tutor In:  <br>
+            {%if classes_can_tutor_in %}
+            <table>
+              <thead>
+              <tr>
+                <th>Class Name</th>
+              </tr>
+              </thead>
+              <tbody>
+              {%for class in classes_can_tutor_in%}
+                <tr>
+                  <td>  {{class.class_id}}</td>
+                </tr>
+              {%endfor%}
+            </tbody>
+            </table>
+             
+            {% else %}
+              None <br>
+            {%endif%}
+
+            <!-- Tutor Sessions Disply -->
+            Tutor Sessions:  <br>
+            {%if tutor_sessions %}
+            <table>
+              <thead>
+              <tr>
+                <th>Student</th>
+                <th>Subject</th>
+                <th>Start Date/Time</th>
+              </tr>
+              </thead>
+              <tbody>
+              {%for session in tutor_sessions%}
+                <tr>
+                  <td>  {{session.student}}</td>
+                  <td>  {{session.subject_in_regards_to}}</td>
+                  <td>  {{session.start_date_and_time}}</td>
+                </tr>
+              {%endfor%}
+            </tbody>
+            </table>
+             
+            {% else %}
+              No sessions as a tutor <br>
+            {%endif%}
+
+            <!-- Student Sessions Disply -->
+            Student Sessions:  <br>
+            {%if student_sessions %}
+            <table>
+              <thead>
+              <tr>
+                <th>Tutor</th>
+                <th>Subject</th>
+                <th>Start Date/Time</th>
+              </tr>
+              </thead>
+              <tbody>
+              {%for session in student_sessions%}
+                <tr>
+                  <td>  {{session.tutor}}</td>
+                  <td>  {{session.subject_in_regards_to}}</td>
+                  <td>  {{session.start_date_and_time}}</td>
+                </tr>
+              {%endfor%}
+            </tbody>
+            </table>
+             
+            {% else %}
+              No sessions as a student <br>
+            {%endif%}
+
+
+             <!-- Reviews Received Disply -->
+             Reviews Received:  <br>
+             {%if reviews_received %}
+             <table>
+               <thead>
+               <tr>
+                 <th>Author</th>
+                 <th>Subject</th>
+                 <th>Rating</th>
+                 <th>Type of Review</th>
+                 <th>Time of Review</th>
+               </tr>
+               </thead>
+               <tbody>
+               {%for review in reviews_received%}
+                 <tr>
+                   <td>  {{review.Author}}</td>
+                   <td>  {{review.subject_in_regards_to}}</td>
+                   <td>  {{review.rating}}</td>
+                    {% if review.type_of_review == 'T' %}
+                    <td> Tutor</td>
+                    {% else %}
+                    <td> Student</td>
+                    {%endif%}
+                   <td>  {{review.time_of_review}}</td>
+                 </tr>
+               {%endfor%}
+             </tbody>
+             </table>
+              
+             {% else %}
+               No reviews received <br>
+             {%endif%}
+
+            <!-- Reviews Written Disply -->
+             Reviews Written:  <br>
+             {%if reviews_written %}
+             <table>
+               <thead>
+               <tr>
+                 <th>Recipient</th>
+                 <th>Subject</th>
+                 <th>Rating</th>
+                 <th>Type of Review</th>
+                 <th>Time of Review</th>
+               </tr>
+               </thead>
+               <tbody>
+               {%for review in reviews_written%}
+                 <tr>
+                   <td>  {{review.Recipient}}</td>
+                   <td>  {{review.subject_in_regards_to}}</td>
+                   <td>  {{review.rating}}</td>
+                   {% if review.type_of_review == 'T' %}
+                    <td> Tutor</td>
+                  {% else %}
+                    <td> Student</td>
+                    {%endif%}
+                   <td>  {{review.time_of_review}}</td>
+                 </tr>
+               {%endfor%}
+             </tbody>
+             </table>
+              
+             {% else %}
+               No reviews Written <br>
+             {%endif%}
           </h5>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
