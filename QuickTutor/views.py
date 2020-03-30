@@ -13,4 +13,3 @@ class ProfileView(generic.TemplateView):
     template_name = 'QuickTutor/profile.html'
     context_object_name = 'user' #This is the object that is referenced in the HTML script
 
-    

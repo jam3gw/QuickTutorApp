@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils import timezone
 from datetime import timedelta
+from postgres_copy import CopyManager
 
 
 class QTUser(AbstractUser):
@@ -23,6 +24,7 @@ class Class(models.Model):
     dept = models.CharField(max_length = 6, default="XXXX")
     course_num = models.IntegerField(default="0000")
     course_topic = models.CharField(max_length=100, default="")
+    objects = CopyManager()
 
     def __str__(self):
         return str(self.dept) + str(self.course_num) + " (" + str(self.class_name) + ")"
