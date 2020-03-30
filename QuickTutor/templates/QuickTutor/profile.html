@@ -46,9 +46,18 @@
         <div class="information grid-container">
           <h4 class="item1 ">Your Profile:</h4> <br>
           <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
-            Year: <br>
-            Hourly Rate: <br>
-            Password: {{user.password}} ahahha you can't see it :) <br>
+            Year: {{user.year}}<br>
+            {%if user.rough_payment_per_hour %}
+              Hourly Rate: {{user.rough_payment_per_hour}} <br>
+              {% else %}
+              No Hourly Rate Specified <br>
+              {%endif%}
+            Classes Needed Help In: {{classes_need_help_in}} <br>
+            Classes Can Tutor In: {{classes_can_tutor_in}} <br>
+            Tutor Sessions: {{tutor_sessions}} <br>
+            Student Sessions: {{student_sessions}} <br>
+            Reviews Received: {{reviews_received}} <br>
+            Reviews Written: {{reviews_written}} <br>
           </h5>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
