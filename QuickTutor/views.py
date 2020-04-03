@@ -39,3 +39,4 @@ class ProfileView(generic.TemplateView):
             'reviews_written' : reviews_written
         }
         return render(request, self.template_name, context = context_objects)
+
