@@ -23,7 +23,7 @@ class Class(models.Model):
     class_name = models.CharField(max_length=50)
     dept = models.CharField(max_length = 6, default="XXXX")
     course_num = models.IntegerField(default="0000")
-    course_topic = models.CharField(max_length=100, default="")
+    course_topic = models.CharField(max_length=100, default="", null=True)
     objects = CopyManager()
 
     def __str__(self):
