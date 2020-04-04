@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 from django.views.generic import TemplateView, ListView, DetailView
-from QuickTutor.views import ProfileView, Add_Class_Needs_Help, Add_Review_Class, Add_Tutorable_Class
+from QuickTutor.views import SessionsView,ReviewsView, ProfileView, Add_Class_Needs_Help, Add_Review_Class, Add_Tutorable_Class
 
 urlpatterns = [
     path('',TemplateView.as_view(template_name="QuickTutor/index.html")),
@@ -29,4 +29,6 @@ urlpatterns = [
     path('profile/add-class-needs-help/', Add_Class_Needs_Help),
     path('profile/add-tutorable-class/', Add_Tutorable_Class),
     path('profile/add-review/', Add_Review_Class),
+    path('profile/view-reviews/', ReviewsView.as_view()),
+    path('profile/view-sessions/', SessionsView.as_view()),
 ]

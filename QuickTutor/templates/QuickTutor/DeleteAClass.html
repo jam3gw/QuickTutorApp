@@ -34,19 +34,5 @@
           </ul>
         </div>
       </nav>
-      
-<style>
-    h1 {background-color: lightblue; text-align:center}
-    form {display: flex; flex-direction: column;}
-    label {size: 15px;}
- </style>
-<head>
-    <h1>Add a New Class That You Can Tutor In</h1>
-</head>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-    <a href="/profile">Cancel</a>
-</form>
+      

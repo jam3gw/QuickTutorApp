@@ -16,13 +16,11 @@ class ProfileView(generic.TemplateView):
         user = request.user
 
         #sessions participated in 
-        student_sessions = list(Session.objects.filter(student = user))
-
-        tutor_sessions = list(Session.objects.filter(tutor = user))
+        student_sessions = list(Session.objects.filter(student = user).order_by('-start_date_and_time'))
+        tutor_sessions = list(Session.objects.filter(tutor = user).order_by('-start_date_and_time'))
 
         #classes need help in/can tutor in 
         classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
-
         classes_can_tutor_in = list(TutorableClass.objects.filter(user = user))
 
         #reviews
@@ -42,6 +40,8 @@ class ProfileView(generic.TemplateView):
         else:
             average_rating = 0
             current_num_ratings = 0
+
+
         context_objects = {
             'user' : user,
             'student_sessions': student_sessions,
@@ -55,6 +55,33 @@ class ProfileView(generic.TemplateView):
         }
         return render(request, self.template_name, context = context_objects)
 
+class SessionsView(generic.TemplateView):
+    template_name = "QuickTutor/ViewSessions.html"
+
+    def get(self,request):
+        user = request.user
+        student_sessions = list(Session.objects.filter(student = user).order_by('-start_date_and_time'))
+        tutor_sessions = list(Session.objects.filter(tutor = user).order_by('-start_date_and_time'))
+
+        context_objects = {
+            'student_sessions' : student_sessions,
+            'tutor_sessions' : tutor_sessions,
+        }
+        return render(request, self.template_name, context = context_objects)
+
+class ReviewsView(generic.TemplateView):
+    template_name = "QuickTutor/ReadReviews.html"
+
+    def get(self,request):
+        user = request.user
+        reviews_received = list(Review.objects.filter(Recipient = user).order_by('-time_of_review'))
+        reviews_written = list(Review.objects.filter(Author = user).order_by('-time_of_review'))
+
+        context_objects = {
+            'reviews_received' : reviews_received,
+            'reviews_written' : reviews_written,
+        }
+        return render(request, self.template_name, context = context_objects)
 
 #forms stuff
 def Add_Class_Needs_Help(request):
