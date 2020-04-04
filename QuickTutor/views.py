@@ -44,20 +44,21 @@ class ProfileView(generic.TemplateView):
 
 #forms stuff
 def Add_Class_Needs_Help(request):
+    user = request.user
+    form = ClassNeedsHelpForm(request.POST)
     # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = ClassNeedsHelpForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/profile/')
+    if form.is_valid():
+        new_class_needs_help = form.save(commit=False)
+        new_class_needs_help.user = request.user
+        new_class_needs_help.save()
+        print('valid')
+
+        return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ClassNeedsHelpForm()
+        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
 
@@ -77,7 +78,7 @@ def Add_Tutorable_Class(request):
     else:
         form = TutorableClassForm()
         
-    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+    return render(request, 'QuickTutor/TutorableClassForm.html', {'form': form})
 
 def Add_Review_Class(request):
     # if this is a POST request we need to process the form data
@@ -95,22 +96,22 @@ def Add_Review_Class(request):
     else:
         form = ReviewForm()
         
-    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+    return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
 
-def Create_Se_Class(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = ReviewForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/profile/')
+# def Create_Session_Class(request):
+#     # if this is a POST request we need to process the form data
+#     if request.method == 'POST':
+#         # create a form instance and populate it with data from the request:
+#         form = ReviewForm(request.POST)
+#         # check whether it's valid:
+#         if form.is_valid():
+#             # process the data in form.cleaned_data as required
+#             # ...
+#             # redirect to a new URL:
+#             return HttpResponseRedirect('/profile/')
 
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = ReviewForm()
+#     # if a GET (or any other method) we'll create a blank form
+#     else:
+#         form = ReviewForm()
         
-    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+#     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})

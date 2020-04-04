@@ -5,7 +5,7 @@ from .models import QTUser, Review, Class, ClassNeedsHelp, Session, TutorableCla
 class ClassNeedsHelpForm(forms.ModelForm):
     class Meta:
         model = ClassNeedsHelp
-        fields = '__all__'
+        fields = ['class_id','elaboration']
 
 class TutorableClassForm(forms.ModelForm):
     class Meta:
