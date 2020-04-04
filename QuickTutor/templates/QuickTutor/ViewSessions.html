@@ -39,72 +39,55 @@
     table {border: 2px solid black; width: 100%; background-color: lightblue ;} 
     th {border: 1px solid black;}
     td {border: 1px solid red;}
-    #description {width: 30%;}
     h1 {text-align: center; background-color: lightblue;}
 </style>
 
 <head>
-    <h1>Here are your current Reviews!</h1>
+  <h1>Here are your upcoming/past Sessions!</h1>
 </head>
 
-<h4>Reviews Received:</h4>  <br> 
-{%if reviews_received %}
-<table>
-    <th>
-        <td>Author</td>
-        <td>Subject</td>
-        <td>Rating</td>
-        <td id="description">Description</td>
-        <td>Type of Review</td>
-        <td>Time of Review</td>
-    </th>
-    {%for review in reviews_received%}
-    <tr>
-        <td>{{review.Author.first_name}} {{review.Author.last_name}}</td>
-        <td>{{review.subject_in_regards_to.class_name}}</td>
-        <td>{{review.rating}}</td>
-        <td id = "description">{{review.description}}</td>
-        {% if review.type_of_review == 'T' %}
-        <td>Tutor</td>
-        {% else %}
-        <td>Student</td>
-        {%endif%}
-        <td>{{review.time_of_review}} </td>
-    </tr>
-    {%endfor%}
+<h4>Sessions Tutored:</h4>  <br> 
+{%if tutor_sessions %}
+<table >
+  <tr>
+      <th>Tutor</th>
+      <th>Subject</th>
+      <th>Start Date/Time</th>
+      <th>End Date/Time</th>
+  </tr>
+  {%for session in student_sessions%}
+  <tr >
+      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+      <td>{{session.subject_in_regards_to.class_name}}</td>
+      <td>{{session.start_date_and_time}}</td>
+      <td>{{session.end_date_and_time}} </td>
+  </tr>
+  {%endfor%}
 </table>
 {% else %}
-No reviews received <br>
+No Sessions Tutored <br>
 {%endif%}
 <br>
 
-<h4>Reviews Written:</h4> <br> 
-{%if reviews_written %}
+<h4>Sessions Attended:</h4> <br> 
+{%if student_sessions %}
 <table >
     <tr>
-        <th>Recipient</th>
+        <th>Tutor</th>
         <th>Subject</th>
-        <th>Rating</th>
-        <th id= "description">Description</th>
-        <th>Type of Review</th>
-        <th>Time of Review</th>
+        <th>Start Date/Time</th>
+        <th>End Date/Time</th>
     </tr>
-    {%for review in reviews_written%}
+    {%for session in student_sessions%}
     <tr >
-        <td>{{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
-        <td>{{review.subject_in_regards_to.class_name}}</td>
-        <td>{{review.rating}}</td>
-        <td id="description">{{review.description}}</td>
-        {% if review.type_of_review == 'T' %}
-        <td>Tutor</td>
-        {% else %}
-        <td>Student</td>
-        {%endif%}
-        <td>{{review.time_of_review}} </td>
+        <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
+        <td>{{session.subject_in_regards_to.class_name}}</td>
+        <td>{{session.start_date_and_time}}</td>
+        <td>{{session.end_date_and_time}} </td>
     </tr>
     {%endfor%}
 </table>
 {% else %}
-No reviews written <br>
+No Sessions Attended <br>
 {%endif%}
 <a href="../"><button>Back to Profile</button></a>
