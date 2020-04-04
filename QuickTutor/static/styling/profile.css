@@ -16,10 +16,11 @@ body {
   font-size: 2.25rem;
 }
 
-.display-3 {
+.display-5 {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: 30px;
   color: white;
+  text-align: left;
 }
 
 .blog-header-logo:hover {
@@ -51,18 +52,55 @@ h1, h2, h3, h4, h5, h6 {
     display: inline-block;
     font-family: "Playfair Display", Georgia, "Times New Roman", serif;
     display: grid;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .grid-container {
   display: grid;
-  grid-template-areas:
-    'header header header header header header'
-    'menu main main main right right'
-    'menu footer footer footer footer footer';
   grid-gap: 10px;
   background-color: rgb(107, 106, 106);
   padding: 10px;
 }
 .item1 {
   grid-area: header;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.container {
+  max-width: 960px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
+
+.text-muted {
+  font-size: 15px;
+  color: black;
+}
+
+.list-unstyled {
+  color: black;
+  text-align: left;
+}
+
+.card-title {
+  color: black;
+}
+
+.my-0 {
+  color: black;
 }
