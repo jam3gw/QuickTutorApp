@@ -1,18 +1,27 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import QTUser, Review, Class
+from .models import QTUser, Review, Class, ClassNeedsHelp, Session, TutorableClass
 
-#USER creation/change forms
-class CustomUserCreationForm(UserCreationForm):
-
+class ClassNeedsHelpForm(forms.ModelForm):
     class Meta:
-        model = QTUser
-        fields = ('username', 'email')
+        model = ClassNeedsHelp
+        fields = '__all__'
 
-class CustomUserChangeForm(UserChangeForm):
-
+class TutorableClassForm(forms.ModelForm):
     class Meta:
-        model = QTUser
-        fields = ('username', 'email')
+        model = TutorableClass
+        fields = '__all__'
+
+class SessionForm(forms.ModelForm):
+    class Meta:
+        model = Session
+        fields = '__all__'
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
 
     

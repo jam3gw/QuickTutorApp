@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from allauth.account.views import LoginView, SignupView, LogoutView, PasswordResetView
 from django.views import generic
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
+from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm
 
 def index(request):
     return render(request, 'QuickTutor/index.html', {})
@@ -40,3 +41,76 @@ class ProfileView(generic.TemplateView):
         }
         return render(request, self.template_name, context = context_objects)
 
+
+#forms stuff
+def Add_Class_Needs_Help(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ClassNeedsHelpForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ClassNeedsHelpForm()
+        
+    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+
+def Add_Tutorable_Class(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = TutorableClassForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = TutorableClassForm()
+        
+    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+
+def Add_Review_Class(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ReviewForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ReviewForm()
+        
+    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+
+def Create_Se_Class(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ReviewForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ReviewForm()
+        
+    return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
