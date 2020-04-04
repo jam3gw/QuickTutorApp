@@ -10,7 +10,7 @@ class ClassNeedsHelpForm(forms.ModelForm):
 class TutorableClassForm(forms.ModelForm):
     class Meta:
         model = TutorableClass
-        fields = '__all__'
+        fields = ['class_id','Former TA', 'experience']
 
 class SessionForm(forms.ModelForm):
     class Meta:
@@ -20,7 +20,7 @@ class SessionForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = '__all__'
+        fields = ['Recipient','subject_in_regards_to','description','type_of_review','time_of_review']
 
 
 

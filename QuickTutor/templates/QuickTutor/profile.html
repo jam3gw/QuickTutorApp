@@ -82,6 +82,7 @@
                     {%for class in classes_need_help_in%}
                     <li>Class Name: {{class.class_id.class_name}}</li>
                     <li>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</li>
+                    <br>
                     {%endfor%}
                   {% else %}
                     None
@@ -89,9 +90,10 @@
                 <br>
                 <li>Classes Can Tutor In: </li> 
                 {%if classes_can_tutor_in %}
+                {%for class in classes_can_tutor_in%}
                   <li>Class Name: {{class.class_id.class_name}}</li>
                   <li>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</li>
-                  {%for class in classes_can_tutor_in%}
+                  <br>
                   {%endfor%}
                   {% else %}
                     None <br>
@@ -114,6 +116,7 @@
                   <li>Student: {{session.student.first_name}} {{session.student.last_name}}</li> 
                   <li>Subject: {{session.subject_in_regards_to.course_name}}</li>
                   <li>Start Date/Time: {{session.start_date_and_time}}</li>
+                  <br>
                   {%endfor%}
                   {% else %}
                     No sessions as a tutor <br>
@@ -125,6 +128,7 @@
                       <li>Tutor: {{session.tutor.first_name}} {{session.tutor.last_name}}</li>
                       <li>Subject: {{session.subject_in_regards_to.class_name}}</li>
                       <li>Start Date/Time: {{session.start_date_and_time}}</li>
+                      <br>
                     {%endfor%}
                   {% else %}
                     No sessions as a student <br>
@@ -153,6 +157,7 @@
                   {% else %}
                   <li>Student</li>
                   {%endif%}
+                  <br>
                   {%endfor%}
                   {% else %}
                     No reviews received <br>
@@ -169,6 +174,7 @@
                   <li>Type of Review: Student</li>
                   {%endif%}
                   <li>Time of Review: {{review.time_of_review}}</li>
+                  <br>
                   {%endfor%}
                   {% else %}
                     No reviews Written <br>

@@ -44,9 +44,9 @@ class ProfileView(generic.TemplateView):
 
 #forms stuff
 def Add_Class_Needs_Help(request):
-    user = request.user
+
     form = ClassNeedsHelpForm(request.POST)
-    # if this is a POST request we need to process the form data
+
     if form.is_valid():
         new_class_needs_help = form.save(commit=False)
         new_class_needs_help.user = request.user
@@ -63,38 +63,40 @@ def Add_Class_Needs_Help(request):
     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
 
 def Add_Tutorable_Class(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = TutorableClassForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/profile/')
+
+    form = TutorableClassForm(request.POST)
+
+    if form.is_valid():
+        new_class_can_tutor = form.save(commit=False)
+        new_class_can_tutor.user = request.user
+        new_class_can_tutor.save()
+        print('valid')
+
+        return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = TutorableClassForm()
+        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/TutorableClassForm.html', {'form': form})
 
 def Add_Review_Class(request):
     # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = ReviewForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/profile/')
+    form = ReviewForm(request.POST)
+
+    if form.is_valid():
+        new_review = form.save(commit=False)
+        new_review.Author = request.user
+        new_review.save()
+        print('valid')
+
+        return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ReviewForm()
+        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
 
