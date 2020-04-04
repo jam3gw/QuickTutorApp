@@ -42,6 +42,8 @@ class ProfileView(generic.TemplateView):
         else:
             average_rating = 0
             current_num_ratings = 0
+
+
         context_objects = {
             'user' : user,
             'student_sessions': student_sessions,
@@ -55,6 +57,21 @@ class ProfileView(generic.TemplateView):
         }
         return render(request, self.template_name, context = context_objects)
 
+class ReviewsView(generic.TemplateView):
+    template_name = "QuickTutor/ReadReviews.html"
+
+    def get(self,request):
+        user = request.user
+        reviews_received = list(Review.objects.filter(Recipient = user).order_by('-time_of_review'))
+        reviews_written = list(Review.objects.filter(Author = user).order_by('-time_of_review'))
+
+        print(reviews_received)
+        print(reviews_written)
+        context_objects = {
+            'reviews_received' : reviews_received,
+            'reviews_written' : reviews_written,
+        }
+        return render(request, self.template_name, context = context_objects)
 
 #forms stuff
 def Add_Class_Needs_Help(request):
