@@ -15,7 +15,7 @@ class ProfileView(generic.TemplateView):
         user = request.user
 
         #sessions participated in 
-        student_sessions = Session.objects.filter(student = user)
+        student_sessions = list(Session.objects.filter(student = user))
 
         tutor_sessions = list(Session.objects.filter(tutor = user))
 
@@ -29,7 +29,6 @@ class ProfileView(generic.TemplateView):
 
         reviews_written = list(Review.objects.filter(Author = user))
 
-
         context_objects = {
             'user' : user,
             'student_sessions': student_sessions,
@@ -40,3 +39,4 @@ class ProfileView(generic.TemplateView):
             'reviews_written' : reviews_written
         }
         return render(request, self.template_name, context = context_objects)
+

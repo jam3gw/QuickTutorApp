@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'QuickTutor.apps.QuicktutorConfig',
+    # 'QuickTutor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
