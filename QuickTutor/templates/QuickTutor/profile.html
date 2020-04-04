@@ -75,9 +75,9 @@
                 <!--<h4 class="my-0 font-weight-normal">Pro</h4>-->
               </div>
               <div class="card-body">
-                <h1 class="card-title pricing-card-title">Your Rates</h1>
+                <h1 class="card-title pricing-card-title">Your Classes</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                  <li>Classes Needed Help In:</li>
+                  <h4>Classes Needed Help In:</h4>
                   {% if classes_need_help_in %}
                     {%for class in classes_need_help_in%}
                     <li>Class Name: {{class.class_id.class_name}}</li>
@@ -88,7 +88,7 @@
                     None
                   {% endif %}
                 <br>
-                <li>Classes Can Tutor In: </li> 
+                <h4>Classes Can Tutor In: </h4> 
                 {%if classes_can_tutor_in %}
                 {%for class in classes_can_tutor_in%}
                   <li>Class Name: {{class.class_id.class_name}}</li>
@@ -111,7 +111,7 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
                 <ul class="list-unstyled mt-3 mb-4">
-                  Tutor Sessions:  <br> {%if tutor_sessions %}
+                  <h4>Tutor Sessions:</h4>  <br> {%if tutor_sessions %}
                   {%for session in tutor_sessions%}
                   <li>Student: {{session.student.first_name}} {{session.student.last_name}}</li> 
                   <li>Subject: {{session.subject_in_regards_to.course_name}}</li>
@@ -122,7 +122,7 @@
                     No sessions as a tutor <br>
                   {%endif%}
                   <br> 
-                  Student Sessions:  <br>
+                  <h4>Student Sessions:</h4> <br>
                   {%if student_sessions %}
                     {%for session in student_sessions%}
                       <li>Tutor: {{session.tutor.first_name}} {{session.tutor.last_name}}</li>
@@ -144,8 +144,12 @@
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your Reviews</h1>
+                {% if average_rating %}
+                <h5>{{user.first_name}} {{user.last_name}} currently has an average rating of {{average_rating}} based on {{ratings_received}} reviews.</h5>
+                {%endif%}
                 <ul class="list-unstyled mt-3 mb-4">
-                  Reviews Received:  <br> {%if reviews_received %}
+                  <h4>Reviews Received:</h4>  <br> 
+                  {%if reviews_received %}
                   {%for review in reviews_received%}
                   <li>Author: {{review.Author.first_name}} {{review.Author.last_name}}</li> 
                   <li>Subject: {{review.subject_in_regards_to.class_name}}</li>
@@ -163,7 +167,7 @@
                     No reviews received <br>
                   {%endif%}
                   <br>
-                  Reviews Written: <br> {%if reviews_written %}
+                  <h4>Reviews Written:</h4> <br> {%if reviews_written %}
                   {%for review in reviews_written%}
                   <li>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</li>
                   <li>Subject: {{review.subject_in_regards_to.class_name}}</li>
