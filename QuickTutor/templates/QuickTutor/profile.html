@@ -55,18 +55,26 @@
                 <!--<h4 class="my-0 font-weight-normal">wait what</h4>-->
               </div>
               <div class="card-body">
-                <h1 class="card-title pricing-card-title">Your Info</h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <li>Name: {{user.first_name}} {{user.last_name}}</li>
-                  <li>Year: {{user.year}}</li>
-                  <li>
-                    {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
-                    Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
-                    {% else %}
-                    No Hourly Rate Specified <br>
-                    {%endif%}
-                  </li>
-                </ul>
+                <h1 class="card-title pricing-card-title">Your Info</h1> 
+                <br>
+                  <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                    <tr class="w3-light-grey">
+                      <td>Name: {{user.first_name}} {{user.last_name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Year: {{user.year}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                        Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
+                        {% else %}
+                        No Hourly Rate Specified <br>
+                        {%endif%}
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
                 <button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Info</button>
               </div>
             </div>
@@ -76,30 +84,33 @@
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your Classes</h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <h4>Classes Needed Help In:</h4>
+                <br>
+                <h4>Classes Need Help In:</h4>
+                <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                   {% if classes_need_help_in %}
                     {%for class in classes_need_help_in%}
-                    <li>Class Name: {{class.class_id.class_name}}</li>
-                    <li>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</li>
-                    <br>
+                    <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
+                    <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
                     {%endfor%}
                   {% else %}
                     None
                   {% endif %}
+                </table>
+                <br>
+                <a href = "add-class-needs-help/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Need Help In</button></a>
+                <br>
                 <br>
                 <h4>Classes Can Tutor In: </h4> 
+                <table style="margin-right: 0px; width: 100%">
                 {%if classes_can_tutor_in %}
                 {%for class in classes_can_tutor_in%}
-                  <li>Class Name: {{class.class_id.class_name}}</li>
-                  <li>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</li>
-                  <br>
+                  <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
+                  <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
                   {%endfor%}
                   {% else %}
                     None <br>
                   {%endif%}
-                  <br>
-                <a href = "add-class-needs-help/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Need Help In</button></a>
+                </table>
                 <br>
                 <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Can Tutor In</button></a>
               </div>
@@ -110,34 +121,38 @@
               </div>
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
-                <ul class="list-unstyled mt-3 mb-4">
-                  <h4>Tutor Sessions:</h4>  <br> {%if tutor_sessions %}
+                <br>
+                <h4>Tutor Sessions:</h4>  
+                <table class="w3-table w3-striped">
+                  {%if tutor_sessions %}
                   {%for session in tutor_sessions%}
-                  <li>Student: {{session.student.first_name}} {{session.student.last_name}}</li> 
-                  <li>Subject: {{session.subject_in_regards_to.course_name}}</li>
-                  <li>Start Date/Time: {{session.start_date_and_time}}</li>
-                  <br>
+                  <tr><td>Student: {{session.student.first_name}} {{session.student.last_name}}</td></tr> 
+                  <tr><td>Subject: {{session.subject_in_regards_to.course_name}}</td></tr>
+                  <tr><td>Start Date/Time: {{session.start_date_and_time}}</td></tr>
                   {%endfor%}
                   {% else %}
-                    No sessions as a tutor <br>
+                    No sessions as a tutor
                   {%endif%}
-                  <br> 
-                  <h4>Student Sessions:</h4> <br>
+                </table>
+                <br>
+                <br>
+                <br>
+                  <h4>Student Sessions:</h4>
+                <table>
                   {%if student_sessions %}
                     {%for session in student_sessions%}
-                      <li>Tutor: {{session.tutor.first_name}} {{session.tutor.last_name}}</li>
-                      <li>Subject: {{session.subject_in_regards_to.class_name}}</li>
-                      <li>Start Date/Time: {{session.start_date_and_time}}</li>
-                      <br>
+                      <tr><td>Tutor: {{session.tutor.first_name}} {{session.tutor.last_name}}</td></tr>
+                      <tr><td>Subject: {{session.subject_in_regards_to.class_name}}</td></tr>
+                      <tr><td>Start Date/Time: {{session.start_date_and_time}}</td></tr>
                     {%endfor%}
                   {% else %}
-                    No sessions as a student <br>
+                    No sessions as a student
                   {%endif%}
-                </ul>
+                </table>
+                <br>
                 <a href= "view-sessions/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Session History</button></a>
               </div>
             </div>
-            
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
                 <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
@@ -147,243 +162,52 @@
                 {% if average_rating %}
                 <h5>{{user.first_name}} {{user.last_name}} currently has an average rating of {{average_rating}} based on {{ratings_received}} reviews.</h5>
                 {%endif%}
-                <ul class="list-unstyled mt-3 mb-4">
-                  <h4>Reviews Received:</h4>  <br> 
+                <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                  <h4>Reviews Received:</h4>
                   {%if reviews_received %}
                   {%for review in reviews_received%}
-                  <li>Author: {{review.Author.first_name}} {{review.Author.last_name}}</li> 
-                  <li>Subject: {{review.subject_in_regards_to.class_name}}</li>
-                  <li>Rating: {{review.rating}}</li>
-                  <li>Type of Review: </li>
-                  <li>Time of Review: {{review.time_of_review}}</li>
+                  <tr><td>Author: {{review.Author.first_name}} {{review.Author.last_name}}</td></tr>
+                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
+                  <tr><td>Rating: {{review.rating}}</td></tr>
+                  <tr><td>Type of Review: </td></tr>
+                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
                   {% if review.type_of_review == 'T' %}
-                  <li>Tutor</li>
+                  <tr><td>Tutor</td></tr>
                   {% else %}
-                  <li>Student</li>
+                  <tr><td>Student</td></tr>
                   {%endif%}
-                  <br>
                   {%endfor%}
                   {% else %}
                     No reviews received <br>
                   {%endif%}
-                  <br>
-                  <h4>Reviews Written:</h4> <br> {%if reviews_written %}
+                </table>
+                <br>
+                <table style="margin-right: 0px; width: 100%">
+                  <h4>Reviews Written:</h4> 
+                  {%if reviews_written %}
                   {%for review in reviews_written%}
-                  <li>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</li>
-                  <li>Subject: {{review.subject_in_regards_to.class_name}}</li>
-                  <li>Rating: {{review.rating}}</li>
+                  <tr><td>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</td></tr>
+                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
+                  <tr><td>Rating: {{review.rating}}</td></tr>
                   {% if review.type_of_review == 'T' %}
-                  <li>Type of Review: Tutor</li>
+                  <tr><td>Type of Review: Tutor</td></tr>
                   {% else %}
-                  <li>Type of Review: Student</li>
+                  <tr><td>Type of Review: Student</td></tr>
                   {%endif%}
-                  <li>Time of Review: {{review.time_of_review}}</li>
-                  <br>
+                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
                   {%endfor%}
                   {% else %}
                     No reviews Written <br>
                   {%endif%}
-                </ul>
+                </table>
+                <br>
                 <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Review History</button></a>
                 <br>
                 <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary">Write A Review</button></a>
               </div>
             </div>
-
           </div>
-          <!--
-          <h5 class="item2">Name: {{user.first_name}} {{user.last_name}} <br>
-            Year: {{user.year}}<br>
-            {%if user.rough_payment_per_hour > 0 %} 
-          -->
-            <!--Evaluates to true if there are any items in the array-->
-          <!--
-              Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
-              {% else %}
-              No Hourly Rate Specified <br>
-              {%endif%}
-          -->
-              <!-- Classes need help in display -->
-          <!--
-              Classes Needed Help In: <br>
-              {%if classes_need_help_in %}
-              <table>
-                <thead>
-                <tr>
-                  <th>Class Name</th>
-                  <th>Class Code</th>
-                </tr>
-                </thead>
-                <tbody>
-                {%for class in classes_need_help_in%}
-                  <tr>
-                    <td>  {{class.class_id.class_name}}</td>
-                    <td>  {{class.class_id.dept}}{{class.class_id.course_num}}</td>
-                  </tr>
-                {%endfor%}
-              </tbody>
-              </table>
-               
-              {% else %}
-                None <br>
-              {%endif%}
-          -->
-              <!-- Classes can tutor in display -->
-          <!--
-            Classes Can Tutor In:  <br>
-            {%if classes_can_tutor_in %}
-            <table>
-              <thead>
-              <tr>
-                <th>Class Name</th>
-                <th>Class Code</th>
-              </tr>
-              </thead>
-              <tbody>
-              {%for class in classes_can_tutor_in%}
-                <tr>
-                  <td>  {{class.class_id.class_name}}</td>
-                  <td>  {{class.class_id.dept}}{{class.class_id.course_num}}</td>
-                </tr>
-              {%endfor%}
-            </tbody>
-            </table>
-             
-            {% else %}
-              None <br>
-            {%endif%}
-          -->
-
-            <!-- Tutor Sessions Disply -->
-          <!--
-            Tutor Sessions:  <br>
-            {%if tutor_sessions %}
-            <table>
-              <thead>
-              <tr>
-                <th>Student</th>
-                <th>Subject</th>
-                <th>Start Date/Time</th>
-              </tr>
-              </thead>
-              <tbody>
-              {%for session in tutor_sessions%}
-                <tr>
-                  <td>  {{session.student.first_name}} {{session.student.last_name}}</td>
-                  <td>  {{session.subject_in_regards_to.course_name}}</td>
-                  <td>  {{session.start_date_and_time}}</td>
-                </tr>
-              {%endfor%}
-            </tbody>
-            </table>
-             
-            {% else %}
-              No sessions as a tutor <br>
-            {%endif%}
-          -->
-            <!-- Student Sessions Disply -->
-          <!--
-            Student Sessions:  <br>
-            {%if student_sessions %}
-            <table>
-              <thead>
-              <tr>
-                <th>Tutor</th>
-                <th>Subject</th>
-                <th>Start Date/Time</th>
-              </tr>
-              </thead>
-              <tbody>
-              {%for session in student_sessions%}
-                <tr>
-                  <td>  {{session.tutor.first_name}} {{session.tutor.last_name}}</td>
-                  <td>  {{session.subject_in_regards_to.class_name}}</td>
-                  <td>  {{session.start_date_and_time}}</td>
-                </tr>
-              {%endfor%}
-            </tbody>
-            </table>
-             
-            {% else %}
-              No sessions as a student <br>
-            {%endif%}
-          -->
-
-             <!-- Reviews Received Disply -->
-          <!--
-             Reviews Received:  <br>
-             {%if reviews_received %}
-             <table>
-               <thead>
-               <tr>
-                 <th>Author</th>
-                 <th>Subject</th>
-                 <th>Rating</th>
-                 <th>Type of Review</th>
-                 <th>Time of Review</th>
-               </tr>
-               </thead>
-               <tbody>
-               {%for review in reviews_received%}
-                 <tr>
-                   <td>  {{review.Author.first_name}} {{review.Author.last_name}}</td>
-                   <td>  {{review.subject_in_regards_to.class_name}}</td>
-                   <td>  {{review.rating}}</td>
-                    {% if review.type_of_review == 'T' %}
-                    <td> Tutor</td>
-                    {% else %}
-                    <td> Student</td>
-                    {%endif%}
-                   <td>  {{review.time_of_review}}</td>
-                 </tr>
-               {%endfor%}
-             </tbody>
-             </table>
-              
-             {% else %}
-               No reviews received <br>
-             {%endif%}
-            -->
-            <!-- Reviews Written Disply -->
-            <!--
-             Reviews Written:  <br>
-             {%if reviews_written %}
-             <table>
-               <thead>
-               <tr>
-                 <th>Recipient</th>
-                 <th>Subject</th>
-                 <th>Rating</th>
-                 <th>Type of Review</th>
-                 <th>Time of Review</th>
-               </tr>
-               </thead>
-               <tbody>
-               {%for review in reviews_written%}
-                 <tr>
-                   <td>  {{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
-                   <td>  {{review.subject_in_regards_to.class_name}}</td>
-                   <td>  {{review.rating}}</td>
-                   {% if review.type_of_review == 'T' %}
-                    <td> Tutor</td>
-                  {% else %}
-                    <td> Student</td>
-                    {%endif%}
-                   <td>  {{review.time_of_review}}</td>
-                 </tr>
-               {%endfor%}
-             </tbody>
-             </table>
-              
-             {% else %}
-               No reviews Written <br>
-             {%endif%}
-             </h5>
-            -->
           </div>
-        <!--<div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block" ></div>
-        -->
       </div>
 </div> 
 
