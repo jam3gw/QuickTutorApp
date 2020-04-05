@@ -31,6 +31,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
+h4 {
+  color: black;
+  text-align: left;
+}
+
 .display-4 {
   font-size: 2.5rem;
   color: white;
@@ -94,7 +99,6 @@ html {
 
 .list-unstyled {
   color: black;
-  text-align: left;
 }
 
 .card-title {
@@ -103,4 +107,22 @@ html {
 
 .my-0 {
   color: black;
+}
+
+tr:nth-child(odd) {
+  background-color: #e0e0e0;
+  width: 100%;
+}
+
+tr:nth-child(even) {
+  background-color: #c4c4c4;
+  width: 100%;
+}
+
+.card{
+  height: 50%;
+}
+
+.btn {
+  width: 100%;
 }
