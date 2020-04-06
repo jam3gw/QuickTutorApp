@@ -1,17 +1,24 @@
+{% load static %}
+
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'styling/profile.css' %}">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-<!DOCTYPE html>
-
-<html>
+<div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">QuickTutor</a>
+        <a class="navbar-brand" href="/">QuickTutor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus/">About Us</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/profile">My Profile</a>
             </li>
@@ -30,18 +37,195 @@
           </ul>
         </div>
       </nav>
-    <head>
-        <title>Welcome to the Login Redirect Page</title>
-    </head>
-    <body>
-        <label>Hello {{user.email}}</label>
-        <label>Here is some other information:</label>
-        <ul>
-            <li>name: {{user.first_name}} {{user.last_name}}</li>
-            <li>password: {{user.password}} ahahha you can't see it :)</li>
-            <li>this was renedered as profile.html</li>
-        </ul>
-        <label><a href= "/accounts/social/connections/">Click here to add Google as a way to login</a></label>
-    </body>
-    
-</html>
+
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark">
+        <p class="display-5">Hello, {{user.first_name}}. Welcome to Your Profile</p>
+        <!--
+        <div class="col-md-5 p-lg-5 mx-auto my-5">
+          <h1 class="display-4 font-weight-normal"> Welcome to the Login Redirect Page</h1> <br>
+          <p class="display-3">Hello {{user.email}}</p>
+          <a href= "/accounts/social/connections/">Click here to add Google as a way to login</a> <br><br>
+          <p class="btn btn-outline-secondary">Edit Profile</p> <br>
+        </div>
+        -->
+        <div class="information grid-container">
+          <!--<h4 class="item1 ">Your Profile:</h4> <br>-->
+      
+        <div class="container">
+          <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">wait what</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your Info</h1> 
+                <br>
+                  <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                    <tr class="w3-light-grey">
+                      <td>Name: {{user.first_name}} {{user.last_name}}</td>
+                    </tr>
+                    <tr>
+                      <td>Year: {{user.year}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                        Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
+                        {% else %}
+                        No Hourly Rate Specified <br>
+                        {%endif%}
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+                <button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Info</button>
+              </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">Pro</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your Classes</h1>
+                <br>
+                <h4>Classes Need Help In:</h4>
+                <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                  {% if classes_need_help_in %}
+                    {%for class in classes_need_help_in%}
+                    <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
+                    <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
+                    {%endfor%}
+                  {% else %}
+                    None
+                  {% endif %}
+                </table>
+                <br>
+                <a href = "add-class-needs-help/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Need Help In</button></a>
+                <br>
+                <br>
+                <h4>Classes Can Tutor In: </h4> 
+                <table style="margin-right: 0px; width: 100%">
+                {%if classes_can_tutor_in %}
+                {%for class in classes_can_tutor_in%}
+                  <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
+                  <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
+                  {%endfor%}
+                  {% else %}
+                    None <br>
+                  {%endif%}
+                </table>
+                <br>
+                <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Can Tutor In</button></a>
+              </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your History</h1>
+                <br>
+                <h4>Tutor Sessions:</h4>  
+                <table class="w3-table w3-striped">
+                  {%if tutor_sessions %}
+                  {%for session in tutor_sessions%}
+                  <tr><td>Student: {{session.student.first_name}} {{session.student.last_name}}</td></tr> 
+                  <tr><td>Subject: {{session.subject_in_regards_to.course_name}}</td></tr>
+                  <tr><td>Start Date/Time: {{session.start_date_and_time}}</td></tr>
+                  {%endfor%}
+                  {% else %}
+                    No sessions as a tutor
+                  {%endif%}
+                </table>
+                <br>
+                <br>
+                <br>
+                  <h4>Student Sessions:</h4>
+                <table>
+                  {%if student_sessions %}
+                    {%for session in student_sessions%}
+                      <tr><td>Tutor: {{session.tutor.first_name}} {{session.tutor.last_name}}</td></tr>
+                      <tr><td>Subject: {{session.subject_in_regards_to.class_name}}</td></tr>
+                      <tr><td>Start Date/Time: {{session.start_date_and_time}}</td></tr>
+                    {%endfor%}
+                  {% else %}
+                    No sessions as a student
+                  {%endif%}
+                </table>
+                <br>
+                <a href= "view-sessions/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Session History</button></a>
+              </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+              <div class="card-header">
+                <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
+              </div>
+              <div class="card-body">
+                <h1 class="card-title pricing-card-title">Your Reviews</h1>
+                {% if average_rating %}
+                <h5>{{user.first_name}} {{user.last_name}} currently has an average rating of {{average_rating}} based on {{ratings_received}} reviews.</h5>
+                {%endif%}
+                <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                  <h4>Reviews Received:</h4>
+                  {%if reviews_received %}
+                  {%for review in reviews_received%}
+                  <tr><td>Author: {{review.Author.first_name}} {{review.Author.last_name}}</td></tr>
+                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
+                  <tr><td>Rating: {{review.rating}}</td></tr>
+                  <tr><td>Type of Review: </td></tr>
+                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
+                  {% if review.type_of_review == 'T' %}
+                  <tr><td>Tutor</td></tr>
+                  {% else %}
+                  <tr><td>Student</td></tr>
+                  {%endif%}
+                  {%endfor%}
+                  {% else %}
+                    No reviews received <br>
+                  {%endif%}
+                </table>
+                <br>
+                <table style="margin-right: 0px; width: 100%">
+                  <h4>Reviews Written:</h4> 
+                  {%if reviews_written %}
+                  {%for review in reviews_written%}
+                  <tr><td>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</td></tr>
+                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
+                  <tr><td>Rating: {{review.rating}}</td></tr>
+                  {% if review.type_of_review == 'T' %}
+                  <tr><td>Type of Review: Tutor</td></tr>
+                  {% else %}
+                  <tr><td>Type of Review: Student</td></tr>
+                  {%endif%}
+                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
+                  {%endfor%}
+                  {% else %}
+                    No reviews Written <br>
+                  {%endif%}
+                </table>
+                <br>
+                <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Review History</button></a>
+                <br>
+                <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary">Write A Review</button></a>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+</div> 
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<footer class="container py-5">
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 mx-auto my-0">
+  <div class="row">
+    <div class="col-12 col-md">
+      <small class="d-block mb-3 text-muted">&copy; 2020 - QTie5</small>
+        <a class="text-muted" href="#">Contact Us</a>
+    </div>
+  </div>
+</footer>
+

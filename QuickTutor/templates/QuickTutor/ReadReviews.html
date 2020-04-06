@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+{% load static%}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'styling/profile.css' %}">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">QuickTutor</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/aboutus/">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">My Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account_email' %}">Change E-mail</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+<style>
+    table {border: 2px solid black; width: 100%; background-color: lightblue ;} 
+    th {border: 1px solid black;}
+    td {border: 1px solid red;}
+    #description {width: 30%;}
+    h1 {text-align: center; background-color: lightblue;}
+</style>
+
+<head>
+    <h1>Here are your current Reviews!</h1>
+</head>
+
+<h4>Reviews Received:</h4>  <br> 
+{%if reviews_received %}
+<table>
+    <th>
+        <td>Author</td>
+        <td>Subject</td>
+        <td>Rating</td>
+        <td id="description">Description</td>
+        <td>Type of Review</td>
+        <td>Time of Review</td>
+    </th>
+    {%for review in reviews_received%}
+    <tr>
+        <td>{{review.Author.first_name}} {{review.Author.last_name}}</td>
+        <td>{{review.subject_in_regards_to.class_name}}</td>
+        <td>{{review.rating}}</td>
+        <td id = "description">{{review.description}}</td>
+        {% if review.type_of_review == 'T' %}
+        <td>Tutor</td>
+        {% else %}
+        <td>Student</td>
+        {%endif%}
+        <td>{{review.time_of_review}} </td>
+    </tr>
+    {%endfor%}
+</table>
+{% else %}
+No reviews received <br>
+{%endif%}
+<br>
+
+<h4>Reviews Written:</h4> <br> 
+{%if reviews_written %}
+<table >
+    <tr>
+        <th>Recipient</th>
+        <th>Subject</th>
+        <th>Rating</th>
+        <th id= "description">Description</th>
+        <th>Type of Review</th>
+        <th>Time of Review</th>
+    </tr>
+    {%for review in reviews_written%}
+    <tr >
+        <td>{{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
+        <td>{{review.subject_in_regards_to.class_name}}</td>
+        <td>{{review.rating}}</td>
+        <td id="description">{{review.description}}</td>
+        {% if review.type_of_review == 'T' %}
+        <td>Tutor</td>
+        {% else %}
+        <td>Student</td>
+        {%endif%}
+        <td>{{review.time_of_review}} </td>
+    </tr>
+    {%endfor%}
+</table>
+{% else %}
+No reviews written <br>
+{%endif%}
+<a href="../"><button>Back to Profile</button></a>

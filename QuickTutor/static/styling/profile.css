@@ -2,3 +2,127 @@ body {
     background: url('images/tundy.jpg') no-repeat center center fixed;
     background-size: cover;
 }
+
+/* stylelint-disable selector-list-comma-newline-after */
+
+.blog-header {
+  line-height: 1;
+  border-bottom: 1px solid #e5e5e5;
+  color: white;
+}
+
+.blog-header-logo {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 2.25rem;
+}
+
+.display-5 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 30px;
+  color: white;
+  text-align: left;
+}
+
+.blog-header-logo:hover {
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+h4 {
+  color: black;
+  text-align: left;
+}
+
+.display-4 {
+  font-size: 2.5rem;
+  color: white;
+}
+@media (min-width: 768px) {
+  .display-4 {
+    font-size: 3rem;
+    color: white;
+  }
+}
+
+.position-relative {
+    opacity: 90%;
+}
+
+.information {
+    color: white;
+    text-align: left;
+    display: inline-block;
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    display: grid;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 10px;
+  background-color: rgb(107, 106, 106);
+  padding: 10px;
+}
+.item1 {
+  grid-area: header;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.container {
+  max-width: 960px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
+
+.text-muted {
+  font-size: 15px;
+  color: black;
+}
+
+.list-unstyled {
+  color: black;
+}
+
+.card-title {
+  color: black;
+}
+
+.my-0 {
+  color: black;
+}
+
+tr:nth-child(odd) {
+  background-color: #e0e0e0;
+  width: 100%;
+}
+
+tr:nth-child(even) {
+  background-color: #c4c4c4;
+  width: 100%;
+}
+
+.card{
+  height: 50%;
+}
+
+.btn {
+  width: 100%;
+}
