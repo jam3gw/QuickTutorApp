@@ -73,9 +73,18 @@
                         {%endif%}
                       </td>
                     </tr>
+                    <tr>
+                      <td>
+                        {%if user.rough_willing_to_pay_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                        Willing to Pay per Hour: ${{user.rough_willing_to_pay_per_hour}} per hour<br>
+                        {% else %}
+                        No Amount Willing to Pay Specified <br>
+                        {%endif%}
+                      </td>
+                    </tr>
                   </table>
                   <br>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Info</button>
+                <a href= "edit-profile/"><button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Info</button></a>
               </div>
             </div>
             <div class="card mb-4 shadow-sm">

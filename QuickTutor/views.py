@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from allauth.account.views import LoginView, SignupView, LogoutView, PasswordResetView
 from django.views import generic
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
-from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm
+from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm, EditProfileForm
 
 def index(request):
     return render(request, 'QuickTutor/index.html', {})
@@ -140,6 +140,28 @@ def Add_Review_Class(request):
         print("incorrect", form.data)
         
     return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
+
+def edit_Profile_Class(request):
+    # if this is a POST request we need to process the form data
+    form = EditProfileForm(request.POST)
+    userObject = QTUser.objects.get(username = request.user.username)
+    if form.is_valid():
+        userObject.first_name = form.cleaned_data['first_name']
+        userObject.last_name = form.cleaned_data['last_name']
+        userObject.year = form.cleaned_data['year']
+        userObject.rough_payment_per_hour = form.cleaned_data['rough_payment_per_hour']
+        userObject.rough_willing_to_pay_per_hour = form.cleaned_data['rough_willing_to_pay_per_hour']
+        userObject.save()
+        print('valid')
+
+        return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = EditProfileForm()
+        print("incorrect", form.data)
+        
+    return render(request, 'QuickTutor/editProfile.html', {'form': form})
 
 # def Create_Session_Class(request):
 #     # if this is a POST request we need to process the form data
