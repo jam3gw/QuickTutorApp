@@ -35,7 +35,8 @@ class Session(models.Model):
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
     start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
     end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1))) 
-
+    status = models.IntegerField(default="0") #0 = Offer Standing, 1 = offer accepted, 2 = offer rejected
+    proposed_time = models.DateTimeField(null = False, defulat=timezone.now)
     def __str__(self):
         return str(self.student) + " is having a session with " + str(self.tutor) + " in " + str(self.subject_in_regards_to) + " " + str(self.start_date_and_time) + " until " + str(self.end_date_and_time)
 
