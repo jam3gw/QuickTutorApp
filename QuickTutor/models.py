@@ -34,7 +34,10 @@ class Session(models.Model):
     tutor = models.ForeignKey(QTUser, related_name="Tutor", on_delete=models.CASCADE) 
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
     start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
-    end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1))) 
+    end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1)))
+    student_proposal = models.CharField(null = False, default='0', max_length=1)
+    tutor_proposal = models.CharField(null = False, default='0', max_length=1)
+    price_of_tutor = models.IntegerField(blank=True, null= True)
 
     def __str__(self):
         return str(self.student) + " is having a session with " + str(self.tutor) + " in " + str(self.subject_in_regards_to) + " " + str(self.start_date_and_time) + " until " + str(self.end_date_and_time)

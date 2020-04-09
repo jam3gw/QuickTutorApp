@@ -27,6 +27,10 @@ class EditProfileForm(forms.ModelForm):
         model = QTUser
         fields = ['first_name','last_name','year','rough_payment_per_hour','rough_willing_to_pay_per_hour']
 
+class SetupSession(forms.Form):
+    Email = forms.EmailField()
 
+    def __str__(self):
+        return self.Email
 
     

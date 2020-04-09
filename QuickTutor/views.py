@@ -4,7 +4,7 @@ from allauth.account.views import LoginView, SignupView, LogoutView, PasswordRes
 from django.views import generic
 from django.http import JsonResponse
 from django.conf import settings
-
+from . import forms
 from twilio.rest import Client
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import (
@@ -13,6 +13,7 @@ from twilio.jwt.access_token.grants import (
 )
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
 from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm, EditProfileForm
+from django.core.mail import send_mail
 
 def index(request):
     return render(request, 'QuickTutor/index.html', {})
@@ -203,6 +204,17 @@ def edit_Profile_Class(request):
         
     return render(request, 'QuickTutor/editProfile.html', {'form': form})
 
+def SendEmail(request):
+    sub = forms.SetupSession()
+    if request.method == 'POST':
+        sub = forms.SetupSession(request.POST)
+        subject = "Tutor Me"
+        message = 'Hi my name is ' + str(request.user.first_name) + " and I can tutor you for" + str(request.user.rough_payment_per_hour)
+        recepient = str(sub['Email'].value())
+        send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
+        return render(request, 'QuickTutor/success.html', {'recepient': recepient})
+    return render(request, 'Quicktutor/Sessions.html', {'form':sub})
+    
 # def Create_Session_Class(request):
 #     # if this is a POST request we need to process the form data
 #     if request.method == 'POST':
