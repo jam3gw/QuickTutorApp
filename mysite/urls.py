@@ -33,6 +33,6 @@ urlpatterns = [
     path('profile/view-reviews/', ReviewsView.as_view()),
     path('profile/view-sessions/', SessionsView.as_view()),
     path('profile/edit-profile/', edit_Profile_Class),
-    path('profile/sessions', SendEmail),
-    path('profile/sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html"))
+    path('sessions/', SendEmail),
+    path('sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html"))
 ]
