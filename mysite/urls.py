@@ -26,6 +26,7 @@ urlpatterns = [
     path('profile/', ProfileView.as_view()),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
+    path('feedback/', include('QuickTutor.urls')),
     path('profile/add-class-needs-help/', Add_Class_Needs_Help),
     path('profile/add-tutorable-class/', Add_Tutorable_Class),
     path('profile/add-review/', Add_Review_Class),

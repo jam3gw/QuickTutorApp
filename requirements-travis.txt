@@ -39,3 +39,4 @@ sqlparse==0.3.0
 squareup==4.1.0.20200122
 urllib3==1.25.8
 whitenoise==5.0.1
+twilio==6.37.0
