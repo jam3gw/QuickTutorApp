@@ -107,15 +107,11 @@ $(function() {
     });
 
     // Listen for new messages sent to the channel
-    generalChannel.on('messageAdded', function(channel) {
-      print('Feedback has been received! ');
-    });
   }
 
   // Send a new message to the general channel
   var $input = $('#chat-input');
   $input.on('keydown', function(e) {
-
     if (e.keyCode == 13) {
       if (generalChannel === undefined) {
         print('The Feedback Service is not configured currently', false);
@@ -123,6 +119,7 @@ $(function() {
       }
       generalChannel.sendMessage($input.val())
       $input.val('');
+      print('Feedback has been received! ');
     }
   });
 });
