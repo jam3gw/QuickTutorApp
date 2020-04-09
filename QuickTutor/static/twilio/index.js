@@ -119,7 +119,7 @@ $(function() {
       }
       generalChannel.sendMessage($input.val())
       $input.val('');
-      print('Feedback has been received! ');
+      print('Feedback has been received!');
     }
   });
 });
