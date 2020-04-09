@@ -72,22 +72,22 @@ $(function() {
   function createOrJoinGeneralChannel() {
     // Get the general chat channel, which is where all the messages are
     // sent in this simple application
-    print('Attempting to join "general" chat channel...');
-    chatClient.getChannelByUniqueName('general')
+    print('Joining Feedback Channel...');
+    chatClient.getChannelByUniqueName('feedback_public')
     .then(function(channel) {
       generalChannel = channel;
-      console.log('Found general channel:');
+      console.log('Found feedback channel:');
       console.log(generalChannel);
       setupChannel();
     }).catch(function() {
       // If it doesn't exist, let's create it
-      console.log('Creating general channel');
+      console.log('Creating feedback channel');
       chatClient.createChannel({
-        uniqueName: 'general',
-        friendlyName: 'General Chat Channel',
-        isPrivate: true
+        uniqueName: 'feedback_public',
+        friendlyName: 'Feedback Chat Channel',
+        isPrivate: false
       }).then(function(channel) {
-        console.log('Created general channel:');
+        console.log('Created feedback channel:');
         console.log(channel);
         generalChannel = channel;
         setupChannel();
@@ -107,8 +107,8 @@ $(function() {
     });
 
     // Listen for new messages sent to the channel
-    generalChannel.on('messageAdded', function(message) {
-      printMessage(message.author, message.body);
+    generalChannel.on('messageAdded', function(channel) {
+      print('Feedback has been received! ');
     });
   }
 
@@ -118,7 +118,7 @@ $(function() {
 
     if (e.keyCode == 13) {
       if (generalChannel === undefined) {
-        print('The Chat Service is not configured. Please check your .env file.', false);
+        print('The Feedback Service is not configured currently', false);
         return;
       }
       generalChannel.sendMessage($input.val())
