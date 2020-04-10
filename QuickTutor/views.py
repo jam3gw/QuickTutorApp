@@ -57,9 +57,16 @@ class ProfileView(generic.TemplateView):
         user = request.user
 
         #sessions participated in 
-        student_sessions = list(Session.objects.filter(student = user).order_by('-start_date_and_time'))
-        tutor_sessions = list(Session.objects.filter(tutor = user).order_by('-start_date_and_time'))
 
+        accepted_student_sessions = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
+        accepted_tutor_sessions = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
+            
+        pending_sessions_requested_student = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '0').order_by('-start_date_and_time')
+        pending_sessions_requested_tutor = Session.objects.filter(tutor = request.user, student_proposal = '0', tutor_proposal = '2').order_by('-start_date_and_time')
+            
+        waiting_acceptance_reject_student = Session.objects.filter(student = request.user, student_proposal = '0', tutor_proposal = '2').order_by('-start_date_and_time')
+        waiting_acceptance_reject_tutor = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '0').order_by('-start_date_and_time')
+        
         #classes need help in/can tutor in 
         classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
         classes_can_tutor_in = list(TutorableClass.objects.filter(user = user))
@@ -85,8 +92,12 @@ class ProfileView(generic.TemplateView):
 
         context_objects = {
             'user' : user,
-            'student_sessions': student_sessions,
-            'tutor_sessions' : tutor_sessions,
+            'accepted_student_sessions': accepted_student_sessions,
+            'accepted_tutor_sessions' : accepted_tutor_sessions,
+            'pending_sessions_requested_student' :pending_sessions_requested_student, 
+            'pending_sessions_requested_tutor' : pending_sessions_requested_tutor, 
+            'waiting_acceptance_reject_student' : waiting_acceptance_reject_student,
+            'waiting_acceptance_reject_tutor' : waiting_acceptance_reject_tutor,
             'classes_need_help_in' : classes_need_help_in,
             'classes_can_tutor_in' : classes_can_tutor_in,
             'reviews_received' : reviews_received,
