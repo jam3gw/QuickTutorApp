@@ -50,14 +50,14 @@
 <h4>Reviews Received:</h4>  <br> 
 {%if reviews_received %}
 <table>
-    <th>
-        <td>Author</td>
-        <td>Subject</td>
-        <td>Rating</td>
-        <td id="description">Description</td>
-        <td>Type of Review</td>
-        <td>Time of Review</td>
-    </th>
+    <tr>
+        <th>Author</th>
+        <th>Subject</th>
+        <th>Rating</th>
+        <th id="description">Description</th>
+        <th>Type of Review</th>
+        <th>Time of Review</th>
+    </tr>
     {%for review in reviews_received%}
     <tr>
         <td>{{review.Author.first_name}} {{review.Author.last_name}}</td>

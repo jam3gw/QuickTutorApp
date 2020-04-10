@@ -26,7 +26,7 @@ body
 	{
 		background: #101010;
     color: white;
-    background: url('images/tundy.jpg') no-repeat center center fixed;
+    background: url('images/blues.jpeg') no-repeat center center fixed;
     background-size: cover;
 	}
 
@@ -56,7 +56,7 @@ body
 
 /* heading section */
 h1,h2,h3,h4 {
-  color: #fff;
+  color: rgba(250, 181, 117, 0.842);
   font-weight: bold;
 }
 
@@ -113,7 +113,7 @@ img {
 
 /* team section */
 #team {
-  padding-top: 60px;
+  padding-top: 0px;
   padding-bottom: 80px;
 }
 #team h2 {
@@ -124,7 +124,6 @@ img {
   padding-bottom: 10px;
 }
 #team .team-wrapper {
-  border: 2px solid #303030;
   padding: 20px;
   width: 300px;
   height: 450px;
@@ -132,8 +131,9 @@ img {
   margin: 10px;
   background-color: #3773f5;
 }
+
 #team h4 {
-  color: orange;
+  color: rgb(94, 94, 94);
 }
 #team hr {
   border-color: #303030;
@@ -170,4 +170,21 @@ img {
   footer h3 {
     padding-top: 30px;
   }
+}
+
+.aboutUsMessage {
+  color: black;
+}
+
+.team {
+  padding-top: 0px;
+}
+
+.position-relative { 
+  text-align: center; 
+  padding-top: 20px;
+}
+
+.aboutUsMessage {
+  color: white;
 }

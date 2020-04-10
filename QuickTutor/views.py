@@ -2,12 +2,52 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from allauth.account.views import LoginView, SignupView, LogoutView, PasswordResetView
 from django.views import generic
+from django.http import JsonResponse
+from django.conf import settings
+
+from twilio.rest import Client
+from twilio.jwt.access_token import AccessToken
+from twilio.jwt.access_token.grants import (
+    SyncGrant,
+    ChatGrant
+)
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
-from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm
+from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm, EditProfileForm
 
 def index(request):
     return render(request, 'QuickTutor/index.html', {})
 # Create your views here.
+
+def app(request):
+    return render(request, 'twilio/index.html')
+
+def token(request):
+    current_user = request.user
+    return generateToken(current_user.first_name + " " + current_user.last_name)
+
+def generateToken(identity):
+    # Get credentials from environment variables
+    account_sid      = settings.TWILIO_ACCT_SID
+    chat_service_sid = settings.TWILIO_CHAT_SID
+    sync_service_sid = settings.TWILIO_SYNC_SID
+    api_sid          = settings.TWILIO_API_SID
+    api_secret       = settings.TWILIO_API_SECRET
+
+    # Create access token with credentials
+    token = AccessToken(account_sid, api_sid, api_secret, identity=identity)
+
+    # Create a Sync grant and add to token
+    if sync_service_sid:
+        sync_grant = SyncGrant(service_sid=sync_service_sid)
+        token.add_grant(sync_grant)
+
+    # Create a Chat grant and add to token
+    if chat_service_sid:
+        chat_grant = ChatGrant(service_sid=chat_service_sid)
+        token.add_grant(chat_grant)
+
+    # Return token info as JSON
+    return JsonResponse({'identity':identity,'token':token.to_jwt().decode('utf-8')})
 
 class ProfileView(generic.TemplateView):
     template_name = 'QuickTutor/profile.html'
@@ -140,6 +180,28 @@ def Add_Review_Class(request):
         print("incorrect", form.data)
         
     return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
+
+def edit_Profile_Class(request):
+    # if this is a POST request we need to process the form data
+    form = EditProfileForm(request.POST)
+    userObject = QTUser.objects.get(username = request.user.username)
+    if form.is_valid():
+        userObject.first_name = form.cleaned_data['first_name']
+        userObject.last_name = form.cleaned_data['last_name']
+        userObject.year = form.cleaned_data['year']
+        userObject.rough_payment_per_hour = form.cleaned_data['rough_payment_per_hour']
+        userObject.rough_willing_to_pay_per_hour = form.cleaned_data['rough_willing_to_pay_per_hour']
+        userObject.save()
+        print('valid')
+
+        return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = EditProfileForm()
+        print("incorrect", form.data)
+        
+    return render(request, 'QuickTutor/editProfile.html', {'form': form})
 
 # def Create_Session_Class(request):
 #     # if this is a POST request we need to process the form data

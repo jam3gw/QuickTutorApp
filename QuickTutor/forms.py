@@ -20,7 +20,12 @@ class SessionForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['Recipient','subject_in_regards_to','description','type_of_review','time_of_review']
+        fields = ['Recipient','subject_in_regards_to','rating','description','type_of_review','time_of_review']
+
+class EditProfileForm(forms.ModelForm):
+    class Meta:
+        model = QTUser
+        fields = ['first_name','last_name','year','rough_payment_per_hour','rough_willing_to_pay_per_hour']
 
 
 

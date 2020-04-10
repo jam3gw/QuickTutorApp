@@ -31,6 +31,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/feedback">Feedback</a>
+            </li>
           </ul>
         </div>
       </nav>
@@ -73,9 +76,18 @@
                         {%endif%}
                       </td>
                     </tr>
+                    <tr>
+                      <td>
+                        {%if user.rough_willing_to_pay_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                        Willing to Pay per Hour: ${{user.rough_willing_to_pay_per_hour}} per hour<br>
+                        {% else %}
+                        No Amount Willing to Pay Specified <br>
+                        {%endif%}
+                      </td>
+                    </tr>
                   </table>
                   <br>
-                <button type="button" class="btn btn-lg btn-block btn-primary">Edit Your Info</button>
+                <a href= "edit-profile/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Edit Your Info</button></a>
               </div>
             </div>
             <div class="card mb-4 shadow-sm">
@@ -97,7 +109,7 @@
                   {% endif %}
                 </table>
                 <br>
-                <a href = "add-class-needs-help/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Need Help In</button></a>
+                <a href = "add-class-needs-help/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Add A Class You Need Help In</button></a>
                 <br>
                 <br>
                 <h4>Classes Can Tutor In: </h4> 
@@ -112,7 +124,7 @@
                   {%endif%}
                 </table>
                 <br>
-                <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Can Tutor In</button></a>
+                <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Add A Class You Can Tutor In</button></a>
               </div>
             </div>
             <div class="card mb-4 shadow-sm">
@@ -127,7 +139,7 @@
                   {%if tutor_sessions %}
                   {%for session in tutor_sessions%}
                   <tr><td>Student: {{session.student.first_name}} {{session.student.last_name}}</td></tr> 
-                  <tr><td>Subject: {{session.subject_in_regards_to.course_name}}</td></tr>
+                  <tr><td>Subject: {{session.subject_in_regards_to.class_name}}</td></tr>
                   <tr><td>Start Date/Time: {{session.start_date_and_time}}</td></tr>
                   {%endfor%}
                   {% else %}
@@ -150,7 +162,7 @@
                   {%endif%}
                 </table>
                 <br>
-                <a href= "view-sessions/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Session History</button></a>
+                <a href= "view-sessions/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">View Your Session History</button></a>
               </div>
             </div>
             <div class="card mb-4 shadow-sm">
@@ -201,9 +213,9 @@
                   {%endif%}
                 </table>
                 <br>
-                <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Review History</button></a>
+                <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">View Your Review History</button></a>
                 <br>
-                <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary">Write A Review</button></a>
+                <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Write A Review</button></a>
               </div>
             </div>
           </div>
@@ -215,7 +227,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<footer class="container py-5">
+<footer class="container py-5" style="opacity: 80%">
   <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
     <div class="col-md-5 mx-auto my-0">
   <div class="row">
