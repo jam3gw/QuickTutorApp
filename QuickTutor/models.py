@@ -30,13 +30,18 @@ class Class(models.Model):
         return str(self.dept) + str(self.course_num) + " (" + str(self.class_name) + ")"
 
 class Session(models.Model):
+    PENDING = '0'
+    REJECTED = '1'
+    ACCEPTED = '2'
+    SESSION_CHOICES = [(PENDING, 'pending'),(REJECTED,'rejected'), (ACCEPTED, 'accepted')]
+
     student = models.ForeignKey(QTUser, related_name="Student", on_delete=models.CASCADE)
     tutor = models.ForeignKey(QTUser, related_name="Tutor", on_delete=models.CASCADE) 
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
     start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
     end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1)))
-    student_proposal = models.CharField(null = False, default='0', max_length=1)
-    tutor_proposal = models.CharField(null = False, default='0', max_length=1)
+    student_proposal = models.CharField(null = False, choices = SESSION_CHOICES, default=PENDING, max_length=1)
+    tutor_proposal = models.CharField(null = False, choices = SESSION_CHOICES, default=PENDING, max_length=1)
     price_of_tutor = models.IntegerField(blank=True, null= True)
 
     def __str__(self):
