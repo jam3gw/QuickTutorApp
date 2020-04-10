@@ -12,7 +12,7 @@ class TutorableClassForm(forms.ModelForm):
         model = TutorableClass
         fields = ['class_id','Former TA', 'experience']
 
-class SessionForm(forms.ModelForm):
+class CreateSessionForm(forms.ModelForm):
     class Meta:
         model = Session
         fields = ['tutor', 'subject_in_regards_to', 'start_date_and_time',

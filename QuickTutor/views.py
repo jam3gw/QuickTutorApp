@@ -12,7 +12,7 @@ from twilio.jwt.access_token.grants import (
     ChatGrant
 )
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
-from .forms import ClassNeedsHelpForm, TutorableClassForm, SessionForm, ReviewForm, EditProfileForm
+from .forms import *
 from django.core.mail import send_mail
 
 def index(request):
@@ -93,20 +93,6 @@ class ProfileView(generic.TemplateView):
             'reviews_written' : reviews_written,
             'average_rating' : average_rating,
             'ratings_received' : current_num_ratings
-        }
-        return render(request, self.template_name, context = context_objects)
-
-class SessionsView(generic.TemplateView):
-    template_name = "QuickTutor/ViewSessions.html"
-
-    def get(self,request):
-        user = request.user
-        student_sessions = list(Session.objects.filter(student = user).order_by('-start_date_and_time'))
-        tutor_sessions = list(Session.objects.filter(tutor = user).order_by('-start_date_and_time'))
-
-        context_objects = {
-            'student_sessions' : student_sessions,
-            'tutor_sessions' : tutor_sessions,
         }
         return render(request, self.template_name, context = context_objects)
 
@@ -204,9 +190,37 @@ def edit_Profile_Class(request):
         
     return render(request, 'QuickTutor/editProfile.html', {'form': form})
 
-class Create_Session_Class(generic.TemplateView):
+def Create_Session(request):
     # if this is a POST request we need to process the form data
-    template_name = 'QuickTutor/Sessions.html'
+    form = CreateSessionForm(request.POST)
+    userObject = QTUser.objects.get(username = request.user.username)
+    if form.is_valid():
+        # process the data in form.cleaned_data as required
+        # ...
+        # redirect to a new URL:
+        new_session = form.save(commit = False)
+        new_session.student = request.user
+        new_session.student_proposal = '2'
+        new_session.save()
+
+        subject = "Tutor Request [DO NOT REPLY]"
+        message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
+        recepient = form.cleaned_data['tutor'].email
+
+        send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
+
+        return HttpResponseRedirect('/profile/view-sessions/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CreateSessionForm()
+        print("incorrect", form.data)
+        
+    return render(request, 'QuickTutor/create_session.html', {'form': form})
+
+class SessionsView(generic.TemplateView):
+    # if this is a POST request we need to process the form data
+    template_name = 'QuickTutor/ViewSessions.html'
     def get(self, request):
         accepted_student_sessions = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2')
         accepted_tutor_sessions = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2')
@@ -217,7 +231,6 @@ class Create_Session_Class(generic.TemplateView):
         waiting_acceptance_reject_student = Session.objects.filter(student = request.user, student_proposal = '0', tutor_proposal = '2')
         waiting_acceptance_reject_tutor = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '0')
 
-        form = SessionForm(request.POST)
         context_objects = {
             'accepted_student_sessions': accepted_student_sessions,
             'accepted_tutor_sessions' : accepted_tutor_sessions,
@@ -225,26 +238,8 @@ class Create_Session_Class(generic.TemplateView):
             'pending_sessions_requested_tutor' : pending_sessions_requested_tutor, 
             'waiting_acceptance_reject_student' : waiting_acceptance_reject_student,
             'waiting_acceptance_reject_tutor' : waiting_acceptance_reject_tutor,
-            'form' : form
         }
         # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            new_session = form.save(commit = False)
-            new_session.student = request.user
-            new_session.student_proposal = '2'
-            new_session.save()
-
-            subject = "Tutor Request [DO NOT REPLY]"
-            message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
-            recepient = form.cleaned_data['tutor'].email
-
-            send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
-            return render(request, self.template_name, context = context_objects)
-
-
 
         return render(request, self.template_name, context = context_objects)
 

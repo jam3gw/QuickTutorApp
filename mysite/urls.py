@@ -32,7 +32,7 @@ urlpatterns = [
     path('profile/add-review/', Add_Review_Class),
     path('profile/view-reviews/', ReviewsView.as_view()),
     path('profile/view-sessions/', SessionsView.as_view()),
+    path('profile/view-sessions/new-session/', Create_Session),
     path('profile/edit-profile/', edit_Profile_Class),
-    path('sessions/', Create_Session_Class.as_view()),
     path('sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html"))
 ]
