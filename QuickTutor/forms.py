@@ -15,7 +15,8 @@ class TutorableClassForm(forms.ModelForm):
 class SessionForm(forms.ModelForm):
     class Meta:
         model = Session
-        fields = '__all__'
+        fields = ['tutor', 'subject_in_regards_to', 'start_date_and_time',
+        'end_date_and_time','price_of_tutor']
 
 class ReviewForm(forms.ModelForm):
     class Meta:
@@ -27,11 +28,11 @@ class EditProfileForm(forms.ModelForm):
         model = QTUser
         fields = ['first_name','last_name','year','rough_payment_per_hour','rough_willing_to_pay_per_hour']
 
-class SetupSession(forms.Form):
-    Email = forms.EmailField()
-    checkbox = forms.BooleanField()
+# class SetupSession(forms.Form):
+#     Email = forms.EmailField()
+#     checkbox = forms.BooleanField()
 
-    def __str__(self):
-        return self.Email
+#     def __str__(self):
+#         return self.Email
 
     

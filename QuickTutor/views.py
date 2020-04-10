@@ -204,31 +204,49 @@ def edit_Profile_Class(request):
         
     return render(request, 'QuickTutor/editProfile.html', {'form': form})
 
-def SendEmail(request):
-    sub = forms.SetupSession()
-    if request.method == 'POST':
-        sub = forms.SetupSession(request.POST)
-        subject = "Tutor Request [DO NOT REPLY]"
-        message = 'Hi my name is ' + str(request.user.first_name) + " and I can tutor you for " + str(request.user.rough_payment_per_hour)
-        recepient = str(sub['Email'].value())
-        send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
-        return render(request, 'QuickTutor/success.html', {'recepient': recepient})
-    return render(request, 'Quicktutor/Sessions.html', {'form':sub})
+class Create_Session_Class(generic.TemplateView):
+    # if this is a POST request we need to process the form data
+    template_name = 'QuickTutor/Sessions.html'
+    def get(self, request):
+        accepted_student_sessions = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2')
+        accepted_tutor_sessions = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2')
+            
+        pending_sessions_requested_student = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '0')
+        pending_sessions_requested_tutor = Session.objects.filter(tutor = request.user, student_proposal = '0', tutor_proposal = '2')
+            
+        waiting_acceptance_reject_student = Session.objects.filter(student = request.user, student_proposal = '0', tutor_proposal = '2')
+        waiting_acceptance_reject_tutor = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '0')
 
-# def Create_Session_Class(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = ReviewForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/profile/')
+        form = SessionForm(request.POST)
+        context_objects = {
+            'accepted_student_sessions': accepted_student_sessions,
+            'accepted_tutor_sessions' : accepted_tutor_sessions,
+            'pending_sessions_requested_student' :pending_sessions_requested_student, 
+            'pending_sessions_requested_tutor' : pending_sessions_requested_tutor, 
+            'waiting_acceptance_reject_student' : waiting_acceptance_reject_student,
+            'waiting_acceptance_reject_tutor' : waiting_acceptance_reject_tutor,
+            'form' : form
+        }
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            new_session = form.save(commit = False)
+            new_session.student = request.user
+            new_session.student_proposal = '2'
+            new_session.save()
 
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = ReviewForm()
-        
-#     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+            subject = "Tutor Request [DO NOT REPLY]"
+            message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
+            recepient = form.cleaned_data['tutor'].email
+
+            send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
+            return render(request, self.template_name, context = context_objects)
+
+
+
+        return render(request, self.template_name, context = context_objects)
+
+
+
