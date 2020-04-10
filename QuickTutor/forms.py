@@ -29,6 +29,7 @@ class EditProfileForm(forms.ModelForm):
 
 class SetupSession(forms.Form):
     Email = forms.EmailField()
+    checkbox = forms.BooleanField()
 
     def __str__(self):
         return self.Email
