@@ -280,17 +280,25 @@
                 <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                   <h4>Reviews Received:</h4>
                   {%if reviews_received %}
+                  <tr>
+                    <th>Author</th>
+                    <th>Subject</th>
+                    <th>Rating</th>
+                    <th>Type of Review</th>
+                    <th>Time of Review</th>
+                  </tr>
+                  <tr>
                   {%for review in reviews_received%}
-                  <tr><td>Author: {{review.Author.first_name}} {{review.Author.last_name}}</td></tr>
-                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
-                  <tr><td>Rating: {{review.rating}}</td></tr>
-                  <tr><td>Type of Review: </td></tr>
-                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
+                  <td>{{review.Author.first_name}} {{review.Author.last_name}}</td>
+                  <td>{{review.subject_in_regards_to.class_name}}</td>
+                  <td>{{review.rating}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <tr><td>Tutor</td></tr>
+                  <td>Tutor</td>
                   {% else %}
-                  <tr><td>Student</td></tr>
+                  <td>Student</td>
                   {%endif%}
+                  <td>{{review.time_of_review}}</td>
+                </tr>
                   {%endfor%}
                   {% else %}
                     No reviews received <br>
@@ -300,19 +308,28 @@
                 <table style="margin-right: 0px; width: 100%">
                   <h4>Reviews Written:</h4> 
                   {%if reviews_written %}
+                  <tr>
+                    <th>Student</th>
+                    <th>Subject</th>
+                    <th>Rating</th>
+                    <th>Type of Review</th>
+                    <th>Time of Review</th>
+                  </tr>
                   {%for review in reviews_written%}
-                  <tr><td>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</td></tr>
-                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
-                  <tr><td>Rating: {{review.rating}}</td></tr>
+                  <tr>
+                  <td>{{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
+                  <td>{{review.subject_in_regards_to.class_name}}</td>
+                  <td>{{review.rating}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <tr><td>Type of Review: Tutor</td></tr>
+                  <td>Tutor</td>
                   {% else %}
-                  <tr><td>Type of Review: Student</td></tr>
+                  <td>Student</td>
                   {%endif%}
-                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
+                  <td>{{review.time_of_review}}</td>
+                </tr>
                   {%endfor%}
                   {% else %}
-                    No reviews Written <br>
+                    No reviews written <br>
                   {%endif%}
                 </table>
                 <br>
