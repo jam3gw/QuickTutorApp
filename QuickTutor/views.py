@@ -289,6 +289,8 @@ def acceptOffer(request, session_id):
         session.tutor_proposal = "2"
     elif session.student_proposal == "0":
         session.student_proposal = "2"
+    return HttpResponseRedirect('/profile')
+    
 def deleteTutorableClass(request, tutorable_class_id):
     tutorable_class = get_object_or_404(TutorableClass, pk = tutorable_class_id)
     tutorable_class.delete()
