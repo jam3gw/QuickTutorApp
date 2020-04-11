@@ -34,6 +34,7 @@ urlpatterns = [
     path('profile/view-reviews/', ReviewsView.as_view()),
     path('profile/view-sessions/', SessionsView.as_view()),
     path('profile/new-session/', Create_Session),
+    path('profile/new-session/<tutor_id>', createSessionSpecific, name = "specific_session_creation"),
     path('profile/edit-profile/', edit_Profile_Class),
 
     path('sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html")),

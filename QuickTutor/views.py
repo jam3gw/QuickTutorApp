@@ -89,7 +89,7 @@ class ProfileView(generic.TemplateView):
                 current_rating_sum += rating['rating']
                 current_num_ratings += 1
                 
-            average_rating = current_rating_sum/ current_num_ratings
+            average_rating = round(current_rating_sum/ current_num_ratings,2)
         else:
             average_rating = 0
             current_num_ratings = 0
@@ -229,7 +229,7 @@ def Create_Session(request):
 
         send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
 
-        return HttpResponseRedirect('/profile/view-sessions/')
+        return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -365,7 +365,7 @@ def OtherProfileView(request, user_id):
             current_rating_sum += rating['rating']
             current_num_ratings += 1
             
-        average_rating = current_rating_sum/ current_num_ratings
+        average_rating = round(current_rating_sum/ current_num_ratings,2)
     else:
         average_rating = 0
         current_num_ratings = 0
@@ -383,3 +383,32 @@ def OtherProfileView(request, user_id):
         'ratings_received' : current_num_ratings
     }
     return render(request, template_name, context = context_objects)
+
+def createSessionSpecific(request, tutor_id):
+    form = CreateSpecificSessionForm(request.POST)
+    userObject = QTUser.objects.get(username = request.user.username)
+    if form.is_valid():
+        # process the data in form.cleaned_data as required
+        # ...
+        # redirect to a new URL:
+        new_session = form.save(commit = False)
+        new_session.student = request.user
+        new_session.tutor = get_object_or_404(QTUser, pk=tutor_id)
+        new_session.student_proposal = '2'
+        new_session.save()
+
+        subject = "Tutor Request [DO NOT REPLY]"
+        message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
+        recepient = new_session.tutor.email
+
+        send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
+
+        return HttpResponseRedirect('/profile/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CreateSpecificSessionForm()
+        print("incorrect", form.data)
+        
+
+    return render(request, 'QuickTutor/create_session.html', {'form': form})

@@ -18,6 +18,12 @@ class CreateSessionForm(forms.ModelForm):
         fields = ['tutor', 'subject_in_regards_to', 'start_date_and_time',
         'end_date_and_time','price_of_tutor']
 
+class CreateSpecificSessionForm(forms.ModelForm):
+    class Meta:
+        model = Session
+        fields = ['subject_in_regards_to', 'start_date_and_time',
+        'end_date_and_time','price_of_tutor']
+
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
