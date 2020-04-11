@@ -63,9 +63,17 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your Info</h1> 
                 <br>
+                <form method="post" action="/profile/edit-profile/">{% csrf_token %}
+                    {{form}}
+                    <input type="submit" value="Send">
+                    
+                </form>
+                
+                
+               
                   <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                     <tr class="w3-light-grey">
-                      <td>Name: {{user.first_name}} {{user.last_name}}</td>
+                      <td>{{user.first_name}}</td>
                     </tr>
                     <tr>
                       <td>Year: {{user.year}}</td>
@@ -141,8 +149,9 @@
                 <!--Should include option to end session which will take to page that says the cost?-->
             <h3>Session Requests</h3>
                 <!-- If the user has not accepted the session but the other person has -->
+                
                 {% if pending_sessions_requested_student %}
-                <table >
+                <table>
                   <tr>
                       <th>Tutor</th>
                       <th>Subject</th>
@@ -159,7 +168,7 @@
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td>PENDING</td>
-                      <td><a href = "/proflile"><button>EDIT</button></a></td>
+                      <td><a href = "/profile"><button>EDIT</button></a></td>
                       <td>DELETE</td>
                   </tr></button></a>
                   {%endfor%}

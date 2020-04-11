@@ -52,7 +52,9 @@ def generateToken(identity):
 
 class ProfileView(generic.TemplateView):
     template_name = 'QuickTutor/profile.html'
-
+    def post(self, request, **kwargs):
+        print(request)
+        return HttpResponseRedirect(request.path_info)
     def get(self,request):
         user = request.user
 
@@ -103,8 +105,12 @@ class ProfileView(generic.TemplateView):
             'reviews_received' : reviews_received,
             'reviews_written' : reviews_written,
             'average_rating' : average_rating,
-            'ratings_received' : current_num_ratings
+            'ratings_received' : current_num_ratings,
+            'form': EditProfileForm(request.POST),
         }
+        
+            
+        
         return render(request, self.template_name, context = context_objects)
 
 class ReviewsView(generic.TemplateView):
