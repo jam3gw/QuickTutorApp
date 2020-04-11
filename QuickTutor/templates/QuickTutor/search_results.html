@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<h1>SEARCH RESULTS</h1>
+
+<h4>Classes Need Help</h4>
+<ul>
+  {% if classes_need_help_in %}
+    {% for hclass in classes_need_help %}
+      <li>
+        {{ hclass.class_id }}
+      </li>
+    {% endfor %}
+  {% else %}
+    <h4>No classes need help</h4>
+  {% endif %}
+  
+</ul>
+
