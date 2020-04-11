@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from allauth.account.views import LoginView, SignupView, LogoutView, PasswordResetView
 from django.views import generic
@@ -254,5 +254,15 @@ class SessionsView(generic.TemplateView):
 
         return render(request, self.template_name, context = context_objects)
 
+def deleteSession(request, session_id):
+    session = get_object_or_404(Session, pk = session_id)
+    session.delete()
 
+    return HttpResponseRedirect('/profile')
+
+def deleteClassNeedsHelp(request, class_needs_help_id):
+    class_needs_help = get_object_or_404(Session, pk = class_needs_help_id)
+    class_needs_help.delete()  
+    
+    return HttpResponseRedirect('/profile')
 
