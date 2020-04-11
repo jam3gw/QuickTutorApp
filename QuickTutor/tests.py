@@ -21,8 +21,8 @@ from QuickTutor.models import Class, Review, Session, ClassNeedsHelp, TutorableC
 #        self.assertTrue(len(carl.classes_need_help) == 1)
 class ClassTestCase(TestCase):
     def setUp(self):
-        Class.objects.create(class_name="ryan", dept="RYAN", course_num="1001")
-        Class.objects.create(class_name="carl", dept="CARL", course_num="1002")
+        Class.objects.create(class_name="ryan", dept="RYAN", course_num="1001", full_id="ryanRYAN1001")
+        Class.objects.create(class_name="carl", dept="CARL", course_num="1002", full_id="carlCARL1002")
     def test_Class_str1(self):
         testclass = Class.objects.get(class_name="ryan")
         self.assertTrue(testclass.__str__() == "RYAN1001 (ryan)")
@@ -48,7 +48,7 @@ class SessionTestCase(TestCase):
     def setUp(self):
         QTUser.objects.create(first_name="student", last_name="student", username="test")
         #testTutor = QTUser.objects.create(first_name="tutor", last_name="tutor")
-        Class.objects.create(class_name="testClass", dept="TEST", course_num="1001")
+        Class.objects.create(class_name="testClass", dept="TEST", course_num="1001", full_id="testClassTEST1001")
     def test_str_1(self):
         testStudent = QTUser.objects.get(first_name="student")
         testClass = Class.objects.get(class_name="testClass")
@@ -62,7 +62,7 @@ class SessionTestCase(TestCase):
 class ClassNeedsHelpTestCase(TestCase):
     def setUp(self):
         QTUser.objects.create(first_name="student", last_name="student", username="Ryan")
-        Class.objects.create(class_name="Algorithms", dept="CS", course_num="4102")
+        Class.objects.create(class_name="Algorithms", dept="CS", course_num="4102", full_id="AlgorithmsCS4102_1")
     def test_str_1(self):
         testUser = QTUser.objects.get(first_name="student")
         testClass = Class.objects.get(class_name="Algorithms")
@@ -76,14 +76,15 @@ class ClassNeedsHelpTestCase(TestCase):
 class TutorableClassTestCase(TestCase):
     def setUp(self):
         QTUser.objects.create(first_name="Jake", last_name="Moses", username="Jake")
-        Class.objects.create(class_name="Algorithms", dept="CS", course_num="4102")
+        Class.objects.create(class_name="Algorithms", dept="CS", course_num="4102", full_id="AlgorithmsCS4102_2")
     def test_str_1(self):
         testUser = QTUser.objects.get(first_name="Jake")
         testClass = Class.objects.get(class_name="Algorithms")
-        testTutorable = TutorableClass(user=testUser, class_id=testClass)
-        self.assertTrue(testTutorable.__str__() == "Jake can tutor in CS4102 (Algorithms)")
+        testTutorable = TutorableClass(user=testUser, class_id=testClass, Former_TA="TRUE", experience="")
+        print("TEST TUTORABLE", testTutorable.__str__())
+        self.assertTrue(testTutorable.__str__() == "Jake can tutor in CS4102 (Algorithms) and they are a former TA.")
     def test_str_2(self):
         testUser = QTUser.objects.get(first_name="Jake")
         testClass = Class.objects.get(class_name="Algorithms")
-        testTutorable = TutorableClass(user=testUser, class_id=testClass)
+        testTutorable = TutorableClass(user=testUser, class_id=testClass, Former_TA="FALSE", experience="")
         self.assertFalse(testTutorable.__str__() == "Carl can tutor in CS4102 (Algorithms)")

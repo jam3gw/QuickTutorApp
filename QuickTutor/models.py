@@ -89,7 +89,7 @@ class TutorableClass(models.Model):
 
     def __str__(self):
         if(self.Former_TA):
-           return str(self.user) + " can tutor in " + str(self.class_id) + " and they are a former ta. \n" + str(self.experience) 
+           return str(self.user) + " can tutor in " + str(self.class_id) + " and they are a former TA."
         else:
-            return str(self.user) + " can tutor in " + str(self.class_id) + "\n" + str(self.experience) 
+            return str(self.user) + " can tutor in " + str(self.class_id)
 
