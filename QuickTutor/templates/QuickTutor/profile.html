@@ -137,9 +137,57 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
                 <br>
-                <h3>Active Sessions</h3>
-                <!--Should include option to end session which will take to page that says the cost?-->
-            <h3>Session Requests</h3>
+                <h3>Active Student Sessions</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_student_sessions %}
+                <table >
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_student_sessions%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Accepted Sessions as a Student <br>
+                {%endif%}
+                <br>
+              <h3>Active Tutor Sessions</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_tutor_sessions %}
+                <table >
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_tutor_sessions%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Accepted Sessions as a Tutor <br>
+                {%endif%}
+                <br>
+            <h3>Session Requests as Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 {% if pending_sessions_requested_student %}
                 <table >
@@ -160,13 +208,43 @@
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td>PENDING</td>
-                      <td><a href={% url "delete_session" session.id %}><button>X</button></a>
+                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
                     </td>
                   </tr></a>
                   {%endfor%}
                 </table>
                 {% else %}
-                No Sessions Requested as Student <br>
+                No Sessions Requested as a Student <br>
+                {%endif%}
+                <br>
+                <h3>Session Requests as a Tutor</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if pending_sessions_requested_tutor %}
+                <table >
+                  <tr>
+                      <th>Student</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                      <th>State</th>
+                      <th>DELETE</th>
+                  </tr>
+                  {%for session in pending_sessions_requested_tutor%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                      <td>PENDING</td>
+                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
+                    </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Sessions Requested as a Tutor <br>
                 {%endif%}
                 <br>
             <h3>Sessions You have Received Requests For</h3>
