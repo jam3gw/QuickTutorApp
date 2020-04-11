@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<h1>SEARCH</h1>
+{% load static %}
+
+<h3>Available Tutors</h4>
+<ul>
+  {% if classes_need_help_in %}
+    {%for hclass in classes_need_help_in%}
+    <p></p>
+    <h4>
+    Class Name: {{hclass.class_id.class_name}}
+    Class Code: {{hclass.class_id.dept}}{{hclass.class_id.course_num}}
+    </h4>
+    <p></p>
+      {% if tutors_and_classes %}
+        {%for tclass in tutors_and_classes%}
+          {% if tclass.class_id == hclass.class_id%}
+            <tr><td>Tutor Name: {{tclass.user.first_name}} {{tclass.user.last_name}}</td></tr>
+            <tr><td>Class Code: {{tclass.class_id.dept}}{{tclass.class_id.course_num}}</td></tr>
+            <p></p>
+          {%endif%}
+        {%endfor%}
+      {% else %}
+        <h4>No Tutors were found</h4>
+      {% endif %}
+  
+    </td></tr>
+    {%endfor%}
+  {% else %}
+    <h4>this one doesn't work either</h4>
+  {% endif %}
+<!-- 
+  {% if tutors_and_classes %}
+    <h4>List of tutors:</h4>
+    {%for tclass in tutors_and_classes%}
+    <tr><td>Tutor Name: {{tclass.user.first_name}} {{tclass.user.last_name}}</td></tr>
+    <tr><td>Class Code: {{tclass.class_id.dept}}{{tclass.class_id.course_num}}</td></tr>
+    {%endfor%}
+  {% else %}
+    <h4>No Tutors were found</h4>
+  {% endif %} -->
+  
+</ul>
+
