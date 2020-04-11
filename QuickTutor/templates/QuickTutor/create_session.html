@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-{% load static%}
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'styling/profile.css' %}">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<html>
+<head>
+         <title>Sessions</title>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
 
 <div>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,29 +30,23 @@
               <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/search">Find A Tutor</a>
+              <a class="nav-link" href="/sessions">Sessions</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/feedback">Feedback</a>
             </li>
           </ul>
         </div>
       </nav>
       
-<style>
-    h1 {background-color: lightblue; text-align:center}
-    form {display: flex; flex-direction: column;}
-    label {size: 15px;}
- </style>
-<head>
-    <h1>Add a New Class That You Need Help With</h1>
-</head>
-
-<div align = "center">
-    <form method="post" >
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-        <a href="/profile">Cancel</a>
-    </form>
-</div>
+<body>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+    <a href="/profile/view-sessions">Cancel</a>
+</form>
+</body>

@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-STATICFILES_DIRS = (os.path.join(os.path.dirname(__file__),'static'),)
+STATICFILES_DIRS = (os.path.join('QuickTutor/static'),)
 
 AUTHENTICATION_BACKENDS = (
     #'allauth' specific authentication methods
@@ -164,7 +164,12 @@ ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = "QuickTutor.QTUser"
 LOGIN_REDIRECT_URL = "/profile"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'officialquicktutor@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = "Tutorme11"
 
 TWILIO_ACCT_SID = 'AC751c817bb4d2ee75281aaefeb8020c8e'
 TWILIO_CHAT_SID = 'IS8724fa3abd594fcbb9359045de2984d4'
