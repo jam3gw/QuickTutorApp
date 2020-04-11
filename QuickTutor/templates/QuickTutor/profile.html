@@ -103,12 +103,20 @@
                 <h4>Classes Need Help In:</h4>
                 <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                   {% if classes_need_help_in %}
+                  <tr>
+                    <th>Class Name</th>
+                    <th>Class Code</th>
+                    <th>Remove this Class</th>
+                  </tr>
                     {%for class in classes_need_help_in%}
-                    <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
-                    <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
+                    <tr>
+                      <td>{{class.class_id.class_name}}</td>
+                      <td>{{class.class_id.dept}}{{class.class_id.course_num}}</td>
+                      <td><a href={% url "delete_class_needs_help" class.id %}><button>remove</button></a></td>
+                  </tr>
                     {%endfor%}
                   {% else %}
-                    None
+                    You have no classes you need help with.
                   {% endif %}
                 </table>
                 <br>
@@ -118,14 +126,22 @@
                 <h4>Classes Can Tutor In: </h4> 
                 <table style="margin-right: 0px; width: 100%">
                 {%if classes_can_tutor_in %}
-                {%for class in classes_can_tutor_in%}
-                  <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
-                  <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
+                <tr>
+                  <th>Class Name</th>
+                  <th>Class Code</th>
+                  <th>Remove this Class</th>
+                </tr>
+                  {%for class in classes_can_tutor_in%}
+                  <tr>
+                    <td>{{class.class_id.class_name}}</td>
+                    <td>{{class.class_id.dept}}{{class.class_id.course_num}}</td>
+                    <td><a href={% url "delete_tutorable_class" class.id %}><button>remove</button></a></td>
+                </tr>
                   {%endfor%}
-                  {% else %}
-                    None <br>
-                  {%endif%}
-                </table>
+                {% else %}
+                  You have no classes that you can tutor in.
+                {% endif %}
+              </table>
                 <br>
                 <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Can Tutor In</button></a>
               </div>
