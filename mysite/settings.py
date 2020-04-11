@@ -164,7 +164,12 @@ ACCOUNT_UNIQUE_EMAIL = True
 AUTH_USER_MODEL = "QuickTutor.QTUser"
 LOGIN_REDIRECT_URL = "/profile"
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'officialquicktutor@gmail.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = "Tutorme11"
 
 TWILIO_ACCT_SID = 'AC751c817bb4d2ee75281aaefeb8020c8e'
 TWILIO_CHAT_SID = 'IS8724fa3abd594fcbb9359045de2984d4'
