@@ -340,3 +340,46 @@ class SearchPageView(generic.TemplateView):
         }
         return render(request, self.template_name, context = context_objects)
 
+def OtherProfileView(request, user_id):
+    template_name = 'QuickTutor/otherProfile.html'
+    user = get_object_or_404(QTUser, pk= user_id)
+
+    #sessions participated in 
+    student_sessions = list(Session.objects.filter(student = user).order_by('-start_date_and_time'))
+    tutor_sessions = list(Session.objects.filter(tutor = user).order_by('-start_date_and_time'))
+
+    #classes need help in/can tutor in 
+    classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
+    classes_can_tutor_in = list(TutorableClass.objects.filter(user = user))
+
+    #reviews
+    reviews_received = list(Review.objects.filter(Recipient = user).order_by('-time_of_review'))
+
+    reviews_written = list(Review.objects.filter(Author = user).order_by('-time_of_review'))
+
+    average_rating = list(Review.objects.filter(Recipient = user).values('rating')) #returns dictionary
+    if (len(average_rating) != 0):
+        current_rating_sum = 0
+        current_num_ratings = 0
+        for rating in average_rating:
+            current_rating_sum += rating['rating']
+            current_num_ratings += 1
+            
+        average_rating = current_rating_sum/ current_num_ratings
+    else:
+        average_rating = 0
+        current_num_ratings = 0
+
+
+    context_objects = {
+        'user' : user,
+        'student_sessions': student_sessions,
+        'tutor_sessions' : tutor_sessions,
+        'classes_need_help_in' : classes_need_help_in,
+        'classes_can_tutor_in' : classes_can_tutor_in,
+        'reviews_received' : reviews_received,
+        'reviews_written' : reviews_written,
+        'average_rating' : average_rating,
+        'ratings_received' : current_num_ratings
+    }
+    return render(request, template_name, context = context_objects)

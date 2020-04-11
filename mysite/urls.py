@@ -43,6 +43,7 @@ urlpatterns = [
     path('profile/reject_session/<session_id>/', rejectOffer, name="reject_session"),
     path('profile/accept_session/<session_id>/', acceptOffer, name="accept_session"),
     path('search/', SearchPageView.as_view()),
-    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html"))
+    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html")),
+    path('search/<user_id>/', OtherProfileView, name="other_profile")
 
 ]
