@@ -329,7 +329,7 @@ class SearchPageView(generic.TemplateView):
         classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
         class_ids = ClassNeedsHelp.objects.filter(user = user).values('class_id')
         tutors_and_classes = list(TutorableClass.objects.filter(class_id__in=class_ids ))
-
+        print('first object', tutors_and_classes[0])
         # for c in classes_need_help_in:
         #     tutors_and_classes.append(list(TutorableClass.objects.filter(class_id = c.class_id)))
         #     print('Class:', c, 'ID:', c.class_id )

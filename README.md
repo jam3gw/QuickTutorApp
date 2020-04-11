@@ -35,6 +35,12 @@ Run these commands after deleting postgres and remaking the database.
 python3 manage.py makemigrations
 python3 manage.py migrate
 ````
+### Re-populate classes
+After restarting the database run 
+````
+python3 manage.py csvimport
+````
+to re-populate the database with classes
 
 ### Create the database superuser
 
@@ -56,3 +62,14 @@ brew services restart postgresql
 - In the admin, configure the Google OAuth Client ID and Secret Key with the Site Authorization on the Heroku admin page
 - Go to this website: https://console.developers.google.com/apis/credentials/oauthclient/209060647268-2gma3tapsd6qkqcdodv9p0jv26ig9raq.apps.googleusercontent.com?project=quick-tutor-268316 and configure the page at which the login will occur on Heroku as well as the redirect page after the login is successful
 - Go to the sites and add the Google login (via this tutorial: https://www.youtube.com/watch?v=ZTBexYIIOP8) via the admin part of the webapp
+
+# Class Data Format
+The data used to populate the class database is stored in a CSV in the following format:
+| CLASS_NAME                               	| DEPT 	| COURSE_NUM 	| COURSE_TOPIC                    	| FULL_ID                                                                 	|
+|------------------------------------------	|------	|------------	|---------------------------------	|-------------------------------------------------------------------------	|
+| Program and Data Representation          	| CS   	| 2150       	|                                 	| Program and Data RepresentationCS2150                                   	|
+| Special Topics in Computer Science       	| CS   	| 3501       	| Foundations of Data Analysis    	| Special Topics in Computer ScienceCS3501Foundations of Data Analysis    	|
+| Special Topics in Computer Science       	| CS   	| 3501       	| Embedded Computing & Robotics I 	| Special Topics in Computer ScienceCS3501Embedded Computing & Robotics I 	|
+| Advanced Software Development Techniques 	| CS   	| 3240       	|                                 	| Advanced Software Development TechniquesCS3240                          	|
+
+The FULL_ID field is a concatenation of all the previous fields in that row. In the class model, the `full_id` field is not null and must be unique. 

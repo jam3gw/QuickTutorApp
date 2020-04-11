@@ -7,6 +7,6 @@ class Command(BaseCommand):
   def handle(self, *args, **kwargs):
     insert_count=Class.objects.from_csv(
       os.path.join(BASE_DIR, './staticfiles/data/UVA_Courses_S20.csv'),
-      dict(class_name='CLASS_NAME', dept='DEPT', course_num='COURSE_NUM', course_topic='COURSE_TOPIC')
+      dict(class_name='CLASS_NAME', dept='DEPT', course_num='COURSE_NUM', course_topic='COURSE_TOPIC', full_id='FULL_ID')
       )
     print("{} Classes inserted".format(insert_count))
