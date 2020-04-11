@@ -41,8 +41,8 @@ urlpatterns = [
     path('profile/delete_class_needs_help/<class_needs_help_id>/', deleteClassNeedsHelp, name= "delete_class_needs_help"),
     path('profile/delete_tutorable_class/<tutorable_class_id>/', deleteTutorableClass, name= "delete_tutorable_class"),
     path('profile/reject_session/<session_id>/', rejectOffer, name="reject_session"),
-    path('profile/accept_session/<session_id>/', acceptOffer, name="accept_session")
+    path('profile/accept_session/<session_id>/', acceptOffer, name="accept_session"),
     path('search/', SearchPageView.as_view()),
-    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html")),
+    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html"))
 
 ]
