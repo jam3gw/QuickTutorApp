@@ -19,6 +19,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView, ListView, DetailView
 from QuickTutor.views import *
 
+
 urlpatterns = [
     path('',TemplateView.as_view(template_name="QuickTutor/index.html")),
     path('login/',TemplateView.as_view(template_name="login/loginPage.html")),
@@ -34,10 +35,14 @@ urlpatterns = [
     path('profile/view-sessions/', SessionsView.as_view()),
     path('profile/new-session/', Create_Session),
     path('profile/edit-profile/', edit_Profile_Class),
+
     path('sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html")),
     path('profile/delete_session/<session_id>/', deleteSession, name= "delete_session"),
     path('profile/delete_class_needs_help/<class_needs_help_id>/', deleteClassNeedsHelp, name= "delete_class_needs_help"),
     path('profile/delete_tutorable_class/<tutorable_class_id>/', deleteTutorableClass, name= "delete_tutorable_class"),
     path('profile/reject_session/<session_id>/', rejectOffer, name="reject_session"),
     path('profile/accept_session/<session_id>/', acceptOffer, name="accept_session")
+    path('search/', SearchPageView.as_view()),
+    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html")),
+
 ]

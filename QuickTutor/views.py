@@ -4,7 +4,10 @@ from allauth.account.views import LoginView, SignupView, LogoutView, PasswordRes
 from django.views import generic
 from django.http import JsonResponse
 from django.conf import settings
+
 from . import forms
+import sys
+
 from twilio.rest import Client
 from twilio.jwt.access_token import AccessToken
 from twilio.jwt.access_token.grants import (
@@ -233,6 +236,7 @@ def Create_Session(request):
         form = CreateSessionForm()
         print("incorrect", form.data)
         
+
     return render(request, 'QuickTutor/create_session.html', {'form': form})
 
 class SessionsView(generic.TemplateView):
@@ -309,3 +313,30 @@ def deleteTutorableClass(request, tutorable_class_id):
     tutorable_class.delete()
     
     return HttpResponseRedirect('/profile')
+
+#     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
+
+class SearchResultsView(generic.ListView):
+    model = TutorableClass
+    template_name = 'search_results.html'
+
+class SearchPageView(generic.TemplateView):
+    template_name = "QuickTutor/search.html"
+
+    def get(self,request):
+        user = request.user
+        
+        classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
+        class_ids = ClassNeedsHelp.objects.filter(user = user).values('class_id')
+        tutors_and_classes = list(TutorableClass.objects.filter(class_id__in=class_ids ))
+
+        # for c in classes_need_help_in:
+        #     tutors_and_classes.append(list(TutorableClass.objects.filter(class_id = c.class_id)))
+        #     print('Class:', c, 'ID:', c.class_id )
+
+        context_objects = {
+            'classes_need_help_in' : classes_need_help_in,
+            'tutors_and_classes' : tutors_and_classes,
+        }
+        return render(request, self.template_name, context = context_objects)
+
