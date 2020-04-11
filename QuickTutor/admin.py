@@ -18,7 +18,8 @@ class ClassAdmin(admin.ModelAdmin):
 class SessionAdmin(admin.ModelAdmin):
     model = Session
     list_display = ['student', 'tutor', 'subject_in_regards_to']
-    fields = ['student', 'tutor', 'subject_in_regards_to','start_date_and_time', 'end_date_and_time']
+    fields = ['student', 'tutor', 'subject_in_regards_to','start_date_and_time', 'end_date_and_time',
+        'student_proposal', 'tutor_proposal', 'price_of_tutor']
 
 
 class ReviewAdmin(admin.ModelAdmin):

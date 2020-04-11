@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 from django.views.generic import TemplateView, ListView, DetailView
-from QuickTutor.views import edit_Profile_Class,SessionsView,ReviewsView, ProfileView, Add_Class_Needs_Help, Add_Review_Class, Add_Tutorable_Class
+from QuickTutor.views import *
+
 
 urlpatterns = [
     path('',TemplateView.as_view(template_name="QuickTutor/index.html")),
@@ -32,5 +33,17 @@ urlpatterns = [
     path('profile/add-review/', Add_Review_Class),
     path('profile/view-reviews/', ReviewsView.as_view()),
     path('profile/view-sessions/', SessionsView.as_view()),
+    path('profile/new-session/', Create_Session),
     path('profile/edit-profile/', edit_Profile_Class),
+
+    path('sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html")),
+    path('profile/delete_session/<session_id>/', deleteSession, name= "delete_session"),
+    path('profile/delete_class_needs_help/<class_needs_help_id>/', deleteClassNeedsHelp, name= "delete_class_needs_help"),
+    path('profile/delete_tutorable_class/<tutorable_class_id>/', deleteTutorableClass, name= "delete_tutorable_class"),
+    path('profile/reject_session/<session_id>/', rejectOffer, name="reject_session"),
+    path('profile/accept_session/<session_id>/', acceptOffer, name="accept_session"),
+    path('search/', SearchPageView.as_view()),
+    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html")),
+    path('search/<user_id>/', OtherProfileView, name="other_profile")
+
 ]
