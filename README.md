@@ -35,6 +35,12 @@ Run these commands after deleting postgres and remaking the database.
 python3 manage.py makemigrations
 python3 manage.py migrate
 ````
+### Re-populate classes
+After restarting the database run 
+````
+python3 manage.py csvimport
+````
+to re-populate the database with classes
 
 ### Create the database superuser
 

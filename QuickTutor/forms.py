@@ -10,7 +10,7 @@ class ClassNeedsHelpForm(forms.ModelForm):
 class TutorableClassForm(forms.ModelForm):
     class Meta:
         model = TutorableClass
-        fields = ['class_id','Former TA', 'experience']
+        fields = ['class_id','Former_TA', 'experience']
 
 class CreateSessionForm(forms.ModelForm):
     class Meta:
