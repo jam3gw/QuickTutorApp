@@ -266,6 +266,32 @@ def deleteClassNeedsHelp(request, class_needs_help_id):
     
     return HttpResponseRedirect('/profile')
 
+def rejectOffer(request, session_id):
+    session = get_object_or_404(Session, pk = session_id)
+    tutor = session.tutor
+    student = session.student
+    if session.tutor_proposal == "2": #When the student clicks the button
+        subject = "Offer Rejected [DO NOT REPLY]"
+        message = student.first_name + " " + student.last_name + " has rejected your offer"
+        send_mail(subject, message, request.user.email ,[tutor.email], fail_silently = False)
+    elif session.student_proposal == "2": #When the tutor clicks the button
+        subject = "Offer Rejected [DO NOT REPLY]"
+        message = tutor.first_name + " " + tutor.last_name + "has rejected your offer"
+        send_mail(subject, message, request.user.email ,[student.email], fail_silently = False)
+    session.delete()
+    return HttpResponseRedirect('/profile')
+
+def acceptOffer(request, session_id):
+    session = get_object_or_404(Session, pk = session_id)
+    tutor = session.tutor
+    student = session.student
+    if session.tutor_proposal == "0":
+        session.tutor_proposal = "2"
+    elif session.student_proposal == "0":
+        session.student_proposal = "2"
+    session.save()
+    return HttpResponseRedirect('/profile')
+
 def deleteTutorableClass(request, tutorable_class_id):
     tutorable_class = get_object_or_404(TutorableClass, pk = tutorable_class_id)
     tutorable_class.delete()

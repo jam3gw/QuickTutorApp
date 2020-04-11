@@ -279,8 +279,8 @@
                       <th>Price</th>
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
-                      <th>State</th>
-                      <th>DELETE</th>
+                      <th>ACCEPT</th>
+                      <th>REJECT</th>
                   </tr>
                   {%for session in waiting_acceptance_reject_student%}
                   <a><tr>
@@ -289,8 +289,8 @@
                       <td>{{session.subject_in_regards_to.class_name}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
-                      <td>PENDING</td>
-                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
+                      <td><a href={% url "accept_session" session.id %}><button>ACCEPT</button></a></td>
+                      <td><a href={% url "reject_session" session.id %}><button>REJECT</button></a>
                     </td>
                   </tr></a>
                   {%endfor%}
@@ -309,8 +309,8 @@
                       <th>Price</th>
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
-                      <th>State</th>
-                      <th>DELETE</th>
+                      <th>ACCEPT</th>
+                      <th>REJECT</th>
                   </tr>
                   {%for session in waiting_acceptance_reject_tutor%}
                   <a><tr>
@@ -319,8 +319,8 @@
                       <td>{{session.subject_in_regards_to.class_name}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
-                      <td>PENDING</td>
-                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
+                      <td><a href={% url "accept_session" session.id %}><button>ACCEPT</button></a></td>
+                      <td><a href={% url "reject_session" session.id %}><button>REJECT</button></a>
                     </td>
                   </tr></a>
                   {%endfor%}
