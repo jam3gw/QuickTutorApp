@@ -287,8 +287,14 @@ def acceptOffer(request, session_id):
     student = session.student
     if session.tutor_proposal == "0":
         session.tutor_proposal = "2"
+        subject = "Offer Accepted [DO NOT REPLY]"
+        message = tutor.first_name + " " + tutor.last_name + " has accepted your offer!"
+        send_mail(subject, message, request.user.email ,[student.email], fail_silently = False)
     elif session.student_proposal == "0":
         session.student_proposal = "2"
+        subject = "Offer Accepted [DO NOT REPLY]"
+        message = student.first_name + " " + student.last_name + " has accepted your offer!"
+        send_mail(subject, message, request.user.email ,[tutor.email], fail_silently = False)
     session.save()
     return HttpResponseRedirect('/profile')
 
