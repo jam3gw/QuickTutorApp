@@ -30,7 +30,7 @@
               <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/search">Find A Tutor</a>
+              <a class="nav-link" href="/sessions">Sessions</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
@@ -43,40 +43,10 @@
       </nav>
       
 <body>
-  <h3>Active Sessions</h3>
-      <!--Should include option to end session which will take to page that says the cost?-->
-  <h3>Session Requests</h3>
-      <!-- If the user has not accepted the session but the other person has -->
-      {% if pending_sessions_requested_student %}
-      <table >
-        <tr>
-            <th>Tutor</th>
-            <th>Subject</th>
-            <th>Start Date/Time</th>
-            <th>End Date/Time</th>
-            <th>State</th>
-            <th>EDIT</th>
-            <th>DELETE</th>
-        </tr>
-        {%for session in pending_sessions_requested_student%}
-        <tr>
-            <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-            <td>{{session.subject_in_regards_to.class_name}}</td>
-            <td>{{session.start_date_and_time}}</td>
-            <td>{{session.end_date_and_time}} </td>
-            <td>PENDING</td>
-            <td><a href = "/profile"><button>EDIT</button></a></td>
-            <td>
-              
-            </td>
-        </tr></button></a>
-        {%endfor%}
-      </table>
-      {% else %}
-      No Sessions Requested as Student <br>
-      {%endif%}
-      <br>
-  <h3>Sessions You have Received Requests For</h3>
-      <!-- If the user has accepted the session but the other person has not -->
-      <a href = "new-session/"><button>Propose a New Sessions</button></a>
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+    <a href="/profile/view-sessions">Cancel</a>
+</form>
 </body>
