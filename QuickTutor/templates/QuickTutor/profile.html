@@ -111,12 +111,22 @@
                 <h4>Classes Need Help In:</h4>
                 <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                   {% if classes_need_help_in %}
+                  <tr>
+                    <th>Class Name</th>
+                    <th>Class Code</th>
+                    <th>Elaboration</th>
+                    <th>Remove this Class</th>
+                  </tr>
                     {%for class in classes_need_help_in%}
-                    <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
-                    <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
+                    <tr>
+                      <td>{{class.class_id.class_name}}</td>
+                      <td>{{class.class_id.dept}}{{class.class_id.course_num}}</td>
+                      <td>{{class.elaboration}}</td>
+                      <td><a href={% url "delete_class_needs_help" class.id %}><button>remove</button></a></td>
+                  </tr>
                     {%endfor%}
                   {% else %}
-                    None
+                    You have no classes you need help with.
                   {% endif %}
                 </table>
                 <br>
@@ -126,14 +136,26 @@
                 <h4>Classes Can Tutor In: </h4> 
                 <table style="margin-right: 0px; width: 100%">
                 {%if classes_can_tutor_in %}
-                {%for class in classes_can_tutor_in%}
-                  <tr><td>Class Name: {{class.class_id.class_name}}</td></tr>
-                  <tr><td>Class Code: {{class.class_id.dept}}{{class.class_id.course_num}}</td></tr>
+                <tr>
+                  <th>Class Name</th>
+                  <th>Class Code</th>
+                  <th>Former TA</th>
+                  <th>Experience</th>
+                  <th>Remove this Class</th>
+                </tr>
+                  {%for class in classes_can_tutor_in%}
+                  <tr>
+                    <td>{{class.class_id.class_name}}</td>
+                    <td>{{class.class_id.dept}}{{class.class_id.course_num}}</td>
+                    <td>{{class.TA}}</td>
+                    <td>{{class.experience_detail}}</td>
+                    <td><a href={% url "delete_tutorable_class" class.id %}><button>remove</button></a></td>
+                </tr>
                   {%endfor%}
-                  {% else %}
-                    None <br>
-                  {%endif%}
-                </table>
+                {% else %}
+                  You have no classes that you can tutor in.
+                {% endif %}
+              </table>
                 <br>
                 <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary">Add A Class You Can Tutor In</button></a>
               </div>
@@ -145,9 +167,57 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
                 <br>
-                <h3>Active Sessions</h3>
-                <!--Should include option to end session which will take to page that says the cost?-->
-            <h3>Session Requests</h3>
+                <h3>Active Student Sessions</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_student_sessions %}
+                <table >
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_student_sessions%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Accepted Sessions as a Student <br>
+                {%endif%}
+                <br>
+              <h3>Active Tutor Sessions</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_tutor_sessions %}
+                <table >
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_tutor_sessions%}
+                  <tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Accepted Sessions as a Tutor <br>
+                {%endif%}
+                <br>
+            <h3>Session Requests as Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 
                 {% if pending_sessions_requested_student %}
@@ -155,30 +225,119 @@
                   <tr>
                       <th>Tutor</th>
                       <th>Subject</th>
+                      <th>Price</th>
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
                       <th>State</th>
-                      <th>EDIT</th>
                       <th>DELETE</th>
                   </tr>
                   {%for session in pending_sessions_requested_student%}
-                  <tr>
+                  <a><tr>
                       <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td>PENDING</td>
-                      <td><a href = "/profile"><button>EDIT</button></a></td>
-                      <td>DELETE</td>
-                  </tr></button></a>
+                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
+                    </td>
+                  </tr></a>
                   {%endfor%}
                 </table>
                 {% else %}
-                No Sessions Requested as Student <br>
+                No Sessions Requested as a Student <br>
                 {%endif%}
                 <br>
-            <h3>Sessions You have Received Requests For</h3>
+                <h3>Session Requests as a Tutor</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if pending_sessions_requested_tutor %}
+                <table >
+                  <tr>
+                      <th>Student</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                      <th>State</th>
+                      <th>DELETE</th>
+                  </tr>
+                  {%for session in pending_sessions_requested_tutor%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                      <td>PENDING</td>
+                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
+                    </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Sessions Requested as a Tutor <br>
+                {%endif%}
+                <br>
+            <h3>Sessions You have Received Requests For as a Student</h3>
                 <!-- If the user has accepted the session but the other person has not -->
+                {% if waiting_acceptance_reject_student %}
+                <table >
+                  <tr>
+                      <th>Student</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                      <th>ACCEPT</th>
+                      <th>REJECT</th>
+                  </tr>
+                  {%for session in waiting_acceptance_reject_student%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                      <td><a href={% url "accept_session" session.id %}><button>ACCEPT</button></a></td>
+                      <td><a href={% url "reject_session" session.id %}><button>REJECT</button></a>
+                    </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Requested Sessions as a Student <br>
+                {%endif%}
+                <br>
+                <h3>Sessions You have Received Requests For as a Tutor</h3>
+                <!-- If the user has accepted the session but the other person has not -->
+                {% if waiting_acceptance_reject_tutor %}
+                <table >
+                  <tr>
+                      <th>Student</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                      <th>ACCEPT</th>
+                      <th>REJECT</th>
+                  </tr>
+                  {%for session in waiting_acceptance_reject_tutor%}
+                  <a><tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td></td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                      <td><a href={% url "accept_session" session.id %}><button>ACCEPT</button></a></td>
+                      <td><a href={% url "reject_session" session.id %}><button>REJECT</button></a>
+                    </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                No Requested Sessions as a Tutor <br>
+                {%endif%}
+                <br>
                 <a href = "new-session/"><button>Propose a New Sessions</button></a>
               </div>
             </div>
@@ -194,17 +353,25 @@
                 <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                   <h4>Reviews Received:</h4>
                   {%if reviews_received %}
+                  <tr>
+                    <th>Author</th>
+                    <th>Subject</th>
+                    <th>Rating</th>
+                    <th>Type of Review</th>
+                    <th>Time of Review</th>
+                  </tr>
+                  <tr>
                   {%for review in reviews_received%}
-                  <tr><td>Author: {{review.Author.first_name}} {{review.Author.last_name}}</td></tr>
-                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
-                  <tr><td>Rating: {{review.rating}}</td></tr>
-                  <tr><td>Type of Review: </td></tr>
-                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
+                  <td>{{review.Author.first_name}} {{review.Author.last_name}}</td>
+                  <td>{{review.subject_in_regards_to.class_name}}</td>
+                  <td>{{review.rating}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <tr><td>Tutor</td></tr>
+                  <td>Tutor</td>
                   {% else %}
-                  <tr><td>Student</td></tr>
+                  <td>Student</td>
                   {%endif%}
+                  <td>{{review.time_of_review}}</td>
+                </tr>
                   {%endfor%}
                   {% else %}
                     No reviews received <br>
@@ -214,19 +381,28 @@
                 <table style="margin-right: 0px; width: 100%">
                   <h4>Reviews Written:</h4> 
                   {%if reviews_written %}
+                  <tr>
+                    <th>Student</th>
+                    <th>Subject</th>
+                    <th>Rating</th>
+                    <th>Type of Review</th>
+                    <th>Time of Review</th>
+                  </tr>
                   {%for review in reviews_written%}
-                  <tr><td>Recipient: {{review.Recipient.first_name}} {{review.Recipient.last_name}}</td></tr>
-                  <tr><td>Subject: {{review.subject_in_regards_to.class_name}}</td></tr>
-                  <tr><td>Rating: {{review.rating}}</td></tr>
+                  <tr>
+                  <td>{{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
+                  <td>{{review.subject_in_regards_to.class_name}}</td>
+                  <td>{{review.rating}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <tr><td>Type of Review: Tutor</td></tr>
+                  <td>Tutor</td>
                   {% else %}
-                  <tr><td>Type of Review: Student</td></tr>
+                  <td>Student</td>
                   {%endif%}
-                  <tr><td>Time of Review: {{review.time_of_review}}</td></tr>
+                  <td>{{review.time_of_review}}</td>
+                </tr>
                   {%endfor%}
                   {% else %}
-                    No reviews Written <br>
+                    No reviews written <br>
                   {%endif%}
                 </table>
                 <br>
