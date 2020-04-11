@@ -22,17 +22,18 @@ from QuickTutor.models import Class, Review, Session, ClassNeedsHelp, TutorableC
 class ClassTestCase(TestCase):
     def setUp(self):
         Class.objects.create(class_name="ryan", dept="RYAN", course_num="1001")
+        Class.objects.create(class_name="carl", dept="CARL", course_num="1002")
     def test_Class_str1(self):
         testclass = Class.objects.get(class_name="ryan")
         self.assertTrue(testclass.__str__() == "RYAN1001 (ryan)")
     def test_Class_str2(self):
-        testclass = Class.objects.create(class_name="carl", dept="CARL", course_num="1002")
+        testclass = Class.objects.get(class_name="carl")
         self.assertTrue(testclass.__str__() == "CARL1002 (carl)")
     def test_Class_str3(self):
         testclass = Class.objects.get(class_name="ryan")
         self.assertFalse(testclass.__str__() == "RYAN1000 (ryan)")
     def test_Class_str4(self):
-        testclass = Class.objects.create(class_name="carl", dept="CARL", course_num="1002")
+        testclass = Class.objects.get(class_name="carl")
         self.assertFalse(testclass.__str__() == "CARL1003 (carl)")
 class QTUserTestCase(TestCase):
     def setUp(self):
