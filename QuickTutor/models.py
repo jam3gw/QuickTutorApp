@@ -84,9 +84,12 @@ class ClassNeedsHelp(models.Model):
 class TutorableClass(models.Model):
     user = models.ForeignKey(QTUser, on_delete=models.CASCADE)
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
-    TA = models.BooleanField(name="Former TA", default=False)
+    TA = models.BooleanField(name="Former_TA", default=False)
     experience_detail = models.TextField(name="experience", max_length=None)
 
     def __str__(self):
-        return str(self.user) + " can tutor in " + str(self.class_id)
+        if(self.Former_TA):
+           return str(self.user) + " can tutor in " + str(self.class_id) + " and they are a former ta. \n" + str(self.experience) 
+        else:
+            return str(self.user) + " can tutor in " + str(self.class_id) + "\n" + str(self.experience) 
 

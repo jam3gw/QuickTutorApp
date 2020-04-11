@@ -18,6 +18,8 @@
       <tr>
         <th>Tutor Name</th>
         <th>Class Code</th>
+        <th>Former TA</th>
+        <th>Tutor Experience</th>
         <th>View Profile</th>
       </tr>
         {%for tclass in tutors_and_classes%}
@@ -25,6 +27,8 @@
             <tr>
               <td>{{tclass.user.first_name}} {{tclass.user.last_name}}</td>
               <td>{{tclass.class_id.dept}}{{tclass.class_id.course_num}}</td>
+              <td>{{tclass.Former_TA}}</td>
+              <td>{{tclass.experience}}</td>
               <td><a href={% url "other_profile" tclass.user.id %}><button>Click to View Profile</button></a></td>
             </tr>
 
