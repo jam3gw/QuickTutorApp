@@ -261,8 +261,8 @@ def deleteSession(request, session_id):
     return HttpResponseRedirect('/profile')
 
 def deleteClassNeedsHelp(request, class_needs_help_id):
-    class_needs_help = get_object_or_404(Session, pk = class_needs_help_id)
-    class_needs_help.delete()  
+    class_needs_help = get_object_or_404(ClassNeedsHelp, pk = class_needs_help_id)
+    class_needs_help.delete()
     
     return HttpResponseRedirect('/profile')
 
@@ -289,4 +289,8 @@ def acceptOffer(request, session_id):
         session.tutor_proposal = "2"
     elif session.student_proposal == "0":
         session.student_proposal = "2"
+def deleteTutorableClass(request, tutorable_class_id):
+    tutorable_class = get_object_or_404(TutorableClass, pk = tutorable_class_id)
+    tutorable_class.delete()
+    
     return HttpResponseRedirect('/profile')
