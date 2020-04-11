@@ -357,6 +357,7 @@
                     <th>Author</th>
                     <th>Subject</th>
                     <th>Rating</th>
+                    <th>Description</th>
                     <th>Type of Review</th>
                     <th>Time of Review</th>
                   </tr>
@@ -365,6 +366,7 @@
                   <td>{{review.Author.first_name}} {{review.Author.last_name}}</td>
                   <td>{{review.subject_in_regards_to.class_name}}</td>
                   <td>{{review.rating}}</td>
+                  <td>{{review.description}}</td>
                   {% if review.type_of_review == 'T' %}
                   <td>Tutor</td>
                   {% else %}
@@ -385,6 +387,7 @@
                     <th>Student</th>
                     <th>Subject</th>
                     <th>Rating</th>
+                    <th>Description</th>
                     <th>Type of Review</th>
                     <th>Time of Review</th>
                   </tr>
@@ -393,6 +396,7 @@
                   <td>{{review.Recipient.first_name}} {{review.Recipient.last_name}}</td>
                   <td>{{review.subject_in_regards_to.class_name}}</td>
                   <td>{{review.rating}}</td>
+                  <td>{{review.description}}</td>
                   {% if review.type_of_review == 'T' %}
                   <td>Tutor</td>
                   {% else %}
@@ -406,8 +410,8 @@
                   {%endif%}
                 </table>
                 <br>
-                <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Review History</button></a>
-                <br>
+                <!-- <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Review History</button></a> -->
+                <!-- <br> -->
                 <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary">Write A Review</button></a>
               </div>
             </div>
