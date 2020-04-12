@@ -40,6 +40,8 @@
     body {background-color:rgb(111, 157, 255);}
     body textarea {height: 20px; width: 400px;}
     body form {margin-left: 30px;}
+    body .buttoons {background-color: rgb(248, 167, 90);}
+    body .buttoons:hover {background-color: #007bff;}
  </style>
 <head>
     <h1>Add a New Class That You Can Tutor In</h1>
@@ -48,7 +50,7 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit">
-    <a href="/profile"><button type="button">Cancel</button></a>
+    <input type="submit" class="buttoons" value="Submit">
+    <a href="/profile"><button type="button" class="buttoons">Cancel</button></a>
 </form>
 </body>
