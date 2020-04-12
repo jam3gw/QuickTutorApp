@@ -13,15 +13,19 @@ class TutorableClassForm(forms.ModelForm):
         fields = ['class_id','Former_TA', 'experience']
 
 class CreateSessionForm(forms.ModelForm):
+    start_date_and_time = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'],initial="M/D/Y Hour:Minute")
+    end_date_and_time = forms.DateTimeField(input_formats=['%m/%d/%Y %I:%M %p'],initial="M/D/Y Hour:Minute")
+
     class Meta:
         model = Session
-        fields = ['tutor', 'subject_in_regards_to', 'start_date_and_time',
-        'end_date_and_time','price_of_tutor']
+        fields = ['tutor','subject_in_regards_to','price_of_tutor']
+
 
 class CreateSpecificSessionForm(forms.ModelForm):
+    start_date_and_time = forms.DateTimeField()
     class Meta:
         model = Session
-        fields = ['subject_in_regards_to', 'start_date_and_time',
+        fields = ['subject_in_regards_to',
         'end_date_and_time','price_of_tutor']
 
 class ReviewForm(forms.ModelForm):
