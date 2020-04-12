@@ -27,9 +27,6 @@
               <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/sessions">Sessions</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
             </li>
             <li class="nav-item">
@@ -40,9 +37,12 @@
       </nav>
       
 <body>
+  <style>
+    
+  </style>
   <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <input type="submit" value="Submit">
     <a href="/profile/view-sessions">Cancel</a>
 </form>

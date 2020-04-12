@@ -213,7 +213,6 @@ def edit_Profile_Class(request):
 def Create_Session(request):
     # if this is a POST request we need to process the form data
     form = CreateSessionForm(request.POST)
-    form.fields
     userObject = QTUser.objects.get(username = request.user.username)
     if form.is_valid():
         # process the data in form.cleaned_data as required
@@ -362,6 +361,8 @@ def createSessionSpecific(request, tutor_id):
         new_session = form.save(commit = False)
         new_session.student = request.user
         new_session.tutor = get_object_or_404(QTUser, pk=tutor_id)
+        new_session.start_date_and_time = form.cleaned_data['start_date_and_time']
+        new_session.end_date_and_time = form.cleaned_data['end_date_and_time']
         new_session.student_proposal = '2'
         new_session.save()
 
