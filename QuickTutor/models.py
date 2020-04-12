@@ -64,8 +64,8 @@ class Review(models.Model):
     Author = models.ForeignKey(QTUser, related_name = "Author", on_delete=models.CASCADE)
     Recipient = models.ForeignKey(QTUser,related_name="Recipient", on_delete=models.CASCADE)
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
-    rating = models.PositiveSmallIntegerField(null=False,choices= RATING_CHOICES, default = THREE ,help_text="Please rate your experience.")
-    description = models.TextField(help_text="Please enter some additional information regarding your experience")
+    rating = models.PositiveSmallIntegerField(null=False,choices= RATING_CHOICES, default = THREE)
+    description = models.TextField()
     type_of_review = models.CharField(max_length = 1, choices = STUDENT_OR_TUTOR_CHOICES, default = TUTOR)
     time_of_review = models.DateTimeField(default = timezone.now)
 

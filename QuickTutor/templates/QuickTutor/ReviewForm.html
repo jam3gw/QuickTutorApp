@@ -34,10 +34,9 @@
           </ul>
         </div>
       </nav>
-      
+<body>
 <style>
     h1 {background-color: lightblue; text-align:center}
-    form {display: flex; flex-direction: column;}
     label {size: 15px;}
  </style>
 <head>
@@ -46,7 +45,8 @@
 
 <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <input type="submit" value="Submit">
-    <a href="/profile">Cancel</a>
-</form>
+    <a href="/profile"><button type="button">Cancel</button></a>
+  </form>
+  </body>
