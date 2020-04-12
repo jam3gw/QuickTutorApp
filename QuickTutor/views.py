@@ -239,31 +239,6 @@ def Create_Session(request):
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})
 
-class SessionsView(generic.TemplateView):
-    # if this is a POST request we need to process the form data
-    template_name = 'QuickTutor/ViewSessions.html'
-    def get(self, request):
-        accepted_student_sessions = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2')
-        accepted_tutor_sessions = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2')
-            
-        pending_sessions_requested_student = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '0')
-        pending_sessions_requested_tutor = Session.objects.filter(tutor = request.user, student_proposal = '0', tutor_proposal = '2')
-            
-        waiting_acceptance_reject_student = Session.objects.filter(student = request.user, student_proposal = '0', tutor_proposal = '2')
-        waiting_acceptance_reject_tutor = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '0')
-
-        context_objects = {
-            'accepted_student_sessions': accepted_student_sessions,
-            'accepted_tutor_sessions' : accepted_tutor_sessions,
-            'pending_sessions_requested_student' :pending_sessions_requested_student, 
-            'pending_sessions_requested_tutor' : pending_sessions_requested_tutor, 
-            'waiting_acceptance_reject_student' : waiting_acceptance_reject_student,
-            'waiting_acceptance_reject_tutor' : waiting_acceptance_reject_tutor,
-        }
-        # check whether it's valid:
-
-        return render(request, self.template_name, context = context_objects)
-
 def deleteSession(request, session_id):
     session = get_object_or_404(Session, pk = session_id)
     session.delete()
@@ -329,7 +304,7 @@ class SearchPageView(generic.TemplateView):
         classes_need_help_in = list(ClassNeedsHelp.objects.filter(user = user))
         class_ids = ClassNeedsHelp.objects.filter(user = user).values('class_id')
         tutors_and_classes = list(TutorableClass.objects.filter(class_id__in=class_ids ))
-        
+
         # for c in classes_need_help_in:
         #     tutors_and_classes.append(list(TutorableClass.objects.filter(class_id = c.class_id)))
         #     print('Class:', c, 'ID:', c.class_id )
