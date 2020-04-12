@@ -23,9 +23,6 @@
               <a class="nav-link" href="/profile">My Profile</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'account_email' %}">Change E-mail</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
             </li>
             <li class="nav-item">
@@ -41,8 +38,8 @@
         </div>
       </nav>
 
-      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-dark">
-        <p class="display-5">Hello, {{user.first_name}}. Welcome to Your Profile</p>
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" style="background: #6f9dff">
+        <p class="display-5">Hello, {{user.first_name}}. Your Profile</p>
         <!--
         <div class="col-md-5 p-lg-5 mx-auto my-5">
           <h1 class="display-4 font-weight-normal"> Welcome to the Login Redirect Page</h1> <br>
@@ -55,6 +52,7 @@
           <!--<h4 class="item1 ">Your Profile:</h4> <br>-->
       
         <div class="container">
+          <div class="grid-container">
           <div class="card-deck mb-3 text-center">
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
@@ -63,14 +61,11 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your Info</h1> 
                 <br>
-                <form method="post" action="/profile/edit-profile/">{% csrf_token %}
+                <!--<form method="post" action="/profile/edit-profile/">{% csrf_token %}
                     {{form}}
                     <input type="submit" value="Send">
                     
-                </form>
-                
-                
-               
+                </form>-->
                   <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                     <tr class="w3-light-grey">
                       <td>{{user.first_name}}</td>
@@ -101,6 +96,8 @@
                 <a href= "edit-profile/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Edit Your Info</button></a>
               </div>
             </div>
+          </div>
+          <div class="grid-container">
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
                 <!--<h4 class="my-0 font-weight-normal">Pro</h4>-->
@@ -126,7 +123,7 @@
                   </tr>
                     {%endfor%}
                   {% else %}
-                    You have no classes you need help with.
+                    <h7>You have no classes you need help with.</h7>
                   {% endif %}
                 </table>
                 <br>
@@ -153,13 +150,15 @@
                 </tr>
                   {%endfor%}
                 {% else %}
-                  You have no classes that you can tutor in.
+                  <h7>You have no classes that you can tutor in.</h7>
                 {% endif %}
-              </table>
+                </table>
                 <br>
                 <a href = "add-tutorable-class/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Add A Class You Can Tutor In</button></a>
               </div>
             </div>
+          </div>
+          <div class="grid-container">
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
                 <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
@@ -170,7 +169,7 @@
                 <h3>Active Student Sessions</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 {% if accepted_student_sessions %}
-                <table >
+                <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Tutor</th>
                       <th>Subject</th>
@@ -189,10 +188,10 @@
                   {%endfor%}
                 </table>
                 {% else %}
-                No Accepted Sessions as a Student <br>
+                <h7>No Accepted Sessions as a Student</h7> <br>
                 {%endif%}
                 <br>
-              <h3>Active Tutor Sessions</h3>
+                <h3>Active Tutor Sessions</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 {% if accepted_tutor_sessions %}
                 <table >
@@ -214,10 +213,11 @@
                   {%endfor%}
                 </table>
                 {% else %}
-                No Accepted Sessions as a Tutor <br>
+                <h7>No Accepted Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-            <h3>Session Requests as Student</h3>
+          
+              <h3>Session Requests as Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 
                 {% if pending_sessions_requested_student %}
@@ -245,7 +245,7 @@
                   {%endfor%}
                 </table>
                 {% else %}
-                No Sessions Requested as a Student <br>
+                <h7>No Sessions Requested as a Student</h7> <br>
                 {%endif%}
                 <br>
                 <h3>Session Requests as a Tutor</h3>
@@ -275,10 +275,10 @@
                   {%endfor%}
                 </table>
                 {% else %}
-                No Sessions Requested as a Tutor <br>
+                <h7>No Sessions Requested as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-            <h3>Sessions You have Received Requests For as a Student</h3>
+                <h3>Sessions You have Received Requests For as a Student</h3>
                 <!-- If the user has accepted the session but the other person has not -->
                 {% if waiting_acceptance_reject_student %}
                 <table >
@@ -305,7 +305,7 @@
                   {%endfor%}
                 </table>
                 {% else %}
-                No Requested Sessions as a Student <br>
+                <h7>No Requested Sessions as a Student</h7> <br>
                 {%endif%}
                 <br>
                 <h3>Sessions You have Received Requests For as a Tutor</h3>
@@ -335,12 +335,14 @@
                   {%endfor%}
                 </table>
                 {% else %}
-                No Requested Sessions as a Tutor <br>
+                <h7>No Requested Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-                <a href = "new-session/"><button>Propose a New Session</button></a>
-
+                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session</button></a>
               </div>
+            </div>
+          </div>
+            </div>
             </div>
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
@@ -377,7 +379,7 @@
                 </tr>
                   {%endfor%}
                   {% else %}
-                    No reviews received <br>
+                    <h7>No reviews received</h7> <br>
                   {%endif%}
                 </table>
                 <br>
@@ -407,14 +409,14 @@
                 </tr>
                   {%endfor%}
                   {% else %}
-                    No reviews written <br>
+                    <h7>No reviews written</h7> <br>
                   {%endif%}
                 </table>
                 <br>
 
                 <!-- <a href="view-reviews/"><button type="button" class="btn btn-lg btn-block btn-primary">View Your Review History</button></a> -->
                 <!-- <br> -->
-                <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary">Write A Review</button></a>
+                <a href= "add-review/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Write A Review</button></a>
               </div>
             </div>
           </div>
