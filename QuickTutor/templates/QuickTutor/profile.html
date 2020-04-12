@@ -61,12 +61,56 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your Info</h1> 
                 <br>
-                <!--<form method="post" action="/profile/edit-profile/">{% csrf_token %}
-                    {{form}}
-                    <input type="submit" value="Send">
+                <form method="post" action="/profile/edit-profile/">{% csrf_token %}
+                    <!----{{form.as_table}}-->
+                    <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                      <tr class="w3-light-grey">
+                        <td><div class="input-group mb-3">
+                          <div class="input-group-prepend"><span class="input-group-text">First Name</span></div>
+                          <input class="form-control" name="first_name" maxlength="20" required id="id_first_name" value={{user.first_name}}>
+                        </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Last Name</span></div>
+                                <input class="form-control" name="last_name" maxlength="30" required id="id_last_name" value={{user.last_name}}>
+                              </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Year</span></div>
+                                <input type="number" name="year" required id="id_year" value={{user.year}}>
+                              </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Hourly Rate</span></div>
+                                <input type="number" name="rough_payment_per_hour" required id="rough_payment_per_hour" value={{user.rough_payment_per_hour}}>
+                              </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Willing to pay per hour</span></div>
+                                <input type="number" name="rough_willing_to_pay_per_hour" id="id_rough_willing_to_pay_per_hour" value={{user.rough_willing_to_pay_per_hour}}>
+                              </div>
+                          
+                        </td>
+                      </tr>
+                    </table>
+                   <button type="submit" class="btn btn-lg btn-block btn-primary buttoons">Save Changes</button>
                     
-                </form>-->
-                  <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                    
+                </form>
+                
+                <!--  <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                     <tr class="w3-light-grey">
                       <td>{{user.first_name}} {{user.last_name}}</td>
                     </tr>
@@ -75,7 +119,7 @@
                     </tr>
                     <tr>
                       <td>
-                        {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                        {%if user.rough_payment_per_hour > 0 %} <--Evaluates to true if there are any items in the array
                         Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
                         {% else %}
                         No Hourly Rate Specified <br>
@@ -84,16 +128,16 @@
                     </tr>
                     <tr>
                       <td>
-                        {%if user.rough_willing_to_pay_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                        {%if user.rough_willing_to_pay_per_hour > 0 %} Evaluates to true if there are any items in the array
                         Willing to Pay per Hour: ${{user.rough_willing_to_pay_per_hour}} per hour<br>
                         {% else %}
                         No Amount Willing to Pay Specified <br>
                         {%endif%}
                       </td>
                     </tr>
-                  </table>
-                  <br>
-                <a href= "edit-profile/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Edit Your Info</button></a>
+                  </table>-->
+                  
+                
               </div>
             </div>
           </div>
