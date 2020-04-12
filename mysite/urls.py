@@ -32,12 +32,9 @@ urlpatterns = [
     path('profile/add-tutorable-class/', Add_Tutorable_Class),
     path('profile/add-review/', Add_Review_Class),
     path('profile/view-reviews/', ReviewsView.as_view()),
-    path('profile/view-sessions/', SessionsView.as_view()),
     path('profile/new-session/', Create_Session),
     path('profile/new-session/<tutor_id>', createSessionSpecific, name = "specific_session_creation"),
     path('profile/edit-profile/', edit_Profile_Class),
-
-    path('sessions/success/', TemplateView.as_view(template_name="QuickTutor/success.html")),
     path('profile/delete_session/<session_id>/', deleteSession, name= "delete_session"),
     path('profile/delete_class_needs_help/<class_needs_help_id>/', deleteClassNeedsHelp, name= "delete_class_needs_help"),
     path('profile/delete_tutorable_class/<tutorable_class_id>/', deleteTutorableClass, name= "delete_tutorable_class"),

@@ -35,23 +35,21 @@
         </div>
       </nav>
       
-<style>
-    h1 {background-color: lightblue; text-align:center}
-    form {display: flex; flex-direction: column;}
-    label {margin: 10px auto; width: 20%; background-color: lightblue; text-align: center }
-    textarea{width: 15%; height: 25px}
-    input{width: 10%; height: 30px}
-    div{margin: auto}
- </style>
- <head>
-    <h1>Edit your Profile</h1>
-</head>
-
-<div align = "center">
-    <form method="post" >
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-        <a href="/profile">Cancel</a>
-    </form>
-</div>
+      <body>
+        <style>
+            h1 {text-align: center;}
+            body {background-color:rgb(173, 216, 230,0.3);}
+            textarea {height: 20px; width: 200px;}
+            form {margin-left: 30px;}
+         </style>
+        <head>
+            <h1>Remake Your Profile</h1>
+        </head>
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+            <a href="/profile"><button type="button">Cancel</button></a>
+        </form>
+        </body>

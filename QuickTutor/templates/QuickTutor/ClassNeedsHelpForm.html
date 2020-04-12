@@ -36,20 +36,21 @@
         </div>
       </nav>
       
-<style>
-    h1 {background-color: lightblue; text-align:center}
-    form {display: flex; flex-direction: column;}
-    label {size: 15px;}
- </style>
-<head>
-    <h1>Add a New Class That You Need Help With</h1>
-</head>
-
-<div align = "center">
-    <form method="post" >
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Submit">
-        <a href="/profile">Cancel</a>
-    </form>
-</div>
+      <body>
+        <style>
+            h1 {text-align: center;}
+            body {background-color:rgb(173, 216, 230,0.3);}
+            textarea {height: 20px; width: 400px;}
+            form {margin-left: 30px;}
+         </style>
+        <head>
+            <h1>Add a New Class That You Need Help In</h1>
+        </head>
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+            <a href="/profile"><button type="button">Cancel</button></a>
+        </form>
+        </body>

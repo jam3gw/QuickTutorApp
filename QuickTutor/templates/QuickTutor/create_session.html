@@ -27,9 +27,6 @@
               <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/sessions">Sessions</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="{% url 'account_logout' %}">Sign Out</a>
             </li>
             <li class="nav-item">
@@ -40,10 +37,17 @@
       </nav>
       
 <body>
+  <style>
+    h1 {text-align: center;}
+    body {background-color:rgb(173, 216, 230,0.3);}
+    form {margin-left: 30px;}
+    #id_start_date_and_time, #id_end_date_and_time {width: 200px;}
+  </style>
+  <h1>Propose A New Session</h1>
   <form method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <input type="submit" value="Submit">
-    <a href="/profile/view-sessions">Cancel</a>
+    <a href="/profile"><button type="button">Cancel</button></a>
 </form>
 </body>
