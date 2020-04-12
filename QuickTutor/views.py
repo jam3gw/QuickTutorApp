@@ -56,7 +56,6 @@ def generateToken(identity):
 class ProfileView(generic.TemplateView):
     template_name = 'QuickTutor/profile.html'
     def post(self, request, **kwargs):
-        print(request)
         return HttpResponseRedirect(request.path_info)
     def get(self,request):
         user = request.user
@@ -139,14 +138,12 @@ def Add_Class_Needs_Help(request):
         new_class_needs_help = form.save(commit=False)
         new_class_needs_help.user = request.user
         new_class_needs_help.save()
-        print('valid')
 
         return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ClassNeedsHelpForm()
-        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
 
@@ -158,14 +155,12 @@ def Add_Tutorable_Class(request):
         new_class_can_tutor = form.save(commit=False)
         new_class_can_tutor.user = request.user
         new_class_can_tutor.save()
-        print('valid')
 
         return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = TutorableClassForm()
-        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/TutorableClassForm.html', {'form': form})
 
@@ -177,14 +172,12 @@ def Add_Review_Class(request):
         new_review = form.save(commit=False)
         new_review.Author = request.user
         new_review.save()
-        print('valid')
 
         return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = ReviewForm()
-        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
 
@@ -199,14 +192,12 @@ def edit_Profile_Class(request):
         userObject.rough_payment_per_hour = form.cleaned_data['rough_payment_per_hour']
         userObject.rough_willing_to_pay_per_hour = form.cleaned_data['rough_willing_to_pay_per_hour']
         userObject.save()
-        print('valid')
 
         return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = EditProfileForm()
-        print("incorrect", form.data)
         
     return render(request, 'QuickTutor/editProfile.html', {'form': form})
 
@@ -236,7 +227,6 @@ def Create_Session(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = CreateSessionForm()
-        print("incorrect", form.data)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})
@@ -377,7 +367,6 @@ def createSessionSpecific(request, tutor_id):
     # if a GET (or any other method) we'll create a blank form
     else:
         form = CreateSpecificSessionForm()
-        print("incorrect", form.data)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})
