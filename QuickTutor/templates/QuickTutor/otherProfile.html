@@ -52,43 +52,46 @@
           <!--<h4 class="item1 ">Your Profile:</h4> <br>-->
       
         <div class="container">
-          <div class="card-deck mb-3 text-center">
-            <div class="card mb-4 shadow-sm">
-              <div class="card-header">
-                <!--<h4 class="my-0 font-weight-normal">wait what</h4>-->
-              </div>
-              <div class="card-body">
-                <h1 class="card-title pricing-card-title">Info</h1> 
-                <br>
-                  <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
-                    <tr class="w3-light-grey">
-                      <td>Name: {{user.first_name}} {{user.last_name}}</td>
-                    </tr>
-                    <tr>
-                      <td>Year: {{user.year}}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
-                        Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
-                        {% else %}
-                        No Hourly Rate Specified <br>
-                        {%endif%}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {%if user.rough_willing_to_pay_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
-                        Willing to Pay per Hour: ${{user.rough_willing_to_pay_per_hour}} per hour<br>
-                        {% else %}
-                        No Amount Willing to Pay Specified <br>
-                        {%endif%}
-                      </td>
-                    </tr>
-                  </table>
+          <div class="grid-container">
+            <div class="card-deck mb-3 text-center">
+              <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                  <!--<h4 class="my-0 font-weight-normal">wait what</h4>-->
+                </div>
+                <div class="card-body">
+                  <h1 class="card-title pricing-card-title">Info</h1> 
                   <br>
+                    <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
+                      <tr class="w3-light-grey">
+                        <td>Name: {{user.first_name}} {{user.last_name}}</td>
+                      </tr>
+                      <tr>
+                        <td>Year: {{user.year}}</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {%if user.rough_payment_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                          Hourly Rate: ${{user.rough_payment_per_hour}} per hour<br>
+                          {% else %}
+                          No Hourly Rate Specified <br>
+                          {%endif%}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          {%if user.rough_willing_to_pay_per_hour > 0 %} <!--Evaluates to true if there are any items in the array-->
+                          Willing to Pay per Hour: ${{user.rough_willing_to_pay_per_hour}} per hour<br>
+                          {% else %}
+                          No Amount Willing to Pay Specified <br>
+                          {%endif%}
+                        </td>
+                      </tr>
+                    </table>
+                    <br>
+                </div>
               </div>
             </div>
+            <div class="grid-container">
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
                 <!--<h4 class="my-0 font-weight-normal">Pro</h4>-->
@@ -114,6 +117,8 @@
                 <br>
               </div>
             </div>
+          </div>
+          <div class="grid-container">
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
                 <!--<h4 class="my-0 font-weight-normal">Enterprise</h4>-->
@@ -155,12 +160,13 @@
                   {%endif%}
                 </table>
                 <br>
-            </div>
+            <a href = {% url "specific_session_creation" user.id %}><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a Session with this Tutor</button></a>
           </div>
+        </div>
           </div>
-      </div>
+</div>
+</div>
 </div> 
-<a href = {% url "specific_session_creation" user.id %}><button>Propose a Session with this Tutor</button></a>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

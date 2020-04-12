@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-
-
+<link rel="stylesheet" href="{% static 'styling/search.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <h3>Available Tutors</h4>
 <ul>
   {% if classes_need_help_in %}

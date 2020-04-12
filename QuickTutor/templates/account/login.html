@@ -23,9 +23,12 @@
   <div class="container" style="display:inline-block; text-align:center;">
      <h3><i class="fa fa-user-circle fa-5x" style="display:inline-block; text-align:center;" ></i></h3>
           {% if socialaccount_providers %}
-          <form class="login" method="POST" action="{% url 'account_login' %}" >
+          <form class="login" method="POST" action="{% url 'account_login' %}" style="color: white" >
               {% csrf_token %}
-
+              <br>
+              <h3>Sign In with <a title="Google" class="socialaccount_provider google" href="/accounts/google/login/?process=login">Google</a></h3>
+              <br>
+<!--
               <p>
                 <div class="input-group form-group">
                   <div class="input-group-prepend" >
@@ -41,24 +44,21 @@
                   </div>
                 
                 <input type="password" name="password" placeholder="Password" required="" id="id_password">
-
-              </div>
+                </div>
               </p>
               <p>
                 <input type="checkbox" name="remember" id="id_remember">
                 <label for="id_remember">Remember Me</label> 
               </p>
+-->
               {% if redirect_field_value %}
               <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
               {% endif %}
-              <button type="submit" class="btn btn-info btn-lg">{% trans "Sign In" %}</button>
+              <!--<button type="submit" class="btn btn-info btn-lg">{% trans "Sign In" %}</button>-->
               <br>
-              <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+              <!--<a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>-->
             </form>
           <h6 >
-            <br>
-            Sign In with <a title="Google" class="socialaccount_provider google" href="/accounts/google/login/?process=login">Google</a> 
-            <br>
             <br>
             <!--Sign In with: {% include "socialaccount/snippets/provider_list.html" with process="login" %}</a> <br>-->
             Don't have an account with us? <a href="{{ signup_url }}">Sign Up</a> <br>
