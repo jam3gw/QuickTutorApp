@@ -1,6 +1,6 @@
 body {
     background-size: cover;
-    background: rgb(255, 186, 59);
+    background: rgb(255, 187, 61);
 }
 
 /* stylelint-disable selector-list-comma-newline-after */
@@ -45,6 +45,10 @@ h5 {
 }
 
 h7 {
+  color: black;
+}
+
+p {
   color: black;
 }
 
