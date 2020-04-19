@@ -21,7 +21,7 @@ body {
     transition: ease-in-out color .15s;
   }
   .site-header a:hover {
-    color: #fff;
+    color: rgba(255,255,255,.5);
     text-decoration: none;
   }
 
