@@ -24,8 +24,8 @@ http://www.templatemo.com/tm-468-onetel
 
 body
 	{
-		background: #6f9dff;
-    color: white;
+		background: #343a40;
+    color: rgb(151, 151, 151);
     background-size: cover;
 	}
 
@@ -55,7 +55,7 @@ body
 
 /* heading section */
 h1,h2,h3,h4 {
-  color: orange;
+  color: rgb(228, 228, 228);
   font-weight: bold;
 }
 
@@ -132,10 +132,10 @@ img {
 }
 
 #team h4 {
-  color: rgb(94, 94, 94);
+  color: rgb(201, 201, 201);
 }
 #team hr {
-  border-color: #303030;
+  border-color: #292828;
   margin-top: 80px;
   margin-bottom: 80px;
 }
