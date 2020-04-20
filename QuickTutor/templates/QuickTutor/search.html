@@ -3,7 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'styling/search.css' %}">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<h3>Available Tutors</h4>
+<h3>Available Tutors</h3>
 <ul>
   {% if classes_need_help_in %}
     {%for hclass in classes_need_help_in%}
@@ -29,7 +29,7 @@
               <!-- <td>{{tclass.class_id.dept}}{{tclass.class_id.course_num}}</td> -->
               <td>{{tclass.Former_TA}}</td>
               <td>{{tclass.experience}}</td>
-              <td><a href={% url "other_profile" tclass.user.id %}><button>Click to View Profile</button></a></td>
+              <td><a href={% url "other_profile" tclass.user.id %}><button class="buttoons">Click to View Profile</button></a></td>
             </tr>
 
             <p></p>
@@ -37,13 +37,13 @@
         {%endfor%}
       </table>
       {% else %}
-        <h4>No Tutors were found</h4>
+        <h5>No Tutors were found</h5>
       {% endif %}
   
     </td></tr>
     {%endfor%}
   {% else %}
-  <h4>You have not identified classes with which you need help</h4>
+  <h5>You have not identified classes with which you need help</h5>
   {% endif %}
 <!-- 
   {% if tutors_and_classes %}

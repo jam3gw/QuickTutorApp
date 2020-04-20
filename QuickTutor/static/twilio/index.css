@@ -14,14 +14,17 @@ html, body {
 
 header {
   width:100%;
-  position:absolute;
   text-align:center;
   bottom:20px;
+  background-color: #2B2B2A;
+}
+
+h1 {
+  background-color: #2B2B2A;
 }
 
 header a, header a:visited {
   font-size:18px;
-  color:#dedede;
   text-decoration:none;
 }
 
@@ -81,7 +84,7 @@ section input {
 
 .me, .username.me {
   font-weight:bold;
-  color:cyan;
+  color:rgb(183, 255, 255);
 }
 
 .message-container .username.me {
