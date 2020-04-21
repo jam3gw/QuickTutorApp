@@ -342,7 +342,8 @@ def OtherProfileView(request, user_id):
     return render(request, template_name, context = context_objects)
 
 def createSessionSpecific(request, tutor_id):
-    form = CreateSpecificSessionForm(request.user,request.POST)
+    #filters classes by ones that tutor can tutor in
+    form = CreateSpecificSessionForm(tutor_id,request.POST)
     userObject = QTUser.objects.get(username = request.user.username)
     if form.is_valid():
         # process the data in form.cleaned_data as required
@@ -366,7 +367,7 @@ def createSessionSpecific(request, tutor_id):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateSpecificSessionForm(request.user)
+        form = CreateSpecificSessionForm(tutor_id)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})

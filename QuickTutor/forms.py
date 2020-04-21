@@ -1,4 +1,5 @@
 from django import forms
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import QTUser, Review, Class, ClassNeedsHelp, Session, TutorableClass
 
@@ -42,22 +43,17 @@ class CreateSpecificSessionForm(forms.ModelForm):
         model = Session
         fields = ['subject_in_regards_to','price_of_tutor']
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, tutor_id, *args, **kwargs):
         super(CreateSpecificSessionForm, self).__init__(*args, **kwargs)
         possibilities_list = []
 
-        for c in ClassNeedsHelp.objects.filter(user=user).values_list('class_id'):
+        for c in TutorableClass.objects.filter(user=tutor_id).values_list('class_id'):
             possibilities_list.append(c[0])
-
-        # print("entire list", list(TutorableClass.objects.filter(user=user).values_list('class_id')))
-        # for c in TutorableClass.objects.filter(user=user).values_list('class_id'):
-        #     possibilities_list.append(c[0])
         
-        # print(possibilities_list)
+        print(possibilities_list)
         self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=possibilities_list)
 
 class ReviewForm(forms.ModelForm):
-    # subject_in_regards_to = forms.ModelChoiceField(queryset=None)
     class Meta:
         model = Review
         fields = ['Recipient','subject_in_regards_to','rating','description','type_of_review','time_of_review']
@@ -81,21 +77,12 @@ class ReviewForm(forms.ModelForm):
         for s in Session.objects.filter(tutor = user).filter(student_proposal='2').values_list('student'):
             review_possibilities_list.append(s[0])
         
-
         self.fields['Recipient'].queryset = QTUser.objects.filter(pk__in=review_possibilities_list)
-
 
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
         model = QTUser
         fields = ['first_name','last_name','year','rough_payment_per_hour','rough_willing_to_pay_per_hour']
-
-# class SetupSession(forms.Form):
-#     Email = forms.EmailField()
-#     checkbox = forms.BooleanField()
-
-#     def __str__(self):
-#         return self.Email
 
     

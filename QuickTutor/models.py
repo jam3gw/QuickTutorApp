@@ -16,7 +16,7 @@ class QTUser(AbstractUser):
     rough_willing_to_pay_per_hour = models.IntegerField(blank=True, null= True)
     
     def __str__(self):
-        return self.username
+        return self.username + " (" + self.first_name + " " + self.last_name + ")"
 
 
 class Class(models.Model):
