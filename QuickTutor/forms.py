@@ -64,17 +64,25 @@ class ReviewForm(forms.ModelForm):
     
     def __init__(self, user, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
-        possibilities_list = []
+        class_possibilities_list = []
+        review_possibilities_list = []
 
         for c in ClassNeedsHelp.objects.filter(user=user).values_list('class_id'):
-            possibilities_list.append(c[0])
+            class_possibilities_list.append(c[0])
 
-        print("entire list", list(TutorableClass.objects.filter(user=user).values_list('class_id')))
         for c in TutorableClass.objects.filter(user=user).values_list('class_id'):
-            possibilities_list.append(c[0])
+            class_possibilities_list.append(c[0])
         
-        print(possibilities_list)
-        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=possibilities_list)
+        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=class_possibilities_list)
+
+        for t in Session.objects.filter(student = user).filter(tutor_proposal='2').values_list('tutor'):
+            review_possibilities_list.append(t[0])
+
+        for s in Session.objects.filter(tutor = user).filter(student_proposal='2').values_list('student'):
+            review_possibilities_list.append(s[0])
+        
+
+        self.fields['Recipient'].queryset = QTUser.objects.filter(pk__in=review_possibilities_list)
 
 
 
