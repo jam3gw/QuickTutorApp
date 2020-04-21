@@ -39,7 +39,7 @@ class Session(models.Model):
     student = models.ForeignKey(QTUser, related_name="Student", on_delete=models.CASCADE)
     tutor = models.ForeignKey(QTUser, related_name="Tutor", on_delete=models.CASCADE) 
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
-    start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
+    start_date_and_time = models.DateTimeField(null = False, default=timezone.now())
     end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1)))
     student_proposal = models.CharField(null = False, choices = SESSION_CHOICES, default=PENDING, max_length=1)
     tutor_proposal = models.CharField(null = False, choices = SESSION_CHOICES, default=PENDING, max_length=1)
