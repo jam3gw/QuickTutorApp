@@ -23,17 +23,20 @@ class CreateSessionForm(forms.ModelForm):
     
     def __init__(self, user, *args, **kwargs):
         super(CreateSessionForm, self).__init__(*args, **kwargs)
-        possibilities_list = []
+        class_possibilities_list = []
+        tutor_possibilities_list = []
 
         for c in ClassNeedsHelp.objects.filter(user=user).values_list('class_id'):
-            possibilities_list.append(c[0])
+            class_possibilities_list.append(c[0])
 
-        print("entire list", list(TutorableClass.objects.filter(user=user).values_list('class_id')))
         for c in TutorableClass.objects.filter(user=user).values_list('class_id'):
-            possibilities_list.append(c[0])
+            class_possibilities_list.append(c[0])
         
-        print(possibilities_list)
-        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=possibilities_list)
+        for t in Session.objects.filter(student=user).filter(tutor_proposal='2').values_list('tutor'):
+            tutor_possibilities_list.append(t[0])
+        
+        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=class_possibilities_list)
+        self.fields['tutor'].queryset = QTUser.objects.filter(pk__in = tutor_possibilities_list)
 
 
 class CreateSpecificSessionForm(forms.ModelForm):

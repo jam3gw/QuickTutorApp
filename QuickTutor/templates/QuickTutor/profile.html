@@ -211,7 +211,7 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
                 <br>
-                <h3>Active Student Sessions</h3>
+                <h3>Active Sessions as a Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 {% if accepted_student_sessions %}
                 <table style="margin-right: 0px; width: 100%">
@@ -236,7 +236,7 @@
                 <h7>No Accepted Sessions as a Student</h7> <br>
                 {%endif%}
                 <br>
-                <h3>Active Tutor Sessions</h3>
+                <h3>Active Sessions as a Tutor</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 {% if accepted_tutor_sessions %}
                 <table >
@@ -262,7 +262,7 @@
                 {%endif%}
                 <br>
           
-              <h3>Session Requests as Student</h3>
+              <h3>Session Requests as a Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 
                 {% if pending_sessions_requested_student %}
@@ -383,7 +383,7 @@
                 <h7>No Requested Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session</button></a>
+                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session with a Past Tutor</button></a>
               </div>
             </div>
           </div>
