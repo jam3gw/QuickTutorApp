@@ -52,7 +52,7 @@ class Review(models.Model):
     # For who is being reviewed
     STUDENT = 'S'
     TUTOR = 'T'
-    STUDENT_OR_TUTOR_CHOICES = [(STUDENT, 'student'),(TUTOR,'tutor')]
+    STUDENT_OR_TUTOR_CHOICES = [(STUDENT, 'of the student'),(TUTOR,'of the tutor')]
 
     ONE = 1
     TWO = 2

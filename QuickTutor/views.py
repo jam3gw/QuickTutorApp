@@ -4,6 +4,7 @@ from allauth.account.views import LoginView, SignupView, LogoutView, PasswordRes
 from django.views import generic
 from django.http import JsonResponse
 from django.conf import settings
+import datetime
 
 from . import forms
 import sys
@@ -171,6 +172,7 @@ def Add_Review_Class(request):
     if form.is_valid():
         new_review = form.save(commit=False)
         new_review.Author = request.user
+        new_review.time_of_review = datetime.datetime.now()
         new_review.save()
 
         return HttpResponseRedirect('/profile/')

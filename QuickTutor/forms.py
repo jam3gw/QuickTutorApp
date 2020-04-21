@@ -56,7 +56,7 @@ class CreateSpecificSessionForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ['Recipient','subject_in_regards_to','rating','description','type_of_review','time_of_review']
+        fields = ['Recipient','subject_in_regards_to','rating','description','type_of_review']
     
     def __init__(self, user, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
