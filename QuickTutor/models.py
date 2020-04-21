@@ -80,7 +80,6 @@ class ClassNeedsHelp(models.Model):
     def __str__(self):
         return str(self.user) + " needs help in " + str(self.class_id)
         
-
 class TutorableClass(models.Model):
     user = models.ForeignKey(QTUser, on_delete=models.CASCADE)
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
