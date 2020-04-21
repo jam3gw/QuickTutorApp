@@ -166,7 +166,7 @@ def Add_Tutorable_Class(request):
 
 def Add_Review_Class(request):
     # if this is a POST request we need to process the form data
-    form = ReviewForm(request.POST)
+    form = ReviewForm(request.user, request.POST)
 
     if form.is_valid():
         new_review = form.save(commit=False)
@@ -177,7 +177,7 @@ def Add_Review_Class(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = ReviewForm()
+        form = ReviewForm(request.user)
         
     return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
 
@@ -203,7 +203,7 @@ def edit_Profile_Class(request):
 
 def Create_Session(request):
     # if this is a POST request we need to process the form data
-    form = CreateSessionForm(request.POST)
+    form = CreateSessionForm(request.user, request.POST)
     userObject = QTUser.objects.get(username = request.user.username)
     if form.is_valid():
         # process the data in form.cleaned_data as required
@@ -226,7 +226,7 @@ def Create_Session(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateSessionForm()
+        form = CreateSessionForm(request.user)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})
@@ -342,7 +342,7 @@ def OtherProfileView(request, user_id):
     return render(request, template_name, context = context_objects)
 
 def createSessionSpecific(request, tutor_id):
-    form = CreateSpecificSessionForm(request.POST)
+    form = CreateSpecificSessionForm(request.user,request.POST)
     userObject = QTUser.objects.get(username = request.user.username)
     if form.is_valid():
         # process the data in form.cleaned_data as required
@@ -366,7 +366,7 @@ def createSessionSpecific(request, tutor_id):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateSpecificSessionForm()
+        form = CreateSpecificSessionForm(request.user)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})

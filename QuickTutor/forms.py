@@ -19,6 +19,20 @@ class CreateSessionForm(forms.ModelForm):
     class Meta:
         model = Session
         fields = ['tutor','subject_in_regards_to','price_of_tutor']
+    
+    def __init__(self, user, *args, **kwargs):
+        super(CreateSessionForm, self).__init__(*args, **kwargs)
+        possibilities_list = []
+
+        for c in ClassNeedsHelp.objects.filter(user=user).values_list('class_id'):
+            possibilities_list.append(c[0])
+
+        print("entire list", list(TutorableClass.objects.filter(user=user).values_list('class_id')))
+        for c in TutorableClass.objects.filter(user=user).values_list('class_id'):
+            possibilities_list.append(c[0])
+        
+        print(possibilities_list)
+        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=possibilities_list)
 
 
 class CreateSpecificSessionForm(forms.ModelForm):
@@ -28,10 +42,41 @@ class CreateSpecificSessionForm(forms.ModelForm):
         model = Session
         fields = ['subject_in_regards_to','price_of_tutor']
 
+    def __init__(self, user, *args, **kwargs):
+        super(CreateSpecificSessionForm, self).__init__(*args, **kwargs)
+        possibilities_list = []
+
+        for c in ClassNeedsHelp.objects.filter(user=user).values_list('class_id'):
+            possibilities_list.append(c[0])
+
+        # print("entire list", list(TutorableClass.objects.filter(user=user).values_list('class_id')))
+        # for c in TutorableClass.objects.filter(user=user).values_list('class_id'):
+        #     possibilities_list.append(c[0])
+        
+        # print(possibilities_list)
+        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=possibilities_list)
+
 class ReviewForm(forms.ModelForm):
+    # subject_in_regards_to = forms.ModelChoiceField(queryset=None)
     class Meta:
         model = Review
         fields = ['Recipient','subject_in_regards_to','rating','description','type_of_review','time_of_review']
+    
+    def __init__(self, user, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
+        possibilities_list = []
+
+        for c in ClassNeedsHelp.objects.filter(user=user).values_list('class_id'):
+            possibilities_list.append(c[0])
+
+        print("entire list", list(TutorableClass.objects.filter(user=user).values_list('class_id')))
+        for c in TutorableClass.objects.filter(user=user).values_list('class_id'):
+            possibilities_list.append(c[0])
+        
+        print(possibilities_list)
+        self.fields['subject_in_regards_to'].queryset = Class.objects.filter(id__in=possibilities_list)
+
+
 
 class EditProfileForm(forms.ModelForm):
     class Meta:
