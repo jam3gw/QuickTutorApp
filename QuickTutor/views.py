@@ -63,11 +63,11 @@ class ProfileView(generic.TemplateView):
 
         #sessions participated in 
 
-        accepted_student_sessions_future = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
-        accepted_tutor_sessions_future = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
+        accepted_student_sessions_future = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2',start_date_and_time__gte= datetime.datetime.now()).order_by('-start_date_and_time')
+        accepted_tutor_sessions_future = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2',start_date_and_time__gte= datetime.datetime.now()).order_by('-start_date_and_time')
 
-        accepted_student_sessions_past = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2', start_date_and_time <= datetime.datetime.now()).order_by('-start_date_and_time')
-        accepted_tutor_sessions_past = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
+        accepted_student_sessions_past = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2', start_date_and_time__lt= datetime.datetime.now()).order_by('-start_date_and_time')
+        accepted_tutor_sessions_past = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2',start_date_and_time__lt= datetime.datetime.now()).order_by('-start_date_and_time')
             
         pending_sessions_requested_student = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '0').order_by('-start_date_and_time')
         pending_sessions_requested_tutor = Session.objects.filter(tutor = request.user, student_proposal = '0', tutor_proposal = '2').order_by('-start_date_and_time')
@@ -100,8 +100,10 @@ class ProfileView(generic.TemplateView):
 
         context_objects = {
             'user' : user,
-            'accepted_student_sessions': accepted_student_sessions,
-            'accepted_tutor_sessions' : accepted_tutor_sessions,
+            'accepted_student_sessions_future': accepted_student_sessions_future,
+            'accepted_tutor_sessions_future' : accepted_tutor_sessions_future,
+            'accepted_student_sessions_past': accepted_student_sessions_past,
+            'accepted_tutor_sessions_past' : accepted_tutor_sessions_past,
             'pending_sessions_requested_student' :pending_sessions_requested_student, 
             'pending_sessions_requested_tutor' : pending_sessions_requested_tutor, 
             'waiting_acceptance_reject_student' : waiting_acceptance_reject_student,
