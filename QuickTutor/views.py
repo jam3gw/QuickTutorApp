@@ -4,6 +4,7 @@ from allauth.account.views import LoginView, SignupView, LogoutView, PasswordRes
 from django.views import generic
 from django.http import JsonResponse
 from django.conf import settings
+import datetime
 
 from . import forms
 import sys
@@ -17,6 +18,7 @@ from twilio.jwt.access_token.grants import (
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
 from .forms import *
 from django.core.mail import send_mail
+from django.utils import timezone
 
 def index(request):
     return render(request, 'QuickTutor/index.html', {})
@@ -62,8 +64,11 @@ class ProfileView(generic.TemplateView):
 
         #sessions participated in 
 
-        accepted_student_sessions = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
-        accepted_tutor_sessions = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
+        accepted_student_sessions_future = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2',start_date_and_time__gte= datetime.datetime.now(timezone.get_current_timezone())).order_by('-start_date_and_time')
+        accepted_tutor_sessions_future = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2',start_date_and_time__gte= datetime.datetime.now(timezone.get_current_timezone())).order_by('-start_date_and_time')
+
+        accepted_student_sessions_past = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2', start_date_and_time__lt= datetime.datetime.now(timezone.get_current_timezone())).order_by('-start_date_and_time')
+        accepted_tutor_sessions_past = Session.objects.filter(tutor = request.user, student_proposal = '2', tutor_proposal = '2',start_date_and_time__lt= datetime.datetime.now(timezone.get_current_timezone())).order_by('-start_date_and_time')
             
         pending_sessions_requested_student = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '0').order_by('-start_date_and_time')
         pending_sessions_requested_tutor = Session.objects.filter(tutor = request.user, student_proposal = '0', tutor_proposal = '2').order_by('-start_date_and_time')
@@ -96,8 +101,10 @@ class ProfileView(generic.TemplateView):
 
         context_objects = {
             'user' : user,
-            'accepted_student_sessions': accepted_student_sessions,
-            'accepted_tutor_sessions' : accepted_tutor_sessions,
+            'accepted_student_sessions_future': accepted_student_sessions_future,
+            'accepted_tutor_sessions_future' : accepted_tutor_sessions_future,
+            'accepted_student_sessions_past': accepted_student_sessions_past,
+            'accepted_tutor_sessions_past' : accepted_tutor_sessions_past,
             'pending_sessions_requested_student' :pending_sessions_requested_student, 
             'pending_sessions_requested_tutor' : pending_sessions_requested_tutor, 
             'waiting_acceptance_reject_student' : waiting_acceptance_reject_student,
@@ -166,44 +173,25 @@ def Add_Tutorable_Class(request):
 
 def Add_Review_Class(request):
     # if this is a POST request we need to process the form data
-    form = ReviewForm(request.POST)
+    form = ReviewForm(request.user, request.POST)
 
     if form.is_valid():
         new_review = form.save(commit=False)
         new_review.Author = request.user
+        new_review.time_of_review = datetime.datetime.now()
         new_review.save()
 
         return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = ReviewForm()
+        form = ReviewForm(request.user)
         
     return render(request, 'QuickTutor/ReviewForm.html', {'form': form})
 
-def edit_Profile_Class(request):
-    # if this is a POST request we need to process the form data
-    form = EditProfileForm(request.POST)
-    userObject = QTUser.objects.get(username = request.user.username)
-    if form.is_valid():
-        userObject.first_name = form.cleaned_data['first_name']
-        userObject.last_name = form.cleaned_data['last_name']
-        userObject.year = form.cleaned_data['year']
-        userObject.rough_payment_per_hour = form.cleaned_data['rough_payment_per_hour']
-        userObject.rough_willing_to_pay_per_hour = form.cleaned_data['rough_willing_to_pay_per_hour']
-        userObject.save()
-
-        return HttpResponseRedirect('/profile/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = EditProfileForm()
-        
-    return render(request, 'QuickTutor/editProfile.html', {'form': form})
-
 def Create_Session(request):
     # if this is a POST request we need to process the form data
-    form = CreateSessionForm(request.POST)
+    form = CreateSessionForm(request.user, request.POST)
     userObject = QTUser.objects.get(username = request.user.username)
     if form.is_valid():
         # process the data in form.cleaned_data as required
@@ -226,7 +214,7 @@ def Create_Session(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateSessionForm()
+        form = CreateSessionForm(request.user)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})
@@ -280,8 +268,6 @@ def deleteTutorableClass(request, tutorable_class_id):
     tutorable_class.delete()
     
     return HttpResponseRedirect('/profile')
-
-#     return render(request, 'QuickTutor/ClassNeedsHelpForm.html', {'form': form})
 
 class SearchResultsView(generic.ListView):
     model = TutorableClass
@@ -342,7 +328,8 @@ def OtherProfileView(request, user_id):
     return render(request, template_name, context = context_objects)
 
 def createSessionSpecific(request, tutor_id):
-    form = CreateSpecificSessionForm(request.POST)
+    #filters classes by ones that tutor can tutor in
+    form = CreateSpecificSessionForm(tutor_id,request.POST)
     userObject = QTUser.objects.get(username = request.user.username)
     if form.is_valid():
         # process the data in form.cleaned_data as required
@@ -366,7 +353,7 @@ def createSessionSpecific(request, tutor_id):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = CreateSpecificSessionForm()
+        form = CreateSpecificSessionForm(tutor_id)
         
 
     return render(request, 'QuickTutor/create_session.html', {'form': form})

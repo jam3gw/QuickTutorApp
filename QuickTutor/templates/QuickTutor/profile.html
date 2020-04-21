@@ -211,9 +211,9 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
                 <br>
-                <h3>Active Student Sessions</h3>
+                <h3>Active Future Sessions as a Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
-                {% if accepted_student_sessions %}
+                {% if accepted_student_sessions_future %}
                 <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Tutor</th>
@@ -222,7 +222,7 @@
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
                   </tr>
-                  {%for session in accepted_student_sessions%}
+                  {%for session in accepted_student_sessions_future%}
                   <a><tr>
                       <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
@@ -236,9 +236,9 @@
                 <h7>No Accepted Sessions as a Student</h7> <br>
                 {%endif%}
                 <br>
-                <h3>Active Tutor Sessions</h3>
+                <h3>Active Future Sessions as a Tutor</h3>
                 <!-- If the user has not accepted the session but the other person has -->
-                {% if accepted_tutor_sessions %}
+                {% if accepted_tutor_sessions_future %}
                 <table >
                   <tr>
                       <th>Tutor</th>
@@ -247,7 +247,7 @@
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
                   </tr>
-                  {%for session in accepted_tutor_sessions%}
+                  {%for session in accepted_tutor_sessions_future%}
                   <tr>
                       <td>{{session.student.first_name}} {{session.student.last_name}}</td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
@@ -261,8 +261,58 @@
                 <h7>No Accepted Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
+                <h3>Past Sessions as a Student</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_student_sessions_past %}
+                <table style="margin-right: 0px; width: 100%">
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_student_sessions_past%}
+                  <a><tr>
+                      <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                <h7>No Past Sessions as a Student</h7> <br>
+                {%endif%}
+                <br>
+              <h3>Past Sessions as a Tutor</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_tutor_sessions_past %}
+                <table >
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_tutor_sessions_past%}
+                  <tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr>
+                  {%endfor%}
+                </table>
+                {% else %}
+                <h7>No Past Sessions as a Tutor</h7> <br>
+                {%endif%}
+                <br>
           
-              <h3>Session Requests as Student</h3>
+              <h3>Session Requests as a Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 
                 {% if pending_sessions_requested_student %}
@@ -383,7 +433,7 @@
                 <h7>No Requested Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session</button></a>
+                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session with a Past Tutor</button></a>
               </div>
             </div>
           </div>
@@ -416,9 +466,9 @@
                   <td>{{review.rating}}</td>
                   <td>{{review.description}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <td>Tutor</td>
+                  <td>As a Tutor</td>
                   {% else %}
-                  <td>Student</td>
+                  <td>As a Student</td>
                   {%endif%}
                   <td>{{review.time_of_review}}</td>
                 </tr>
@@ -446,9 +496,9 @@
                   <td>{{review.rating}}</td>
                   <td>{{review.description}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <td>Tutor</td>
+                  <td>Of the Tutor</td>
                   {% else %}
-                  <td>Student</td>
+                  <td>Of the Student</td>
                   {%endif%}
                   <td>{{review.time_of_review}}</td>
                 </tr>
