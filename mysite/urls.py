@@ -22,7 +22,7 @@ from QuickTutor.views import *
 
 urlpatterns = [
     path('',TemplateView.as_view(template_name="QuickTutor/index.html")),
-    path('login/',TemplateView.as_view(template_name="login/loginPage.html")),
+    # path('login/',TemplateView.as_view(template_name="login/loginPage.html")),
     path('aboutus/',TemplateView.as_view(template_name="QuickTutor/aboutus.html")),
     path('profile/', ProfileView.as_view()),
     path('admin/', admin.site.urls),
@@ -40,7 +40,7 @@ urlpatterns = [
     path('profile/reject_session/<session_id>/', rejectOffer, name="reject_session"),
     path('profile/accept_session/<session_id>/', acceptOffer, name="accept_session"),
     path('search/', SearchPageView.as_view()),
-    path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html")),
+    # path('search-results/', TemplateView.as_view(template_name="QuickTutor/search_results.html")),
     path('search/<user_id>/', OtherProfileView, name="other_profile")
 
 ]
