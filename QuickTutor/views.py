@@ -343,6 +343,9 @@ def createSessionSpecific(request, tutor_id):
         new_session.student_proposal = '2'
         new_session.save()
 
+        if(request.META):
+            print('SUBJECT', request.META)
+
         subject = "Tutor Request [DO NOT REPLY]"
         message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
         recepient = new_session.tutor.email
