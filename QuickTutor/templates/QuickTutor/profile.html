@@ -289,7 +289,7 @@
               <h3>Past Sessions as a Tutor</h3>
                 <!-- If the user has not accepted the session but the other person has -->
                 {% if accepted_tutor_sessions_past %}
-                <table >
+                <table>
                   <tr>
                       <th>Tutor</th>
                       <th>Subject</th>
@@ -359,7 +359,6 @@
                   {%for session in pending_sessions_requested_tutor%}
                   <a><tr>
                       <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
