@@ -7,6 +7,9 @@ td {
   padding: 0.5%;
 }
 
+.smol-buttoons {
+  size: 1%;
+}
 
 
 /* stylelint-disable selector-list-comma-newline-after */
@@ -104,7 +107,7 @@ html {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 90%;
 }
 
 .pricing-header {
