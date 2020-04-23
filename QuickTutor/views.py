@@ -375,7 +375,7 @@ def createSessionSpecific(request, tutor_id):
         end_hour = end_time_formatted.hour
         end_minute = end_time_formatted.minute
 
-        if ((date < timezone.now()) | (start_time_formatted >= end_time_formatted) ):
+        if ((date.date() < datetime.date.today()) | (start_time_formatted >= end_time_formatted) ):
             print(start_time_formatted, end_time_formatted, start_time_formatted >= end_time_formatted)
             msg = "Please enter a valid date and time"
             return render(request, 'QuickTutor/create_session.html', {'form': form, "msg" : msg})
