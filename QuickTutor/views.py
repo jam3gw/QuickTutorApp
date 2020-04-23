@@ -364,6 +364,8 @@ def createSessionSpecific(request, tutor_id):
         date = form.cleaned_data['date']
         start_time = form.cleaned_data['start_time']
         end_time = form.cleaned_data['end_time']
+        subject_in_regards_to = form.cleaned_data['subject_in_regards_to']
+        print("THIS WAT IT ABOUT", subject_in_regards_to)
 
         # date_formatted = dateparse.parse_date(date)
         format_ = '%I:%M %p'
@@ -394,11 +396,9 @@ def createSessionSpecific(request, tutor_id):
             new_session.price_of_tutor = form.cleaned_data["price_of_tutor"]
             new_session.save()
 
-            if(request.META):
-                print('SUBJECT', request.META)
 
             subject = "Tutor Request [DO NOT REPLY]"
-            message = 'You have a new request from ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + ". If you would like to follow up with your student you can accept the session and email them about when to meet at Clemmons 2.\n Student Email: " + str(request.user.email) +  "\n Hourly Rate: $" + str(new_session.price_of_tutor) + " per hour" + "\n Link to application: https://quick-tutor-qtie5.herokuapp.com/" 
+            message = 'You have a new request from ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " for a tutoring session in " + str(subject_in_regards_to) + ". If you would like to follow up with your student you can accept the session and email them about when to meet at Clemmons 2.\n Student Email: " + str(request.user.email) +  "\n Hourly Rate: $" + str(new_session.price_of_tutor) + " per hour" + "\n Link to application: https://quick-tutor-qtie5.herokuapp.com/" 
             recepient = new_session.tutor.email
 
             email = EmailMessage(subject, message, request.user.email ,[recepient], [request.user.email], reply_to=[request.user.email])
