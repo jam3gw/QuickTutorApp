@@ -44,6 +44,9 @@
       
 <body>
   <h3>Propose A New Session</h3>
+  {% if msg != "" %}
+  <label>{{msg}}</label>
+  {% endif %}
   <br>
   <form method="post">
     {% csrf_token %}

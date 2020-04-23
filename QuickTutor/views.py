@@ -4,6 +4,7 @@ from allauth.account.views import LoginView, SignupView, LogoutView, PasswordRes
 from django.views import generic
 from django.http import JsonResponse
 from django.conf import settings
+from django.utils import dateparse
 import datetime
 
 from . import forms
@@ -197,20 +198,42 @@ def Create_Session(request):
         # process the data in form.cleaned_data as required
         # ...
         # redirect to a new URL:
-        new_session = form.save(commit = False)
-        new_session.student = request.user
-        new_session.start_date_and_time = form.cleaned_data['start_date_and_time']
-        new_session.end_date_and_time = form.cleaned_data['end_date_and_time']
-        new_session.student_proposal = '2'
-        new_session.save()
+        date = form.cleaned_data['date']
+        start_time = form.cleaned_data['start_time']
+        end_time = form.cleaned_data['end_time']
 
-        subject = "Tutor Request [DO NOT REPLY]"
-        message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
-        recepient = form.cleaned_data['tutor'].email
+        # date_formatted = dateparse.parse_date(date)
+        format_ = '%I:%M %p'
+        start_time_formatted = datetime.datetime.strptime(start_time,format_)
+        end_time_formatted = datetime.datetime.strptime(end_time,format_)
+        
+        year = date.year
+        month = date.month
+        day = date.day
+        start_hour = start_time_formatted.hour
+        start_minute = start_time_formatted.minute
+        end_hour = end_time_formatted.hour
+        end_minute = end_time_formatted.minute
 
-        send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
+        if ((date < timezone.now()) | (start_time_formatted >= end_time_formatted) ):
+            msg = "Please enter a valid date and time"
+            return render(request, 'QuickTutor/create_session.html', {'form': form, "msg": msg})
 
-        return HttpResponseRedirect('/profile/')
+        else:
+            new_session = form.save(commit = False)
+            new_session.student = request.user
+            new_session.start_date_and_time = datetime.datetime(year,month,day,start_hour,start_minute)
+            new_session.end_date_and_time = datetime.datetime(year, month, day, end_hour, end_minute)
+            new_session.student_proposal = '2'
+            new_session.save()
+
+            subject = "Tutor Request [DO NOT REPLY]"
+            message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
+            recepient = form.cleaned_data['tutor'].email
+
+            send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
+
+            return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -335,25 +358,47 @@ def createSessionSpecific(request, tutor_id):
         # process the data in form.cleaned_data as required
         # ...
         # redirect to a new URL:
-        new_session = form.save(commit = False)
-        new_session.student = request.user
-        new_session.tutor = get_object_or_404(QTUser, pk=tutor_id)
-        new_session.start_date_and_time = form.cleaned_data['start_date_and_time']
-        new_session.end_date_and_time = form.cleaned_data['end_date_and_time']
-        new_session.student_proposal = '2'
-        new_session.price_of_tutor = form.cleaned_data["price_of_tutor"]
-        new_session.save()
+        date = form.cleaned_data['date']
+        start_time = form.cleaned_data['start_time']
+        end_time = form.cleaned_data['end_time']
 
-        if(request.META):
-            print('SUBJECT', request.META)
+        # date_formatted = dateparse.parse_date(date)
+        format_ = '%I:%M %p'
+        start_time_formatted = datetime.datetime.strptime(start_time,format_)
+        end_time_formatted = datetime.datetime.strptime(end_time,format_)
+        
+        year = date.year
+        month = date.month
+        day = date.day
+        start_hour = start_time_formatted.hour
+        start_minute = start_time_formatted.minute
+        end_hour = end_time_formatted.hour
+        end_minute = end_time_formatted.minute
 
-        subject = "Tutor Request [DO NOT REPLY]"
-        message = 'You have a new request from ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + ". If you would like to follow up with your student you can accept the session and email them about where to meet.\n Student Email: " + str(request.user.email) +  "\n Hourly Rate: $" + str(new_session.price_of_tutor) + " per hour" + "\n Link to application: https://quick-tutor-qtie5.herokuapp.com/" 
-        recepient = new_session.tutor.email
+        if ((date < timezone.now()) | (start_time_formatted >= end_time_formatted) ):
+            print(start_time_formatted, end_time_formatted, start_time_formatted >= end_time_formatted)
+            msg = "Please enter a valid date and time"
+            return render(request, 'QuickTutor/create_session.html', {'form': form, "msg" : msg})
+        else:
+            new_session = form.save(commit = False)
+            new_session.student = request.user
+            new_session.tutor = get_object_or_404(QTUser, pk=tutor_id)
+            new_session.start_date_and_time = datetime.datetime(year,month,day,start_hour,start_minute)
+            new_session.end_date_and_time = datetime.datetime(year, month, day, end_hour, end_minute)
+            new_session.student_proposal = '2'
+            new_session.price_of_tutor = form.cleaned_data["price_of_tutor"]
+            new_session.save()
 
-        email = EmailMessage(subject, message, request.user.email ,[recepient], [request.user.email], reply_to=[request.user.email])
-        email.send()
-        return HttpResponseRedirect('/profile/')
+            if(request.META):
+                print('SUBJECT', request.META)
+
+            subject = "Tutor Request [DO NOT REPLY]"
+            message = 'You have a new request from ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + ". If you would like to follow up with your student you can accept the session and email them about where to meet.\n Student Email: " + str(request.user.email) +  "\n Hourly Rate: $" + str(new_session.price_of_tutor) + " per hour" + "\n Link to application: https://quick-tutor-qtie5.herokuapp.com/" 
+            recepient = new_session.tutor.email
+
+            email = EmailMessage(subject, message, request.user.email ,[recepient], [request.user.email], reply_to=[request.user.email])
+            email.send()
+            return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
