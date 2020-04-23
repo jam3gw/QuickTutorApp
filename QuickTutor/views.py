@@ -215,7 +215,10 @@ def Create_Session(request):
         end_hour = end_time_formatted.hour
         end_minute = end_time_formatted.minute
 
-        if ((date < timezone.now()) | (start_time_formatted >= end_time_formatted) ):
+        start_comparison = datetime.datetime(year,month,day,start_hour,start_minute)
+
+        if ((date.date() < datetime.datetime.today().date()) | (start_time_formatted >= end_time_formatted) | (start_comparison.time() < datetime.datetime.today().time())):
+            #
             msg = "Please enter a valid date and time"
             return render(request, 'QuickTutor/create_session.html', {'form': form, "msg": msg})
 
@@ -375,7 +378,9 @@ def createSessionSpecific(request, tutor_id):
         end_hour = end_time_formatted.hour
         end_minute = end_time_formatted.minute
 
-        if ((date.date() < datetime.date.today()) | (start_time_formatted >= end_time_formatted) ):
+        start_comparison = datetime.datetime(year,month,day,start_hour,start_minute)
+
+        if ((date.date() < datetime.date.today().date()) | (start_time_formatted >= end_time_formatted) | (start_comparison.time() < datetime.datetime.today().time()) ):
             print(start_time_formatted, end_time_formatted, start_time_formatted >= end_time_formatted)
             msg = "Please enter a valid date and time"
             return render(request, 'QuickTutor/create_session.html', {'form': form, "msg" : msg})
