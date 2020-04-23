@@ -17,7 +17,7 @@ from twilio.jwt.access_token.grants import (
 )
 from .models import QTUser, Review, Session, Class, ClassNeedsHelp, TutorableClass
 from .forms import *
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.utils import timezone
 
 def index(request):
@@ -241,7 +241,7 @@ def rejectOffer(request, session_id):
         send_mail(subject, message, request.user.email ,[tutor.email], fail_silently = False)
     elif session.student_proposal == "2": #When the tutor clicks the button
         subject = "Offer Rejected [DO NOT REPLY]"
-        message = tutor.first_name + " " + tutor.last_name + "has rejected your offer"
+        message = tutor.first_name + " " + tutor.last_name + " has rejected your offer"
         send_mail(subject, message, request.user.email ,[student.email], fail_silently = False)
     session.delete()
     return HttpResponseRedirect('/profile')
@@ -341,17 +341,18 @@ def createSessionSpecific(request, tutor_id):
         new_session.start_date_and_time = form.cleaned_data['start_date_and_time']
         new_session.end_date_and_time = form.cleaned_data['end_date_and_time']
         new_session.student_proposal = '2'
+        new_session.price_of_tutor = form.cleaned_data["price_of_tutor"]
         new_session.save()
 
         if(request.META):
             print('SUBJECT', request.META)
 
         subject = "Tutor Request [DO NOT REPLY]"
-        message = 'Hi my name is ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + " and I can pay you " + str(request.user.rough_payment_per_hour)
+        message = 'You have a new request from ' + str(request.user.first_name) + ' ' + str(request.user.last_name) + ". If you would like to follow up with your student you can accept the session and email them about where to meet.\n Student Email: " + str(request.user.email) +  "\n Hourly Rate: $" + str(new_session.price_of_tutor) + " per hour" + "\n Link to application: https://quick-tutor-qtie5.herokuapp.com/" 
         recepient = new_session.tutor.email
 
-        send_mail(subject, message, request.user.email ,[recepient], fail_silently = False)
-
+        email = EmailMessage(subject, message, request.user.email ,[recepient], [request.user.email], reply_to=[request.user.email])
+        email.send()
         return HttpResponseRedirect('/profile/')
 
     # if a GET (or any other method) we'll create a blank form
