@@ -83,7 +83,7 @@
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Year</span></div>
-                                <input type="number" name="year" required id="id_year" value={{user.year}}>
+                                <input type="number" name="year" required id="id_year" value={{user.year}} min=1 max=4 size="5">
                               </div>
                         </td>
                       </tr>
@@ -91,7 +91,7 @@
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Hourly Rate</span></div>
-                                <input type="number" name="rough_payment_per_hour" required id="rough_payment_per_hour" value={{user.rough_payment_per_hour}}>
+                                <input type="number" name="rough_payment_per_hour" required id="rough_payment_per_hour" value={{user.rough_payment_per_hour}} min=1 max=256>
                               </div>
                         </td>
                       </tr>
@@ -99,7 +99,7 @@
                         <td>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Willing to pay per hour</span></div>
-                                <input type="number" name="rough_willing_to_pay_per_hour" id="id_rough_willing_to_pay_per_hour" value={{user.rough_willing_to_pay_per_hour}}>
+                                <input type="number" name="rough_willing_to_pay_per_hour" id="id_rough_willing_to_pay_per_hour" value={{user.rough_willing_to_pay_per_hour}} min=1 max=256 size="10">
                               </div>
                           
                         </td>

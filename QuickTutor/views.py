@@ -60,7 +60,8 @@ class ProfileView(generic.TemplateView):
         return HttpResponseRedirect(request.path_info)
     def get(self,request):
         user = request.user
-
+    
+    
         #sessions participated in 
 
         accepted_student_sessions = Session.objects.filter(student = request.user, student_proposal = '2', tutor_proposal = '2').order_by('-start_date_and_time')
@@ -94,7 +95,7 @@ class ProfileView(generic.TemplateView):
             average_rating = 0
             current_num_ratings = 0
 
-
+        
         context_objects = {
             'user' : user,
             'accepted_student_sessions': accepted_student_sessions,
@@ -111,7 +112,6 @@ class ProfileView(generic.TemplateView):
             'ratings_received' : current_num_ratings,
             'form': EditProfileForm(request.POST),
         }
-        
             
         
         return render(request, self.template_name, context = context_objects)

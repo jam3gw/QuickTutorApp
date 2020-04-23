@@ -33,7 +33,28 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = QTUser
         fields = ['first_name','last_name','year','rough_payment_per_hour','rough_willing_to_pay_per_hour']
-
+    def clean(self):
+        cleaned_data = super(EditProfileForm, self).clean()
+        year = cleaned_data.get("year")
+        print(year)
+        rough_payment_per_hour = cleaned_data.get("rough_payment_per_hour")
+        rough_willing_to_pay_per_hour = cleaned_data.get("rough_willing_to_pay_per_hour")
+        if year:
+            if year < 1 or year > 4:
+                raise forms.ValidationError(
+                    "Your year must be a value between 1-4"
+                )
+        if rough_payment_per_hour:
+            if rough_payment_per_hour < 0 and rough_payment_per_hour > 256:
+                raise forms.ValidationError(
+                    "Your Hourly Rate must be a value between 1-256"
+                )
+        if rough_willing_to_pay_per_hour:
+            if rough_willing_to_pay_per_hour < 0 and rough_willing_to_pay_per_hour > 256:
+                raise forms.ValidationError(
+                    "The amount you are willing to pay must be a value between 1-256"
+                )
+        return self.cleaned_data
 # class SetupSession(forms.Form):
 #     Email = forms.EmailField()
 #     checkbox = forms.BooleanField()
