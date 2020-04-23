@@ -16,7 +16,7 @@ class QTUser(AbstractUser):
     rough_willing_to_pay_per_hour = models.IntegerField(blank=True, null= True)
     
     def __str__(self):
-        return self.username
+        return self.username + " (" + self.first_name + " " + self.last_name + ")"
 
 
 class Class(models.Model):
@@ -39,7 +39,7 @@ class Session(models.Model):
     student = models.ForeignKey(QTUser, related_name="Student", on_delete=models.CASCADE)
     tutor = models.ForeignKey(QTUser, related_name="Tutor", on_delete=models.CASCADE) 
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
-    start_date_and_time = models.DateTimeField(null = False, default=timezone.now)
+    start_date_and_time = models.DateTimeField(null = False, default=timezone.now())
     end_date_and_time = models.DateTimeField(null = False, default=(timezone.now() + timedelta(hours=1)))
     student_proposal = models.CharField(null = False, choices = SESSION_CHOICES, default=PENDING, max_length=1)
     tutor_proposal = models.CharField(null = False, choices = SESSION_CHOICES, default=PENDING, max_length=1)
@@ -52,7 +52,7 @@ class Review(models.Model):
     # For who is being reviewed
     STUDENT = 'S'
     TUTOR = 'T'
-    STUDENT_OR_TUTOR_CHOICES = [(STUDENT, 'student'),(TUTOR,'tutor')]
+    STUDENT_OR_TUTOR_CHOICES = [(STUDENT, 'of the student'),(TUTOR,'of the tutor')]
 
     ONE = 1
     TWO = 2
@@ -64,8 +64,8 @@ class Review(models.Model):
     Author = models.ForeignKey(QTUser, related_name = "Author", on_delete=models.CASCADE)
     Recipient = models.ForeignKey(QTUser,related_name="Recipient", on_delete=models.CASCADE)
     subject_in_regards_to = models.ForeignKey(Class, on_delete=models.CASCADE)
-    rating = models.PositiveSmallIntegerField(null=False,choices= RATING_CHOICES, default = THREE ,help_text="Please rate your experience.")
-    description = models.TextField(help_text="Please enter some additional information regarding your experience")
+    rating = models.PositiveSmallIntegerField(null=False,choices= RATING_CHOICES, default = THREE)
+    description = models.TextField()
     type_of_review = models.CharField(max_length = 1, choices = STUDENT_OR_TUTOR_CHOICES, default = TUTOR)
     time_of_review = models.DateTimeField(default = timezone.now)
 
@@ -80,7 +80,6 @@ class ClassNeedsHelp(models.Model):
     def __str__(self):
         return str(self.user) + " needs help in " + str(self.class_id)
         
-
 class TutorableClass(models.Model):
     user = models.ForeignKey(QTUser, on_delete=models.CASCADE)
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)

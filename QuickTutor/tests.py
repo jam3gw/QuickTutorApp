@@ -53,7 +53,7 @@ class SessionTestCase(TestCase):
         testStudent = QTUser.objects.get(first_name="student")
         testClass = Class.objects.get(class_name="testClass")
         testSession = Session.objects.create(student=testStudent, tutor=testStudent, subject_in_regards_to=testClass)
-        self.assertTrue("test is having a session with test in TEST1001 (testClass)" in testSession.__str__())
+        self.assertTrue("test (student student) is having a session with test (student student) in TEST1001 (testClass)" in testSession.__str__())
     def test_str_2(self):
         testStudent = QTUser.objects.get(first_name="student")
         testClass = Class.objects.get(class_name="testClass")
@@ -67,7 +67,7 @@ class ClassNeedsHelpTestCase(TestCase):
         testUser = QTUser.objects.get(first_name="student")
         testClass = Class.objects.get(class_name="Algorithms")
         testHelp = ClassNeedsHelp(user=testUser, class_id=testClass, elaboration="Jake help me pls")
-        self.assertTrue(testHelp.__str__() == "Ryan needs help in CS4102 (Algorithms)")
+        self.assertTrue(testHelp.__str__() == "Ryan (student student) needs help in CS4102 (Algorithms)")
     def test_str_2(self):
         testUser = QTUser.objects.get(first_name="student")
         testClass = Class.objects.get(class_name="Algorithms")
@@ -81,8 +81,7 @@ class TutorableClassTestCase(TestCase):
         testUser = QTUser.objects.get(first_name="Jake")
         testClass = Class.objects.get(class_name="Algorithms")
         testTutorable = TutorableClass(user=testUser, class_id=testClass, Former_TA="TRUE", experience="")
-        print("TEST TUTORABLE", testTutorable.__str__())
-        self.assertTrue(testTutorable.__str__() == "Jake can tutor in CS4102 (Algorithms) and they are a former TA.")
+        self.assertTrue(testTutorable.__str__() == "Jake (Jake Moses) can tutor in CS4102 (Algorithms) and they are a former TA.")
     def test_str_2(self):
         testUser = QTUser.objects.get(first_name="Jake")
         testClass = Class.objects.get(class_name="Algorithms")

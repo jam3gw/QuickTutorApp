@@ -7,6 +7,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'styling/login.css' %}">
+<link rel='icon' href="../../static/styling/images/QTie5_Logo.png">
 <script src="https://kit.fontawesome.com/0cacb65be7.js" crossorigin="anonymous"></script>
 
 {% get_providers as socialaccount_providers %}
@@ -14,7 +15,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <div class="container" style="justify-content: center; display:flex">
   
-<div class="card" style="background-color:rgb(0,0,0,.5); width:500px">  
+<div class="card" style="background-color:rgb(0,0,0,.25); width:500px">  
   <div class="card-header">
       <h1 style="text-align:center;">{% trans "Sign In" %}</h1>
   </div>
@@ -58,14 +59,14 @@
               <br>
               <!--<a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>-->
             </form>
-          <h6 >
-            <br>
-            <!--Sign In with: {% include "socialaccount/snippets/provider_list.html" with process="login" %}</a> <br>-->
-            Don't have an account with us? <a href="{{ signup_url }}">Sign Up</a> <br>
+          <!--<h6 >
+            Sign In with: {% include "socialaccount/snippets/provider_list.html" with process="login" %}</a> <br>
+            Don't have an account with us? <a href="/accounts/google/login/?process=login">Sign Up With Google</a> <br>
             {% blocktrans with site.name as site_name %}
-            <!--{{ site_name }} account:{% endblocktrans %}-->
+            {{ site_name }} account:{% endblocktrans %}
           </p>
           </h6>
+          -->
   
   <!--
   <div class="socialaccount_ballot" >

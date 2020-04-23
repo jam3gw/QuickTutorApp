@@ -3,17 +3,18 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="{% static 'styling/profile.css' %}">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
+<link rel='icon' href="../../static/styling/images/QTie5_Logo.png">
+<title>Profile</title>
 <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="/">QuickTutor</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+          <ul class="navbar-nav mr-auto active">
+            <li class="nav-item">
               <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -22,9 +23,9 @@
             <li class="nav-item">
               <a class="nav-link" href="/profile">My Profile</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
-            </li>
+            </li> -->
             <li class="nav-item">
               <a class="nav-link" href="/search">Find A Tutor</a>
             </li>
@@ -38,7 +39,7 @@
         </div>
       </nav>
 
-      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" style="background: #6f9dff">
+      <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" style="background: rgba(20, 18, 18, 0.705)">
         <p class="display-5">Hello, {{user.first_name}}. Your Profile</p>
         <!--
         <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -53,7 +54,7 @@
       
         <div class="container">
           <div class="grid-container">
-          <div class="card-deck mb-3 text-center">
+          <!--<div class="card-deck mb-3 text-center">-->
             <div class="card mb-4 shadow-sm">
               <div class="card-header">
                 <!--<h4 class="my-0 font-weight-normal">wait what</h4>-->
@@ -112,7 +113,7 @@
                 
                 <!--  <table class="w3-table w3-striped" style="margin-right: 0px; width: 100%">
                     <tr class="w3-light-grey">
-                      <td>{{user.first_name}}</td>
+                      <td>{{user.first_name}} {{user.last_name}}</td>
                     </tr>
                     <tr>
                       <td>Year: {{user.year}}</td>
@@ -210,9 +211,9 @@
               <div class="card-body">
                 <h1 class="card-title pricing-card-title">Your History</h1>
                 <br>
-                <h3>Active Student Sessions</h3>
+                <h3>Active Future Sessions as a Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
-                {% if accepted_student_sessions %}
+                {% if accepted_student_sessions_future %}
                 <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Tutor</th>
@@ -221,11 +222,11 @@
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
                   </tr>
-                  {%for session in accepted_student_sessions%}
+                  {%for session in accepted_student_sessions_future%}
                   <a><tr>
-                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
+                      <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                   </tr></a>
@@ -235,10 +236,10 @@
                 <h7>No Accepted Sessions as a Student</h7> <br>
                 {%endif%}
                 <br>
-                <h3>Active Tutor Sessions</h3>
+                <h3>Active Future Sessions as a Tutor</h3>
                 <!-- If the user has not accepted the session but the other person has -->
-                {% if accepted_tutor_sessions %}
-                <table >
+                {% if accepted_tutor_sessions_future %}
+                <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Tutor</th>
                       <th>Subject</th>
@@ -246,11 +247,11 @@
                       <th>Start Date/Time</th>
                       <th>End Date/Time</th>
                   </tr>
-                  {%for session in accepted_tutor_sessions%}
+                  {%for session in accepted_tutor_sessions_future%}
                   <tr>
                       <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                   </tr>
@@ -260,12 +261,61 @@
                 <h7>No Accepted Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-          
-              <h3>Session Requests as Student</h3>
+                <h3>Past Sessions as a Student</h3>
                 <!-- If the user has not accepted the session but the other person has -->
-                
+                {% if accepted_student_sessions_past %}
+                <table style="margin-right: 0px; width: 100%">
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_student_sessions_past%}
+                  <a><tr>
+                      <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr></a>
+                  {%endfor%}
+                </table>
+                {% else %}
+                <h7>No Past Sessions as a Student</h7> <br>
+                {%endif%}
+                <br>
+              <h3>Past Sessions as a Tutor</h3>
+                <!-- If the user has not accepted the session but the other person has -->
+                {% if accepted_tutor_sessions_past %}
+                <table style="margin-right: 0px; width: 100%">
+                  <tr>
+                      <th>Tutor</th>
+                      <th>Subject</th>
+                      <th>Price</th>
+                      <th>Start Date/Time</th>
+                      <th>End Date/Time</th>
+                  </tr>
+                  {%for session in accepted_tutor_sessions_past%}
+                  <tr>
+                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
+                      <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
+                      <td>{{session.start_date_and_time}}</td>
+                      <td>{{session.end_date_and_time}} </td>
+                  </tr>
+                  {%endfor%}
+                </table>
+                {% else %}
+                <h7>No Past Sessions as a Tutor</h7> <br>
+                {%endif%}
+                <br>
+          
+              <h3>Session Requests as a Student</h3>
+                <!-- If the user has not accepted the session but the other person has -->
                 {% if pending_sessions_requested_student %}
-                <table>
+                <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Tutor</th>
                       <th>Subject</th>
@@ -277,14 +327,13 @@
                   </tr>
                   {%for session in pending_sessions_requested_student%}
                   <a><tr>
-                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
+                      <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td>PENDING</td>
-                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
-                    </td>
+                      <td><a href={% url "delete_session" session.id %}><button class="smol-buttoons">DELETE</button></a></td>
                   </tr></a>
                   {%endfor%}
                 </table>
@@ -292,10 +341,9 @@
                 <h7>No Sessions Requested as a Student</h7> <br>
                 {%endif%}
                 <br>
-                <h3>Session Requests as a Tutor</h3>
-                <!-- If the user has not accepted the session but the other person has -->
+                <!-- <h3>Session Requests as a Tutor</h3>
                 {% if pending_sessions_requested_tutor %}
-                <table >
+                <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Student</th>
                       <th>Subject</th>
@@ -308,7 +356,6 @@
                   {%for session in pending_sessions_requested_tutor%}
                   <a><tr>
                       <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
@@ -320,10 +367,9 @@
                 </table>
                 {% else %}
                 <h7>No Sessions Requested as a Tutor</h7> <br>
-                {%endif%}
-                <br>
+                {%endif%} -->
+                <!-- <br>
                 <h3>Sessions You have Received Requests For as a Student</h3>
-                <!-- If the user has accepted the session but the other person has not -->
                 {% if waiting_acceptance_reject_student %}
                 <table >
                   <tr>
@@ -337,9 +383,9 @@
                   </tr>
                   {%for session in waiting_acceptance_reject_student%}
                   <a><tr>
-                      <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
+                      <td>{{session.tutor.first_name}} {{session.tutor.last_name}}</td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td><a href={% url "accept_session" session.id %}><button>ACCEPT</button></a></td>
@@ -351,11 +397,11 @@
                 {% else %}
                 <h7>No Requested Sessions as a Student</h7> <br>
                 {%endif%}
-                <br>
+                <br> -->
                 <h3>Sessions You have Received Requests For as a Tutor</h3>
                 <!-- If the user has accepted the session but the other person has not -->
                 {% if waiting_acceptance_reject_tutor %}
-                <table >
+                <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Student</th>
                       <th>Subject</th>
@@ -368,8 +414,8 @@
                   {%for session in waiting_acceptance_reject_tutor%}
                   <a><tr>
                       <td>{{session.student.first_name}} {{session.student.last_name}}</td>
-                      <td></td>
                       <td>{{session.subject_in_regards_to.class_name}}</td>
+                      <td>{{session.price_of_tutor}}</td>
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td><a href={% url "accept_session" session.id %}><button>ACCEPT</button></a></td>
@@ -382,7 +428,7 @@
                 <h7>No Requested Sessions as a Tutor</h7> <br>
                 {%endif%}
                 <br>
-                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session</button></a>
+                <a href="new-session/"><button type="button" class="btn btn-lg btn-block btn-primary buttoons">Propose a New Session with a Past Tutor</button></a>
               </div>
             </div>
           </div>
@@ -415,9 +461,9 @@
                   <td>{{review.rating}}</td>
                   <td>{{review.description}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <td>Tutor</td>
+                  <td>As a Tutor</td>
                   {% else %}
-                  <td>Student</td>
+                  <td>As a Student</td>
                   {%endif%}
                   <td>{{review.time_of_review}}</td>
                 </tr>
@@ -445,9 +491,9 @@
                   <td>{{review.rating}}</td>
                   <td>{{review.description}}</td>
                   {% if review.type_of_review == 'T' %}
-                  <td>Tutor</td>
+                  <td>Of the Tutor</td>
                   {% else %}
-                  <td>Student</td>
+                  <td>Of the Student</td>
                   {%endif%}
                   <td>{{review.time_of_review}}</td>
                 </tr>

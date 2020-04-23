@@ -1,0 +1,37 @@
+body {
+    background-color:#343a40;
+    color: white;
+}
+
+.btn {
+    width: 20%;
+    border-radius: 5px;
+  }
+
+.buttoons {
+    background-color: rgb(112, 112, 112);
+    width: 10%;
+    border-radius: 5px;
+}
+
+.buttoons:hover {
+    background-color: #cecece;
+}
+
+form {
+    margin-left: 2%;
+}
+
+textarea {
+    height: 20px; 
+    width: 400px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h3 {
+    padding-top: 1%;
+    padding-left: 2%;
+}

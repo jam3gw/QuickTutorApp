@@ -1,7 +1,9 @@
+<title>About Us</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <!--<link rel="stylesheet" type="text/css" href="../../styling/aboutus_style.css">>-->
 <link rel="stylesheet" type="text/css" href="../../static/styling/aboutus.css">
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link rel='icon' href="../../static/styling/images/QTie5_Logo.png">
 <!--Navigation!-->
 {% if user.is_authenticated %}
 <!--
@@ -32,15 +34,15 @@
     </div>
 </nav>
 -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">QuickTutor</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+    <ul class="navbar-nav mr-auto active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
@@ -49,9 +51,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/profile">My Profile</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="{% url 'account_change_password' %}">Change Password</a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="/search">Find A Tutor</a>
       </li>
@@ -66,26 +68,26 @@
 </nav>
 {% else %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/">QuickTutor</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+    <ul class="navbar-nav mr-auto active">
+      <li class="nav-item">
         <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/aboutus/">About Us</a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="/accounts/login/">Sign In</a>
+        <a class="nav-link" href="{% url 'account_login' %}">Sign In/Sign Up</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/accounts/signup/">Sign Up</a>
-      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
+      </li> -->
     </ul>
   </div>
 </nav>
@@ -218,11 +220,13 @@
 <footer class="container py-5" style="opacity: 80%">
 	<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
 	  <div class="col-md-5 mx-auto my-0">
-	<div class="row">
-	  <div class="col-12 col-md">
-		<small class="d-block mb-3 text-muted">&copy; 2020 - QTie5</small>
-		<ul class="list-unstyled text-small">
-		  <li><a class="text-muted" href="#">Contact Us</a></li>
-		</ul>
-	  </div>
-  </footer>
+      <div class="row">
+        <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">&copy; 2020 - QTie5</small>
+        <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
