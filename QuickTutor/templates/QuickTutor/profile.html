@@ -333,8 +333,7 @@
                       <td>{{session.start_date_and_time}}</td>
                       <td>{{session.end_date_and_time}} </td>
                       <td>PENDING</td>
-                      <td><a href={% url "delete_session" session.id %}><button>DELETE</button></a>
-                    </td>
+                      <td><a href={% url "delete_session" session.id %}><button class="smol-buttoons">DELETE</button></a></td>
                   </tr></a>
                   {%endfor%}
                 </table>
@@ -404,7 +403,7 @@
                 <h3>Sessions You have Received Requests For as a Tutor</h3>
                 <!-- If the user has accepted the session but the other person has not -->
                 {% if waiting_acceptance_reject_tutor %}
-                <table >
+                <table style="margin-right: 0px; width: 100%">
                   <tr>
                       <th>Student</th>
                       <th>Subject</th>
