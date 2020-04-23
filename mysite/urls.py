@@ -31,6 +31,7 @@ urlpatterns = [
     path('profile/add-class-needs-help/', Add_Class_Needs_Help),
     path('profile/add-tutorable-class/', Add_Tutorable_Class),
     path('profile/add-review/', Add_Review_Class),
+    path('profile/edit-profile/', edit_Profile_Class),
     path('profile/view-reviews/', ReviewsView.as_view()),
     path('profile/new-session/', Create_Session),
     path('profile/new-session/<tutor_id>', createSessionSpecific, name = "specific_session_creation"),
