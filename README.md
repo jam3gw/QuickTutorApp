@@ -1,5 +1,8 @@
 # project-103-qtie5
+# Acknowledgements 
 
+
+# Developer Notes
 ## Installation notes for setting up Postgres
 ### Start postgres
 #### For Mac Users:
