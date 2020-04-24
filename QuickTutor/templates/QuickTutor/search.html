@@ -24,6 +24,7 @@
       </tr>
         {%for tclass in tutors_and_classes%}
           {% if tclass.class_id == hclass.class_id%}
+            {% if tclass.user != request.user %}
             <tr>
               <td>{{tclass.user.first_name}} {{tclass.user.last_name}}</td>
               <!-- <td>{{tclass.class_id.dept}}{{tclass.class_id.course_num}}</td> -->
@@ -33,6 +34,7 @@
             </tr>
 
             <p></p>
+            {%endif%}
           {%endif%}
         {%endfor%}
       </table>
